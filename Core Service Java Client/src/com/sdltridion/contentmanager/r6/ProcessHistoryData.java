@@ -23,6 +23,7 @@ import org.w3._2001.xmlschema.Adapter1;
  *       &lt;sequence>
  *         &lt;element name="FinishDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="FinishReason" type="{http://www.sdltridion.com/ContentManager/R6}ProcessFinishReason" minOccurs="0"/>
+ *         &lt;element name="ProcessDefinitionTitle" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -34,7 +35,8 @@ import org.w3._2001.xmlschema.Adapter1;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ProcessHistoryData", propOrder = {
     "finishDate",
-    "finishReason"
+    "finishReason",
+    "processDefinitionTitle"
 })
 public class ProcessHistoryData
     extends ProcessData
@@ -46,6 +48,8 @@ public class ProcessHistoryData
     protected Date finishDate;
     @XmlElement(name = "FinishReason", nillable = true)
     protected ProcessFinishReason finishReason;
+    @XmlElement(name = "ProcessDefinitionTitle", nillable = true)
+    protected String processDefinitionTitle;
 
     /**
      * Gets the value of the finishDate property.
@@ -93,6 +97,30 @@ public class ProcessHistoryData
      */
     public void setFinishReason(ProcessFinishReason value) {
         this.finishReason = value;
+    }
+
+    /**
+     * Gets the value of the processDefinitionTitle property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getProcessDefinitionTitle() {
+        return processDefinitionTitle;
+    }
+
+    /**
+     * Sets the value of the processDefinitionTitle property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setProcessDefinitionTitle(String value) {
+        this.processDefinitionTitle = value;
     }
 
 }

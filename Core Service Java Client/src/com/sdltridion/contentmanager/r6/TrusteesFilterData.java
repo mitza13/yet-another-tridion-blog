@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;extension base="{http://www.sdltridion.com/ContentManager/R6}SystemWideListFilterData">
  *       &lt;sequence>
  *         &lt;element name="IsPredefined" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *         &lt;element name="ItemTypes" type="{http://www.sdltridion.com/ContentManager/R6}ItemTypes" minOccurs="0"/>
+ *         &lt;element name="ItemType" type="{http://www.sdltridion.com/ContentManager/R6}ItemType" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -43,7 +43,7 @@ public class TrusteesFilterData
 
     @XmlElement(name = "IsPredefined", nillable = true)
     protected Boolean isPredefined;
-    @XmlElement(name = "ItemTypes", nillable = true)
+    @XmlElement(name = "ItemType", nillable = true)
     protected ItemType itemType;
 
     /**
@@ -75,7 +75,7 @@ public class TrusteesFilterData
      * 
      * @return
      *     possible object is
-     *     {@link ItemTypes }
+     *     {@link ItemType }
      *     
      */
     public ItemType getItemType() {
@@ -87,7 +87,7 @@ public class TrusteesFilterData
      * 
      * @param value
      *     allowed object is
-     *     {@link ItemTypes }
+     *     {@link ItemType }
      *     
      */
     public void setItemType(ItemType value) {

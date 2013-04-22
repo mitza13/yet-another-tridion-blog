@@ -3,6 +3,7 @@ package com.sdltridion.contentmanager.r6;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
@@ -17,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;extension base="{http://www.sdltridion.com/ContentManager/R6}RepositoryLocalObjectData">
  *       &lt;sequence>
+ *         &lt;element name="DynamicVersionInfo" type="{http://www.sdltridion.com/ContentManager/R6}DynamicVersionInfo" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -26,7 +28,9 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "VersionedItemData")
+@XmlType(name = "VersionedItemData", propOrder = {
+    "dynamicVersionInfo"
+})
 @XmlSeeAlso({
     SchemaData.class,
     PageData.class,
@@ -37,5 +41,31 @@ public class VersionedItemData
     extends RepositoryLocalObjectData
 {
 
+    @XmlElement(name = "DynamicVersionInfo", nillable = true)
+    protected DynamicVersionInfo dynamicVersionInfo;
+
+    /**
+     * Gets the value of the dynamicVersionInfo property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DynamicVersionInfo }
+     *     
+     */
+    public DynamicVersionInfo getDynamicVersionInfo() {
+        return dynamicVersionInfo;
+    }
+
+    /**
+     * Sets the value of the dynamicVersionInfo property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DynamicVersionInfo }
+     *     
+     */
+    public void setDynamicVersionInfo(DynamicVersionInfo value) {
+        this.dynamicVersionInfo = value;
+    }
 
 }

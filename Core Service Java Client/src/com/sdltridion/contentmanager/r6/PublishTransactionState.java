@@ -31,6 +31,10 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="PreparingDeployment"/>
  *     &lt;enumeration value="PreCommittingDeployment"/>
  *     &lt;enumeration value="CommittingDeployment"/>
+ *     &lt;enumeration value="WaitingForUndo"/>
+ *     &lt;enumeration value="Undoing"/>
+ *     &lt;enumeration value="Undone"/>
+ *     &lt;enumeration value="UndoFailed"/>
  *     &lt;enumeration value="UnknownByClient"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
@@ -75,6 +79,14 @@ public enum PublishTransactionState {
     PRE_COMMITTING_DEPLOYMENT("PreCommittingDeployment"),
     @XmlEnumValue("CommittingDeployment")
     COMMITTING_DEPLOYMENT("CommittingDeployment"),
+    @XmlEnumValue("WaitingForUndo")
+    WAITING_FOR_UNDO("WaitingForUndo"),
+    @XmlEnumValue("Undoing")
+    UNDOING("Undoing"),
+    @XmlEnumValue("Undone")
+    UNDONE("Undone"),
+    @XmlEnumValue("UndoFailed")
+    UNDO_FAILED("UndoFailed"),
     @XmlEnumValue("UnknownByClient")
     UNKNOWN_BY_CLIENT("UnknownByClient");
     private final String value;

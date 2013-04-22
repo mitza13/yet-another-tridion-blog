@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;extension base="{http://www.sdltridion.com/ContentManager/R6}SystemWideListFilterData">
  *       &lt;sequence>
  *         &lt;element name="IncludeWebDavUrlColumn" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="IncludeRootOrganizationalItemsColumns" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -29,7 +30,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "RepositoriesFilterData", propOrder = {
-    "includeWebDavUrlColumn"
+    "includeWebDavUrlColumn",
+    "includeRootOrganizationalItemsColumns"
 })
 @XmlSeeAlso({
     PublicationsFilterData.class
@@ -40,6 +42,8 @@ public class RepositoriesFilterData
 
     @XmlElement(name = "IncludeWebDavUrlColumn", nillable = true)
     protected Boolean includeWebDavUrlColumn;
+    @XmlElement(name = "IncludeRootOrganizationalItemsColumns", nillable = true)
+    protected Boolean includeRootOrganizationalItemsColumns;
 
     /**
      * Gets the value of the includeWebDavUrlColumn property.
@@ -63,6 +67,30 @@ public class RepositoriesFilterData
      */
     public void setIncludeWebDavUrlColumn(Boolean value) {
         this.includeWebDavUrlColumn = value;
+    }
+
+    /**
+     * Gets the value of the includeRootOrganizationalItemsColumns property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIncludeRootOrganizationalItemsColumns() {
+        return includeRootOrganizationalItemsColumns;
+    }
+
+    /**
+     * Sets the value of the includeRootOrganizationalItemsColumns property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIncludeRootOrganizationalItemsColumns(Boolean value) {
+        this.includeRootOrganizationalItemsColumns = value;
     }
 
 }

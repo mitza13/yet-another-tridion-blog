@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "WorkflowManagerFilterData")
 @XmlSeeAlso({
     UserWorkItemsFilterData.class,
+    ActivityInstancesFilterData.class,
     ProcessDefinitionAssociationsFilterData.class,
     ApprovalStatusesFilterData.class,
     ProcessDefinitionsFilterData.class,

@@ -37,6 +37,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ArrayOfdouble }
+     * 
+     */
+    public ArrayOfdouble createArrayOfdouble() {
+        return new ArrayOfdouble();
+    }
+
+    /**
      * Create an instance of {@link ArrayOfint }
      * 
      */
@@ -50,14 +58,6 @@ public class ObjectFactory {
      */
     public ArrayOfdateTime createArrayOfdateTime() {
         return new ArrayOfdateTime();
-    }
-
-    /**
-     * Create an instance of {@link ArrayOfdouble }
-     * 
-     */
-    public ArrayOfdouble createArrayOfdouble() {
-        return new ArrayOfdouble();
     }
 
     /**

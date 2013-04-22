@@ -19,8 +19,9 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="AllowedActions" type="{http://www.sdltridion.com/ContentManager/R6}AllowedActions" minOccurs="0"/>
- *         &lt;element name="Id" type="{http://www.sdltridion.com/ContentManager/R6}TcmUri"/>
+ *         &lt;element name="Id" type="{http://www.sdltridion.com/ContentManager/R6}TcmUri" minOccurs="0"/>
  *         &lt;element name="IsEditable" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="ListInfo" type="{http://www.sdltridion.com/ContentManager/R6}ListInfo" minOccurs="0"/>
  *         &lt;element name="Title" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="VersionInfo" type="{http://www.sdltridion.com/ContentManager/R6}BasicVersionInfo" minOccurs="0"/>
  *       &lt;/sequence>
@@ -36,6 +37,7 @@ import javax.xml.bind.annotation.XmlType;
     "allowedActions",
     "id",
     "isEditable",
+    "listInfo",
     "title",
     "versionInfo"
 })
@@ -49,10 +51,12 @@ public class IdentifiableObjectData {
 
     @XmlElement(name = "AllowedActions", nillable = true)
     protected AllowedActions allowedActions;
-    @XmlElement(name = "Id", required = true, nillable = true)
+    @XmlElement(name = "Id", nillable = true)
     protected String id;
     @XmlElement(name = "IsEditable", nillable = true)
     protected Boolean isEditable;
+    @XmlElement(name = "ListInfo", nillable = true)
+    protected ListInfo listInfo;
     @XmlElement(name = "Title", nillable = true)
     protected String title;
     @XmlElement(name = "VersionInfo", nillable = true)
@@ -128,6 +132,30 @@ public class IdentifiableObjectData {
      */
     public void setIsEditable(Boolean value) {
         this.isEditable = value;
+    }
+
+    /**
+     * Gets the value of the listInfo property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ListInfo }
+     *     
+     */
+    public ListInfo getListInfo() {
+        return listInfo;
+    }
+
+    /**
+     * Sets the value of the listInfo property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ListInfo }
+     *     
+     */
+    public void setListInfo(ListInfo value) {
+        this.listInfo = value;
     }
 
     /**

@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="IsActiveResolvedValue" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;element name="IsDefaultPageTemplateInherited" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;element name="PageProcess" type="{http://www.sdltridion.com/ContentManager/R6}LinkToProcessDefinitionData" minOccurs="0"/>
+ *         &lt;element name="PageBundleProcess" type="{http://www.sdltridion.com/ContentManager/R6}LinkToProcessDefinitionData" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -38,7 +39,8 @@ import javax.xml.bind.annotation.XmlType;
     "isActive",
     "isActiveResolvedValue",
     "isDefaultPageTemplateInherited",
-    "pageProcess"
+    "pageProcess",
+    "pageBundleProcess"
 })
 public class StructureGroupData
     extends OrganizationalItemData
@@ -56,6 +58,8 @@ public class StructureGroupData
     protected Boolean isDefaultPageTemplateInherited;
     @XmlElement(name = "PageProcess", nillable = true)
     protected LinkToProcessDefinitionData pageProcess;
+    @XmlElement(name = "PageBundleProcess", nillable = true)
+    protected LinkToProcessDefinitionData pageBundleProcess;
 
     /**
      * Gets the value of the defaultPageTemplate property.
@@ -199,6 +203,30 @@ public class StructureGroupData
      */
     public void setPageProcess(LinkToProcessDefinitionData value) {
         this.pageProcess = value;
+    }
+
+    /**
+     * Gets the value of the pageBundleProcess property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link LinkToProcessDefinitionData }
+     *     
+     */
+    public LinkToProcessDefinitionData getPageBundleProcess() {
+        return pageBundleProcess;
+    }
+
+    /**
+     * Sets the value of the pageBundleProcess property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link LinkToProcessDefinitionData }
+     *     
+     */
+    public void setPageBundleProcess(LinkToProcessDefinitionData value) {
+        this.pageBundleProcess = value;
     }
 
 }

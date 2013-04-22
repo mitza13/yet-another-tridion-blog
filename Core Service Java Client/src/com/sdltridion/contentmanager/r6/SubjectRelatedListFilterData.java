@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SubjectRelatedListFilterData")
 @XmlSeeAlso({
+    ComponentTemplatesFilterData.class,
     BluePrintChainFilterData.class,
     PathToCategoryFilterData.class,
     DeletedReferencesFilterData.class,
@@ -36,6 +37,7 @@ import javax.xml.bind.annotation.XmlType;
     ClassifiedItemsFilterData.class,
     GroupMembersFilterData.class,
     KeywordRelatedFilterData.class,
+    ContainingBundlesFilterData.class,
     TaxonomiesFilterData.class,
     CategoryRelatedFilterData.class,
     OrganizationalItemAncestorsFilterData.class,

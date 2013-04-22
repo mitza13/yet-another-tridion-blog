@@ -4,6 +4,7 @@ package com.sdltridion.contentmanager.r6;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -25,6 +26,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="Purpose" type="{http://www.sdltridion.com/ContentManager/R6}SchemaPurpose" minOccurs="0"/>
  *         &lt;element name="RootElementName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="Xsd" type="{http://www.sdltridion.com/ContentManager/R6}SerializableXmlDocument" minOccurs="0"/>
+ *         &lt;element name="BundleProcess" type="{http://www.sdltridion.com/ContentManager/R6}LinkToProcessDefinitionData" minOccurs="0"/>
+ *         &lt;element name="DeleteBundleOnProcessFinished" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -42,7 +45,12 @@ import javax.xml.bind.annotation.XmlType;
     "namespaceUri",
     "purpose",
     "rootElementName",
-    "xsd"
+    "xsd",
+    "bundleProcess",
+    "deleteBundleOnProcessFinished"
+})
+@XmlSeeAlso({
+    BundleTypeData.class
 })
 public class SchemaData
     extends VersionedItemData
@@ -64,6 +72,10 @@ public class SchemaData
     protected String rootElementName;
     @XmlElement(name = "Xsd", nillable = true)
     protected String xsd;
+    @XmlElement(name = "BundleProcess", nillable = true)
+    protected LinkToProcessDefinitionData bundleProcess;
+    @XmlElement(name = "DeleteBundleOnProcessFinished", nillable = true)
+    protected Boolean deleteBundleOnProcessFinished;
 
     /**
      * Gets the value of the allowedMultimediaTypes property.
@@ -255,6 +267,54 @@ public class SchemaData
      */
     public void setXsd(String value) {
         this.xsd = value;
+    }
+
+    /**
+     * Gets the value of the bundleProcess property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link LinkToProcessDefinitionData }
+     *     
+     */
+    public LinkToProcessDefinitionData getBundleProcess() {
+        return bundleProcess;
+    }
+
+    /**
+     * Sets the value of the bundleProcess property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link LinkToProcessDefinitionData }
+     *     
+     */
+    public void setBundleProcess(LinkToProcessDefinitionData value) {
+        this.bundleProcess = value;
+    }
+
+    /**
+     * Gets the value of the deleteBundleOnProcessFinished property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isDeleteBundleOnProcessFinished() {
+        return deleteBundleOnProcessFinished;
+    }
+
+    /**
+     * Sets the value of the deleteBundleOnProcessFinished property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setDeleteBundleOnProcessFinished(Boolean value) {
+        this.deleteBundleOnProcessFinished = value;
     }
 
 }

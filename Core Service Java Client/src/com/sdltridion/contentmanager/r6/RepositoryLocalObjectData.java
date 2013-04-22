@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="LocationInfo" type="{http://www.sdltridion.com/ContentManager/R6}LocationInfo" minOccurs="0"/>
  *         &lt;element name="Metadata" type="{http://www.sdltridion.com/ContentManager/R6}SerializableXmlDocument" minOccurs="0"/>
  *         &lt;element name="MetadataSchema" type="{http://www.sdltridion.com/ContentManager/R6}LinkToSchemaData" minOccurs="0"/>
+ *         &lt;element name="LockInfo" type="{http://www.sdltridion.com/ContentManager/R6}LockInfo" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -37,7 +38,8 @@ import javax.xml.bind.annotation.XmlType;
     "isPublishedInContext",
     "locationInfo",
     "metadata",
-    "metadataSchema"
+    "metadataSchema",
+    "lockInfo"
 })
 @XmlSeeAlso({
     KeywordData.class,
@@ -60,6 +62,8 @@ public class RepositoryLocalObjectData
     protected String metadata;
     @XmlElement(name = "MetadataSchema", nillable = true)
     protected LinkToSchemaData metadataSchema;
+    @XmlElement(name = "LockInfo", nillable = true)
+    protected LockInfo lockInfo;
 
     /**
      * Gets the value of the bluePrintInfo property.
@@ -179,6 +183,30 @@ public class RepositoryLocalObjectData
      */
     public void setMetadataSchema(LinkToSchemaData value) {
         this.metadataSchema = value;
+    }
+
+    /**
+     * Gets the value of the lockInfo property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link LockInfo }
+     *     
+     */
+    public LockInfo getLockInfo() {
+        return lockInfo;
+    }
+
+    /**
+     * Sets the value of the lockInfo property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link LockInfo }
+     *     
+     */
+    public void setLockInfo(LockInfo value) {
+        this.lockInfo = value;
     }
 
 }

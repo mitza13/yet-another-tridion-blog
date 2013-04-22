@@ -20,7 +20,9 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="Activity" type="{http://www.sdltridion.com/ContentManager/R6}LinkToActivityData" minOccurs="0"/>
  *         &lt;element name="Owner" type="{http://www.sdltridion.com/ContentManager/R6}LinkToUserData" minOccurs="0"/>
  *         &lt;element name="Process" type="{http://www.sdltridion.com/ContentManager/R6}LinkToProcessData" minOccurs="0"/>
- *         &lt;element name="Subject" type="{http://www.sdltridion.com/ContentManager/R6}LinkToVersionedItemData" minOccurs="0"/>
+ *         &lt;element name="Subject" type="{http://www.sdltridion.com/ContentManager/R6}LinkToIdentifiableObjectData" minOccurs="0"/>
+ *         &lt;element name="Comment" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="SubjectOwningRepository" type="{http://www.sdltridion.com/ContentManager/R6}LinkToRepositoryData" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -34,7 +36,9 @@ import javax.xml.bind.annotation.XmlType;
     "activity",
     "owner",
     "process",
-    "subject"
+    "subject",
+    "comment",
+    "subjectOwningRepository"
 })
 public class WorkItemData
     extends WorkflowObjectData
@@ -47,7 +51,11 @@ public class WorkItemData
     @XmlElement(name = "Process", nillable = true)
     protected LinkToProcessData process;
     @XmlElement(name = "Subject", nillable = true)
-    protected LinkToVersionedItemData subject;
+    protected LinkToIdentifiableObjectData subject;
+    @XmlElement(name = "Comment", nillable = true)
+    protected String comment;
+    @XmlElement(name = "SubjectOwningRepository", nillable = true)
+    protected LinkToRepositoryData subjectOwningRepository;
 
     /**
      * Gets the value of the activity property.
@@ -126,10 +134,10 @@ public class WorkItemData
      * 
      * @return
      *     possible object is
-     *     {@link LinkToVersionedItemData }
+     *     {@link LinkToIdentifiableObjectData }
      *     
      */
-    public LinkToVersionedItemData getSubject() {
+    public LinkToIdentifiableObjectData getSubject() {
         return subject;
     }
 
@@ -138,11 +146,59 @@ public class WorkItemData
      * 
      * @param value
      *     allowed object is
-     *     {@link LinkToVersionedItemData }
+     *     {@link LinkToIdentifiableObjectData }
      *     
      */
-    public void setSubject(LinkToVersionedItemData value) {
+    public void setSubject(LinkToIdentifiableObjectData value) {
         this.subject = value;
+    }
+
+    /**
+     * Gets the value of the comment property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getComment() {
+        return comment;
+    }
+
+    /**
+     * Sets the value of the comment property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setComment(String value) {
+        this.comment = value;
+    }
+
+    /**
+     * Gets the value of the subjectOwningRepository property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link LinkToRepositoryData }
+     *     
+     */
+    public LinkToRepositoryData getSubjectOwningRepository() {
+        return subjectOwningRepository;
+    }
+
+    /**
+     * Sets the value of the subjectOwningRepository property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link LinkToRepositoryData }
+     *     
+     */
+    public void setSubjectOwningRepository(LinkToRepositoryData value) {
+        this.subjectOwningRepository = value;
     }
 
 }

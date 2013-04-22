@@ -4,6 +4,7 @@ package com.sdltridion.contentmanager.r6;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -21,6 +22,9 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="FinishApprovalStatus" type="{http://www.sdltridion.com/ContentManager/R6}LinkToApprovalStatusData" minOccurs="0"/>
  *         &lt;element name="NextActivityDefinitions" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfLinkToTridionActivityDefinitionData" minOccurs="0"/>
  *         &lt;element name="Script" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="ScriptType" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="AllowOverrideDueDate" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="PerformingTimeout" type="{http://www.w3.org/2001/XMLSchema}unsignedInt" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -34,7 +38,10 @@ import javax.xml.bind.annotation.XmlType;
     "activityType",
     "finishApprovalStatus",
     "nextActivityDefinitions",
-    "script"
+    "script",
+    "scriptType",
+    "allowOverrideDueDate",
+    "performingTimeout"
 })
 public class TridionActivityDefinitionData
     extends ActivityDefinitionData
@@ -48,6 +55,13 @@ public class TridionActivityDefinitionData
     protected ArrayOfLinkToTridionActivityDefinitionData nextActivityDefinitions;
     @XmlElement(name = "Script", nillable = true)
     protected String script;
+    @XmlElement(name = "ScriptType", nillable = true)
+    protected String scriptType;
+    @XmlElement(name = "AllowOverrideDueDate", nillable = true)
+    protected Boolean allowOverrideDueDate;
+    @XmlElement(name = "PerformingTimeout", nillable = true)
+    @XmlSchemaType(name = "unsignedInt")
+    protected Long performingTimeout;
 
     /**
      * Gets the value of the activityType property.
@@ -143,6 +157,78 @@ public class TridionActivityDefinitionData
      */
     public void setScript(String value) {
         this.script = value;
+    }
+
+    /**
+     * Gets the value of the scriptType property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getScriptType() {
+        return scriptType;
+    }
+
+    /**
+     * Sets the value of the scriptType property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setScriptType(String value) {
+        this.scriptType = value;
+    }
+
+    /**
+     * Gets the value of the allowOverrideDueDate property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isAllowOverrideDueDate() {
+        return allowOverrideDueDate;
+    }
+
+    /**
+     * Sets the value of the allowOverrideDueDate property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setAllowOverrideDueDate(Boolean value) {
+        this.allowOverrideDueDate = value;
+    }
+
+    /**
+     * Gets the value of the performingTimeout property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Long }
+     *     
+     */
+    public Long getPerformingTimeout() {
+        return performingTimeout;
+    }
+
+    /**
+     * Sets the value of the performingTimeout property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Long }
+     *     
+     */
+    public void setPerformingTimeout(Long value) {
+        this.performingTimeout = value;
     }
 
 }

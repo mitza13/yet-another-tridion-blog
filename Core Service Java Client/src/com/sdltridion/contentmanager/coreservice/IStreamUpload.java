@@ -9,8 +9,8 @@ import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
-import com.sdltridion.contentmanager.coreservice._2011.UploadRequest;
-import com.sdltridion.contentmanager.coreservice._2011.UploadResponse;
+import com.sdltridion.contentmanager.coreservice._2012.UploadRequest;
+import com.sdltridion.contentmanager.coreservice._2012.UploadResponse;
 
 
 /**
@@ -19,13 +19,13 @@ import com.sdltridion.contentmanager.coreservice._2011.UploadResponse;
  * Generated source version: 2.1
  * 
  */
-@WebService(name = "IStreamUpload", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+@WebService(name = "IStreamUpload", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
 @XmlSeeAlso({
-    com.microsoft.schemas._2003._10.serialization.ObjectFactory.class,
-    com.sdltridion.contentmanager.r6.ObjectFactory.class,
-    com.sdltridion.contentmanager.coreservice._2011.ObjectFactory.class,
     com.sdltridion.security.ObjectFactory.class,
-    com.microsoft.schemas._2003._10.serialization.arrays.ObjectFactory.class
+    com.sdltridion.contentmanager.coreservice._2012.ObjectFactory.class,
+    com.microsoft.schemas._2003._10.serialization.arrays.ObjectFactory.class,
+    com.sdltridion.contentmanager.r6.ObjectFactory.class,
+    com.microsoft.schemas._2003._10.serialization.ObjectFactory.class
 })
 public interface IStreamUpload {
 
@@ -34,14 +34,14 @@ public interface IStreamUpload {
      * 
      * @param parameters
      * @return
-     *     returns com.sdltridion.contentmanager.coreservice._2011.UploadResponse
+     *     returns com.sdltridion.contentmanager.coreservice._2012.UploadResponse
      * @throws IStreamUploadUploadBinaryContentCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "UploadBinaryContent", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/IStreamUpload/UploadBinaryContent")
-    @WebResult(name = "UploadResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", partName = "parameters")
+    @WebMethod(operationName = "UploadBinaryContent", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/IStreamUpload/UploadBinaryContent")
+    @WebResult(name = "UploadResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", partName = "parameters")
     @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
     public UploadResponse uploadBinaryContent(
-        @WebParam(name = "UploadRequest", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", partName = "parameters")
+        @WebParam(name = "UploadRequest", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", partName = "parameters")
         UploadRequest parameters)
         throws IStreamUploadUploadBinaryContentCoreServiceFaultFaultFaultMessage
     ;
@@ -54,14 +54,14 @@ public interface IStreamUpload {
      *     returns java.lang.String
      * @throws IStreamUploadUploadBinaryByteArrayCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "UploadBinaryByteArray", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/IStreamUpload/UploadBinaryByteArray")
-    @WebResult(name = "UploadBinaryByteArrayResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "UploadBinaryByteArray", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.UploadBinaryByteArray")
-    @ResponseWrapper(localName = "UploadBinaryByteArrayResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.UploadBinaryByteArrayResponse")
+    @WebMethod(operationName = "UploadBinaryByteArray", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/IStreamUpload/UploadBinaryByteArray")
+    @WebResult(name = "UploadBinaryByteArrayResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "UploadBinaryByteArray", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.UploadBinaryByteArray")
+    @ResponseWrapper(localName = "UploadBinaryByteArrayResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.UploadBinaryByteArrayResponse")
     public String uploadBinaryByteArray(
-        @WebParam(name = "fileName", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "fileName", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String fileName,
-        @WebParam(name = "data", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "data", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         byte[] data)
         throws IStreamUploadUploadBinaryByteArrayCoreServiceFaultFaultFaultMessage
     ;

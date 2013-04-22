@@ -28,10 +28,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Info")
 @XmlSeeAlso({
+    DynamicVersionInfo.class,
     BasicVersionInfo.class,
     PublishInfoData.class,
+    LockInfo.class,
     WorkflowInfo.class,
     LocationInfo.class,
+    ListInfo.class,
     BluePrintInfo.class
 })
 public class Info {

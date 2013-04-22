@@ -41,19 +41,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DirectoryServiceUser }
+     * Create an instance of {@link DirectoryUsersFilter }
      * 
      */
-    public DirectoryServiceUser createDirectoryServiceUser() {
-        return new DirectoryServiceUser();
+    public DirectoryUsersFilter createDirectoryUsersFilter() {
+        return new DirectoryUsersFilter();
     }
 
     /**
-     * Create an instance of {@link ExternalUser }
+     * Create an instance of {@link AdditionalAttributes }
      * 
      */
-    public ExternalUser createExternalUser() {
-        return new ExternalUser();
+    public AdditionalAttributes createAdditionalAttributes() {
+        return new AdditionalAttributes();
     }
 
     /**
@@ -65,27 +65,19 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DirectoryServiceUser }
+     * 
+     */
+    public DirectoryServiceUser createDirectoryServiceUser() {
+        return new DirectoryServiceUser();
+    }
+
+    /**
      * Create an instance of {@link ArrayOfDirectoryServiceUser }
      * 
      */
     public ArrayOfDirectoryServiceUser createArrayOfDirectoryServiceUser() {
         return new ArrayOfDirectoryServiceUser();
-    }
-
-    /**
-     * Create an instance of {@link DirectoryUsersFilter }
-     * 
-     */
-    public DirectoryUsersFilter createDirectoryUsersFilter() {
-        return new DirectoryUsersFilter();
-    }
-
-    /**
-     * Create an instance of {@link WindowsUser }
-     * 
-     */
-    public WindowsUser createWindowsUser() {
-        return new WindowsUser();
     }
 
     /**
@@ -97,11 +89,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AdditionalAttributes }
+     * Create an instance of {@link WindowsUser }
      * 
      */
-    public AdditionalAttributes createAdditionalAttributes() {
-        return new AdditionalAttributes();
+    public WindowsUser createWindowsUser() {
+        return new WindowsUser();
+    }
+
+    /**
+     * Create an instance of {@link ExternalUser }
+     * 
+     */
+    public ExternalUser createExternalUser() {
+        return new ExternalUser();
     }
 
     /**

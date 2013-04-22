@@ -34,6 +34,9 @@ import org.w3._2001.xmlschema.Adapter1;
  *         &lt;element name="ProcessInstance" type="{http://www.sdltridion.com/ContentManager/R6}LinkToProcessInstanceData" minOccurs="0"/>
  *         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="ActivityState" type="{http://www.sdltridion.com/ContentManager/R6}ActivityState" minOccurs="0"/>
+ *         &lt;element name="ActivityConstraints" type="{http://www.sdltridion.com/ContentManager/R6}ActivityConstraints" minOccurs="0"/>
+ *         &lt;element name="AssignmentDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
+ *         &lt;element name="DueDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -53,7 +56,10 @@ import org.w3._2001.xmlschema.Adapter1;
     "previousMessage",
     "processInstance",
     "startDate",
-    "activityState"
+    "activityState",
+    "activityConstraints",
+    "assignmentDate",
+    "dueDate"
 })
 public class WorkflowInfo
     extends Info
@@ -86,6 +92,17 @@ public class WorkflowInfo
     @XmlList
     @XmlElement(name = "ActivityState", nillable = true)
     protected List<String> activityState;
+    @XmlList
+    @XmlElement(name = "ActivityConstraints", nillable = true)
+    protected List<String> activityConstraints;
+    @XmlElement(name = "AssignmentDate", type = String.class, nillable = true)
+    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlSchemaType(name = "dateTime")
+    protected Date assignmentDate;
+    @XmlElement(name = "DueDate", type = String.class, nillable = true)
+    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlSchemaType(name = "dateTime")
+    protected Date dueDate;
 
     /**
      * Gets the value of the activityDefinitionDescription property.
@@ -330,6 +347,83 @@ public class WorkflowInfo
             activityState = new ArrayList<String>();
         }
         return this.activityState;
+    }
+
+    /**
+     * Gets the value of the activityConstraints property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the activityConstraints property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getActivityConstraints().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
+     */
+    public List<String> getActivityConstraints() {
+        if (activityConstraints == null) {
+            activityConstraints = new ArrayList<String>();
+        }
+        return this.activityConstraints;
+    }
+
+    /**
+     * Gets the value of the assignmentDate property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public Date getAssignmentDate() {
+        return assignmentDate;
+    }
+
+    /**
+     * Sets the value of the assignmentDate property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAssignmentDate(Date value) {
+        this.assignmentDate = value;
+    }
+
+    /**
+     * Gets the value of the dueDate property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    /**
+     * Sets the value of the dueDate property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDueDate(Date value) {
+        this.dueDate = value;
     }
 
 }

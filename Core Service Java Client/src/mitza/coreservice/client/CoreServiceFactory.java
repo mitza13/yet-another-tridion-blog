@@ -9,7 +9,7 @@ import javax.xml.ws.BindingProvider;
 
 import mitza.coreservice.security.BasicHttpAuthenticator;
 
-import com.sdltridion.contentmanager.coreservice.CoreService2011;
+import com.sdltridion.contentmanager.coreservice.CoreService2012;
 import com.sdltridion.contentmanager.coreservice.ICoreService;
 import com.sdltridion.contentmanager.coreservice.IStreamDownload;
 import com.sdltridion.contentmanager.coreservice.IStreamUpload;
@@ -20,14 +20,14 @@ import com.sdltridion.contentmanager.coreservice.IStreamUpload;
 public class CoreServiceFactory {
 
 	private static final QName Q_NAME = new QName("http://www.sdltridion.com/ContentManager/CoreService",
-			"CoreService2011");
-	private static final String CORE_SERVICE_PATH = "/webservices/CoreService2011.svc";
+			"CoreService2012");
+	private static final String CORE_SERVICE_PATH = "/webservices/CoreService2012.svc";
 
 	private static String coreServiceBaseUrl = "http://localhost";
 	private static String userName;
 	private static String password;
 
-	private static CoreService2011 service;
+	private static CoreService2012 service;
 	private static ICoreService basicHttpClient;
 	private static IStreamDownload streamDownloadBasicHttpClient;
 	private static IStreamUpload streamUploadBasicHttpClient;
@@ -39,15 +39,15 @@ public class CoreServiceFactory {
 	 * 
 	 * @return CoreService2011 the service singleton
 	 */
-	public static CoreService2011 getService() {
+	public static CoreService2012 getService() {
 		if (service == null) {
 			if (userName != null && password != null) {
 				BasicHttpAuthenticator basicHttpAuthenticator = new BasicHttpAuthenticator(userName, password);
 				Authenticator.setDefault(basicHttpAuthenticator);
 			}
 
-			URL url = CoreServiceFactory.class.getResource("/CoreService2011.wsdl");
-			service = new CoreService2011(url, Q_NAME);
+			URL url = CoreServiceFactory.class.getResource("/CoreService2012.wsdl");
+			service = new CoreService2012(url, Q_NAME);
 		}
 
 		return service;
@@ -60,7 +60,7 @@ public class CoreServiceFactory {
 	 */
 	public static ICoreService getBasicHttpClient() {
 		if (basicHttpClient == null) {
-			CoreService2011 service = getService();
+			CoreService2012 service = getService();
 			basicHttpClient = service.getBasicHttp();
 			setEndpointAddress((BindingProvider) basicHttpClient, "basicHttp");
 		}
@@ -75,7 +75,7 @@ public class CoreServiceFactory {
 	 */
 	public static IStreamDownload getStreamDownloadBasicHttpClientClient() {
 		if (streamDownloadBasicHttpClient == null) {
-			CoreService2011 service = getService();
+			CoreService2012 service = getService();
 			streamDownloadBasicHttpClient = service.getStreamDownloadBasicHttp();
 			setEndpointAddress((BindingProvider) streamDownloadBasicHttpClient, "streamDownload_basicHttp");
 		}
@@ -90,7 +90,7 @@ public class CoreServiceFactory {
 	 */
 	public static IStreamUpload getStreamUploadBasicHttpClientClient() {
 		if (streamUploadBasicHttpClient == null) {
-			CoreService2011 service = getService();
+			CoreService2012 service = getService();
 			streamUploadBasicHttpClient = service.getStreamUploadBasicHttp();
 			setEndpointAddress((BindingProvider) streamUploadBasicHttpClient, "streamUpload_basicHttp");
 		}

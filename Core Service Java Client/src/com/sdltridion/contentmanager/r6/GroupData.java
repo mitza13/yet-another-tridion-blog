@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;extension base="{http://www.sdltridion.com/ContentManager/R6}TrusteeData">
  *       &lt;sequence>
  *         &lt;element name="ClaimMappings" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfClaimMappingData" minOccurs="0"/>
+ *         &lt;element name="DefaultGroupId" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="Scope" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfLinkWithIsEditableToRepositoryData" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
@@ -30,6 +31,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "GroupData", propOrder = {
     "claimMappings",
+    "defaultGroupId",
     "scope"
 })
 public class GroupData
@@ -38,6 +40,8 @@ public class GroupData
 
     @XmlElement(name = "ClaimMappings", nillable = true)
     protected ArrayOfClaimMappingData claimMappings;
+    @XmlElement(name = "DefaultGroupId", nillable = true)
+    protected Integer defaultGroupId;
     @XmlElement(name = "Scope", nillable = true)
     protected ArrayOfLinkWithIsEditableToRepositoryData scope;
 
@@ -63,6 +67,30 @@ public class GroupData
      */
     public void setClaimMappings(ArrayOfClaimMappingData value) {
         this.claimMappings = value;
+    }
+
+    /**
+     * Gets the value of the defaultGroupId property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getDefaultGroupId() {
+        return defaultGroupId;
+    }
+
+    /**
+     * Sets the value of the defaultGroupId property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setDefaultGroupId(Integer value) {
+        this.defaultGroupId = value;
     }
 
     /**

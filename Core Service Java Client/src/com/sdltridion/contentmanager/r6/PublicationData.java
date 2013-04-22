@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="PublicationUrl" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="RootStructureGroup" type="{http://www.sdltridion.com/ContentManager/R6}LinkToStructureGroupData" minOccurs="0"/>
  *         &lt;element name="ShareProcessAssociations" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="TemplateBundleProcess" type="{http://www.sdltridion.com/ContentManager/R6}LinkToProcessDefinitionData" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -55,7 +56,8 @@ import javax.xml.bind.annotation.XmlType;
     "publicationType",
     "publicationUrl",
     "rootStructureGroup",
-    "shareProcessAssociations"
+    "shareProcessAssociations",
+    "templateBundleProcess"
 })
 @XmlSeeAlso({
     BluePrintNodeData.class
@@ -92,6 +94,8 @@ public class PublicationData
     protected LinkToStructureGroupData rootStructureGroup;
     @XmlElement(name = "ShareProcessAssociations", nillable = true)
     protected Boolean shareProcessAssociations;
+    @XmlElement(name = "TemplateBundleProcess", nillable = true)
+    protected LinkToProcessDefinitionData templateBundleProcess;
 
     /**
      * Gets the value of the componentSnapshotTemplate property.
@@ -427,6 +431,30 @@ public class PublicationData
      */
     public void setShareProcessAssociations(Boolean value) {
         this.shareProcessAssociations = value;
+    }
+
+    /**
+     * Gets the value of the templateBundleProcess property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link LinkToProcessDefinitionData }
+     *     
+     */
+    public LinkToProcessDefinitionData getTemplateBundleProcess() {
+        return templateBundleProcess;
+    }
+
+    /**
+     * Sets the value of the templateBundleProcess property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link LinkToProcessDefinitionData }
+     *     
+     */
+    public void setTemplateBundleProcess(LinkToProcessDefinitionData value) {
+        this.templateBundleProcess = value;
     }
 
 }

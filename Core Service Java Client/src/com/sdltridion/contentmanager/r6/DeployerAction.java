@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="Commit"/>
  *     &lt;enumeration value="Wait"/>
  *     &lt;enumeration value="Abort"/>
+ *     &lt;enumeration value="UndoCommit"/>
  *     &lt;enumeration value="UnknownByClient"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
@@ -33,6 +34,8 @@ public enum DeployerAction {
     WAIT("Wait"),
     @XmlEnumValue("Abort")
     ABORT("Abort"),
+    @XmlEnumValue("UndoCommit")
+    UNDO_COMMIT("UndoCommit"),
     @XmlEnumValue("UnknownByClient")
     UNKNOWN_BY_CLIENT("UnknownByClient");
     private final String value;

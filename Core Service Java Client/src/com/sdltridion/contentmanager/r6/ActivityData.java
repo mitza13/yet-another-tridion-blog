@@ -32,6 +32,8 @@ import org.w3._2001.xmlschema.Adapter1;
  *         &lt;element name="StartDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="SuspendDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="WorkItems" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfWorkItemData" minOccurs="0"/>
+ *         &lt;element name="AssignmentDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
+ *         &lt;element name="DueDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -51,7 +53,9 @@ import org.w3._2001.xmlschema.Adapter1;
     "process",
     "startDate",
     "suspendDate",
-    "workItems"
+    "workItems",
+    "assignmentDate",
+    "dueDate"
 })
 @XmlSeeAlso({
     ActivityInstanceData.class,
@@ -87,6 +91,14 @@ public class ActivityData
     protected Date suspendDate;
     @XmlElement(name = "WorkItems", nillable = true)
     protected ArrayOfWorkItemData workItems;
+    @XmlElement(name = "AssignmentDate", type = String.class, nillable = true)
+    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlSchemaType(name = "dateTime")
+    protected Date assignmentDate;
+    @XmlElement(name = "DueDate", type = String.class, nillable = true)
+    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlSchemaType(name = "dateTime")
+    protected Date dueDate;
 
     /**
      * Gets the value of the assignee property.
@@ -326,6 +338,54 @@ public class ActivityData
      */
     public void setWorkItems(ArrayOfWorkItemData value) {
         this.workItems = value;
+    }
+
+    /**
+     * Gets the value of the assignmentDate property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public Date getAssignmentDate() {
+        return assignmentDate;
+    }
+
+    /**
+     * Sets the value of the assignmentDate property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setAssignmentDate(Date value) {
+        this.assignmentDate = value;
+    }
+
+    /**
+     * Gets the value of the dueDate property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    /**
+     * Sets the value of the dueDate property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDueDate(Date value) {
+        this.dueDate = value;
     }
 
 }

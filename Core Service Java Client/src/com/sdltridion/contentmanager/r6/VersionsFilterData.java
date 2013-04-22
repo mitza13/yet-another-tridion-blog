@@ -3,6 +3,7 @@ package com.sdltridion.contentmanager.r6;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -16,6 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;extension base="{http://www.sdltridion.com/ContentManager/R6}SubjectRelatedListFilterData">
  *       &lt;sequence>
+ *         &lt;element name="IncludeRevisorDescriptionColumn" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -25,10 +27,38 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "VersionsFilterData")
+@XmlType(name = "VersionsFilterData", propOrder = {
+    "includeRevisorDescriptionColumn"
+})
 public class VersionsFilterData
     extends SubjectRelatedListFilterData
 {
 
+    @XmlElement(name = "IncludeRevisorDescriptionColumn", nillable = true)
+    protected Boolean includeRevisorDescriptionColumn;
+
+    /**
+     * Gets the value of the includeRevisorDescriptionColumn property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIncludeRevisorDescriptionColumn() {
+        return includeRevisorDescriptionColumn;
+    }
+
+    /**
+     * Sets the value of the includeRevisorDescriptionColumn property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIncludeRevisorDescriptionColumn(Boolean value) {
+        this.includeRevisorDescriptionColumn = value;
+    }
 
 }

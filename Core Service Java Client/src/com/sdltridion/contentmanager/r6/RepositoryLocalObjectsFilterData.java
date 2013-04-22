@@ -24,15 +24,19 @@ import com.microsoft.schemas._2003._10.serialization.arrays.ArrayOfstring;
  *       &lt;sequence>
  *         &lt;element name="ComponentTypes" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfComponentType" minOccurs="0"/>
  *         &lt;element name="IncludeLockUserColumn" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="IncludeRelativeWebDavUrlColumn" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;element name="ItemTypes" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfItemType" minOccurs="0"/>
  *         &lt;element name="LockFilter" type="{http://www.sdltridion.com/ContentManager/R6}LockType" minOccurs="0"/>
  *         &lt;element name="LockResult" type="{http://www.sdltridion.com/ContentManager/R6}LockType" minOccurs="0"/>
  *         &lt;element name="LockUser" type="{http://www.sdltridion.com/ContentManager/R6}LinkToUserData" minOccurs="0"/>
  *         &lt;element name="SchemaPurposes" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfSchemaPurpose" minOccurs="0"/>
  *         &lt;element name="TemplateTypeIds" type="{http://schemas.microsoft.com/2003/10/Serialization/Arrays}ArrayOfint" minOccurs="0"/>
+ *         &lt;element name="BasedOnSchemas" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfLinkToSchemaData" minOccurs="0"/>
  *         &lt;element name="IncludeLocationInfoColumns" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;element name="ItemIds" type="{http://schemas.microsoft.com/2003/10/Serialization/Arrays}ArrayOfstring" minOccurs="0"/>
  *         &lt;element name="UseDynamicVersion" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="IncludeDescriptionColumn" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="IncludeDynamicVersionInfoColumns" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -45,15 +49,19 @@ import com.microsoft.schemas._2003._10.serialization.arrays.ArrayOfstring;
 @XmlType(name = "RepositoryLocalObjectsFilterData", propOrder = {
     "componentTypes",
     "includeLockUserColumn",
+    "includeRelativeWebDavUrlColumn",
     "itemTypes",
     "lockFilter",
     "lockResult",
     "lockUser",
     "schemaPurposes",
     "templateTypeIds",
+    "basedOnSchemas",
     "includeLocationInfoColumns",
     "itemIds",
-    "useDynamicVersion"
+    "useDynamicVersion",
+    "includeDescriptionColumn",
+    "includeDynamicVersionInfoColumns"
 })
 public class RepositoryLocalObjectsFilterData
     extends SystemWideListFilterData
@@ -63,6 +71,8 @@ public class RepositoryLocalObjectsFilterData
     protected ArrayOfComponentType componentTypes;
     @XmlElement(name = "IncludeLockUserColumn", nillable = true)
     protected Boolean includeLockUserColumn;
+    @XmlElement(name = "IncludeRelativeWebDavUrlColumn", nillable = true)
+    protected Boolean includeRelativeWebDavUrlColumn;
     @XmlElement(name = "ItemTypes", nillable = true)
     protected ArrayOfItemType itemTypes;
     @XmlList
@@ -77,12 +87,18 @@ public class RepositoryLocalObjectsFilterData
     protected ArrayOfSchemaPurpose schemaPurposes;
     @XmlElement(name = "TemplateTypeIds", nillable = true)
     protected ArrayOfint templateTypeIds;
+    @XmlElement(name = "BasedOnSchemas", nillable = true)
+    protected ArrayOfLinkToSchemaData basedOnSchemas;
     @XmlElement(name = "IncludeLocationInfoColumns", nillable = true)
     protected Boolean includeLocationInfoColumns;
     @XmlElement(name = "ItemIds", nillable = true)
     protected ArrayOfstring itemIds;
     @XmlElement(name = "UseDynamicVersion", nillable = true)
     protected Boolean useDynamicVersion;
+    @XmlElement(name = "IncludeDescriptionColumn")
+    protected Boolean includeDescriptionColumn;
+    @XmlElement(name = "IncludeDynamicVersionInfoColumns")
+    protected Boolean includeDynamicVersionInfoColumns;
 
     /**
      * Gets the value of the componentTypes property.
@@ -130,6 +146,30 @@ public class RepositoryLocalObjectsFilterData
      */
     public void setIncludeLockUserColumn(Boolean value) {
         this.includeLockUserColumn = value;
+    }
+
+    /**
+     * Gets the value of the includeRelativeWebDavUrlColumn property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIncludeRelativeWebDavUrlColumn() {
+        return includeRelativeWebDavUrlColumn;
+    }
+
+    /**
+     * Sets the value of the includeRelativeWebDavUrlColumn property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIncludeRelativeWebDavUrlColumn(Boolean value) {
+        this.includeRelativeWebDavUrlColumn = value;
     }
 
     /**
@@ -287,6 +327,30 @@ public class RepositoryLocalObjectsFilterData
     }
 
     /**
+     * Gets the value of the basedOnSchemas property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ArrayOfLinkToSchemaData }
+     *     
+     */
+    public ArrayOfLinkToSchemaData getBasedOnSchemas() {
+        return basedOnSchemas;
+    }
+
+    /**
+     * Sets the value of the basedOnSchemas property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ArrayOfLinkToSchemaData }
+     *     
+     */
+    public void setBasedOnSchemas(ArrayOfLinkToSchemaData value) {
+        this.basedOnSchemas = value;
+    }
+
+    /**
      * Gets the value of the includeLocationInfoColumns property.
      * 
      * @return
@@ -356,6 +420,54 @@ public class RepositoryLocalObjectsFilterData
      */
     public void setUseDynamicVersion(Boolean value) {
         this.useDynamicVersion = value;
+    }
+
+    /**
+     * Gets the value of the includeDescriptionColumn property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIncludeDescriptionColumn() {
+        return includeDescriptionColumn;
+    }
+
+    /**
+     * Sets the value of the includeDescriptionColumn property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIncludeDescriptionColumn(Boolean value) {
+        this.includeDescriptionColumn = value;
+    }
+
+    /**
+     * Gets the value of the includeDynamicVersionInfoColumns property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIncludeDynamicVersionInfoColumns() {
+        return includeDynamicVersionInfoColumns;
+    }
+
+    /**
+     * Sets the value of the includeDynamicVersionInfoColumns property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIncludeDynamicVersionInfoColumns(Boolean value) {
+        this.includeDynamicVersionInfoColumns = value;
     }
 
 }

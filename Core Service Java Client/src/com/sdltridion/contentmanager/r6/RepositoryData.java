@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="MetadataSchema" type="{http://www.sdltridion.com/ContentManager/R6}LinkToSchemaData" minOccurs="0"/>
  *         &lt;element name="Parents" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfLinkToRepositoryData" minOccurs="0"/>
  *         &lt;element name="RootFolder" type="{http://www.sdltridion.com/ContentManager/R6}LinkToFolderData" minOccurs="0"/>
+ *         &lt;element name="TaskProcess" type="{http://www.sdltridion.com/ContentManager/R6}LinkToProcessDefinitionData" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -47,7 +48,8 @@ import javax.xml.bind.annotation.XmlType;
     "metadata",
     "metadataSchema",
     "parents",
-    "rootFolder"
+    "rootFolder",
+    "taskProcess"
 })
 @XmlSeeAlso({
     PublicationData.class
@@ -76,6 +78,8 @@ public class RepositoryData
     protected ArrayOfLinkToRepositoryData parents;
     @XmlElement(name = "RootFolder", nillable = true)
     protected LinkToFolderData rootFolder;
+    @XmlElement(name = "TaskProcess", nillable = true)
+    protected LinkToProcessDefinitionData taskProcess;
 
     /**
      * Gets the value of the accessControlList property.
@@ -315,6 +319,30 @@ public class RepositoryData
      */
     public void setRootFolder(LinkToFolderData value) {
         this.rootFolder = value;
+    }
+
+    /**
+     * Gets the value of the taskProcess property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link LinkToProcessDefinitionData }
+     *     
+     */
+    public LinkToProcessDefinitionData getTaskProcess() {
+        return taskProcess;
+    }
+
+    /**
+     * Sets the value of the taskProcess property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link LinkToProcessDefinitionData }
+     *     
+     */
+    public void setTaskProcess(LinkToProcessDefinitionData value) {
+        this.taskProcess = value;
     }
 
 }

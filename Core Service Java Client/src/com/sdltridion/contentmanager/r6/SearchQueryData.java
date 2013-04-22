@@ -24,6 +24,7 @@ import org.w3._2001.xmlschema.Adapter1;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="ActivityDefinition" type="{http://www.sdltridion.com/ContentManager/R6}LinkToActivityDefinitionData" minOccurs="0"/>
  *         &lt;element name="Author" type="{http://www.sdltridion.com/ContentManager/R6}LinkToUserData" minOccurs="0"/>
  *         &lt;element name="BaseColumns" type="{http://www.sdltridion.com/ContentManager/R6}ListBaseColumns" minOccurs="0"/>
  *         &lt;element name="BasedOnSchemas" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfBasedOnSchemaData" minOccurs="0"/>
@@ -39,11 +40,15 @@ import org.w3._2001.xmlschema.Adapter1;
  *         &lt;element name="LockUser" type="{http://www.sdltridion.com/ContentManager/R6}LinkToUserData" minOccurs="0"/>
  *         &lt;element name="ModifiedAfter" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="ModifiedBefore" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
+ *         &lt;element name="ProcessDefinition" type="{http://www.sdltridion.com/ContentManager/R6}LinkToProcessDefinitionData" minOccurs="0"/>
  *         &lt;element name="ResultLimit" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="SearchIn" type="{http://www.sdltridion.com/ContentManager/R6}LinkToIdentifiableObjectData" minOccurs="0"/>
  *         &lt;element name="SearchInSubtree" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;element name="Title" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="UsedKeywords" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfLinkToKeywordData" minOccurs="0"/>
+ *         &lt;element name="IncludeAllowedActionsColumns" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="IncludeDescriptionColumn" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="IncludeLocationInfoColumns" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -54,6 +59,7 @@ import org.w3._2001.xmlschema.Adapter1;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SearchQueryData", propOrder = {
+    "activityDefinition",
     "author",
     "baseColumns",
     "basedOnSchemas",
@@ -69,14 +75,20 @@ import org.w3._2001.xmlschema.Adapter1;
     "lockUser",
     "modifiedAfter",
     "modifiedBefore",
+    "processDefinition",
     "resultLimit",
     "searchIn",
     "searchInSubtree",
     "title",
-    "usedKeywords"
+    "usedKeywords",
+    "includeAllowedActionsColumns",
+    "includeDescriptionColumn",
+    "includeLocationInfoColumns"
 })
 public class SearchQueryData {
 
+    @XmlElement(name = "ActivityDefinition", nillable = true)
+    protected LinkToActivityDefinitionData activityDefinition;
     @XmlElement(name = "Author", nillable = true)
     protected LinkToUserData author;
     @XmlElement(name = "BaseColumns", nillable = true)
@@ -112,6 +124,8 @@ public class SearchQueryData {
     @XmlJavaTypeAdapter(Adapter1 .class)
     @XmlSchemaType(name = "dateTime")
     protected Date modifiedBefore;
+    @XmlElement(name = "ProcessDefinition", nillable = true)
+    protected LinkToProcessDefinitionData processDefinition;
     @XmlElement(name = "ResultLimit", nillable = true)
     protected Integer resultLimit;
     @XmlElement(name = "SearchIn", nillable = true)
@@ -122,6 +136,36 @@ public class SearchQueryData {
     protected String title;
     @XmlElement(name = "UsedKeywords", nillable = true)
     protected ArrayOfLinkToKeywordData usedKeywords;
+    @XmlElement(name = "IncludeAllowedActionsColumns")
+    protected Boolean includeAllowedActionsColumns;
+    @XmlElement(name = "IncludeDescriptionColumn")
+    protected Boolean includeDescriptionColumn;
+    @XmlElement(name = "IncludeLocationInfoColumns")
+    protected Boolean includeLocationInfoColumns;
+
+    /**
+     * Gets the value of the activityDefinition property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link LinkToActivityDefinitionData }
+     *     
+     */
+    public LinkToActivityDefinitionData getActivityDefinition() {
+        return activityDefinition;
+    }
+
+    /**
+     * Sets the value of the activityDefinition property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link LinkToActivityDefinitionData }
+     *     
+     */
+    public void setActivityDefinition(LinkToActivityDefinitionData value) {
+        this.activityDefinition = value;
+    }
 
     /**
      * Gets the value of the author property.
@@ -489,6 +533,30 @@ public class SearchQueryData {
     }
 
     /**
+     * Gets the value of the processDefinition property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link LinkToProcessDefinitionData }
+     *     
+     */
+    public LinkToProcessDefinitionData getProcessDefinition() {
+        return processDefinition;
+    }
+
+    /**
+     * Sets the value of the processDefinition property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link LinkToProcessDefinitionData }
+     *     
+     */
+    public void setProcessDefinition(LinkToProcessDefinitionData value) {
+        this.processDefinition = value;
+    }
+
+    /**
      * Gets the value of the resultLimit property.
      * 
      * @return
@@ -606,6 +674,78 @@ public class SearchQueryData {
      */
     public void setUsedKeywords(ArrayOfLinkToKeywordData value) {
         this.usedKeywords = value;
+    }
+
+    /**
+     * Gets the value of the includeAllowedActionsColumns property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIncludeAllowedActionsColumns() {
+        return includeAllowedActionsColumns;
+    }
+
+    /**
+     * Sets the value of the includeAllowedActionsColumns property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIncludeAllowedActionsColumns(Boolean value) {
+        this.includeAllowedActionsColumns = value;
+    }
+
+    /**
+     * Gets the value of the includeDescriptionColumn property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIncludeDescriptionColumn() {
+        return includeDescriptionColumn;
+    }
+
+    /**
+     * Sets the value of the includeDescriptionColumn property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIncludeDescriptionColumn(Boolean value) {
+        this.includeDescriptionColumn = value;
+    }
+
+    /**
+     * Gets the value of the includeLocationInfoColumns property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIncludeLocationInfoColumns() {
+        return includeLocationInfoColumns;
+    }
+
+    /**
+     * Sets the value of the includeLocationInfoColumns property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIncludeLocationInfoColumns(Boolean value) {
+        this.includeLocationInfoColumns = value;
     }
 
 }

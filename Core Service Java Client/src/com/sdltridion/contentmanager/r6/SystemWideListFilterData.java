@@ -32,9 +32,11 @@ import javax.xml.bind.annotation.XmlType;
     RepositoryLocalObjectsFilterData.class,
     PublicationTargetsFilterData.class,
     MultimediaTypesFilterData.class,
-    BluePrintFilterData.class,
+    BluePrintNodesFilterData.class,
+    WorkflowTypesFilterData.class,
     BluePrintParentsFilterData.class,
     RepositoriesFilterData.class,
+    BatchesFilterData.class,
     PublishingListFilterData.class,
     TrusteesFilterData.class,
     WorkflowManagerFilterData.class

@@ -8,6 +8,7 @@ import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
+import com.sdltridion.contentmanager.r6.UserData;
 
 
 /**
@@ -16,13 +17,13 @@ import javax.xml.ws.ResponseWrapper;
  * Generated source version: 2.1
  * 
  */
-@WebService(name = "IStreamDownload", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+@WebService(name = "IStreamDownload", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
 @XmlSeeAlso({
-    com.microsoft.schemas._2003._10.serialization.ObjectFactory.class,
-    com.sdltridion.contentmanager.r6.ObjectFactory.class,
-    com.sdltridion.contentmanager.coreservice._2011.ObjectFactory.class,
     com.sdltridion.security.ObjectFactory.class,
-    com.microsoft.schemas._2003._10.serialization.arrays.ObjectFactory.class
+    com.sdltridion.contentmanager.coreservice._2012.ObjectFactory.class,
+    com.microsoft.schemas._2003._10.serialization.arrays.ObjectFactory.class,
+    com.sdltridion.contentmanager.r6.ObjectFactory.class,
+    com.microsoft.schemas._2003._10.serialization.ObjectFactory.class
 })
 public interface IStreamDownload {
 
@@ -34,14 +35,34 @@ public interface IStreamDownload {
      *     returns byte[]
      * @throws IStreamDownloadDownloadBinaryContentCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "DownloadBinaryContent", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/IStreamDownload/DownloadBinaryContent")
-    @WebResult(name = "DownloadBinaryContentResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "DownloadBinaryContent", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.DownloadBinaryContent")
-    @ResponseWrapper(localName = "DownloadBinaryContentResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.DownloadBinaryContentResponse")
+    @WebMethod(operationName = "DownloadBinaryContent", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/IStreamDownload/DownloadBinaryContent")
+    @WebResult(name = "DownloadBinaryContentResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "DownloadBinaryContent", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.DownloadBinaryContent")
+    @ResponseWrapper(localName = "DownloadBinaryContentResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.DownloadBinaryContentResponse")
     public byte[] downloadBinaryContent(
-        @WebParam(name = "itemId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "itemId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String itemId)
         throws IStreamDownloadDownloadBinaryContentCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param accessToken
+     * @param itemId
+     * @return
+     *     returns byte[]
+     * @throws IStreamDownloadDownloadBinaryContentByUserCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "DownloadBinaryContentByUser", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/IStreamDownload/DownloadBinaryContentByUser")
+    @WebResult(name = "DownloadBinaryContentByUserResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "DownloadBinaryContentByUser", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.DownloadBinaryContentByUser")
+    @ResponseWrapper(localName = "DownloadBinaryContentByUserResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.DownloadBinaryContentByUserResponse")
+    public byte[] downloadBinaryContentByUser(
+        @WebParam(name = "itemId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String itemId,
+        @WebParam(name = "accessToken", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        UserData accessToken)
+        throws IStreamDownloadDownloadBinaryContentByUserCoreServiceFaultFaultFaultMessage
     ;
 
     /**
@@ -51,12 +72,12 @@ public interface IStreamDownload {
      *     returns byte[]
      * @throws IStreamDownloadDownloadRenderedBinaryCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "DownloadRenderedBinary", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/IStreamDownload/DownloadRenderedBinary")
-    @WebResult(name = "DownloadRenderedBinaryResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "DownloadRenderedBinary", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.DownloadRenderedBinary")
-    @ResponseWrapper(localName = "DownloadRenderedBinaryResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.DownloadRenderedBinaryResponse")
+    @WebMethod(operationName = "DownloadRenderedBinary", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/IStreamDownload/DownloadRenderedBinary")
+    @WebResult(name = "DownloadRenderedBinaryResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "DownloadRenderedBinary", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.DownloadRenderedBinary")
+    @ResponseWrapper(localName = "DownloadRenderedBinaryResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.DownloadRenderedBinaryResponse")
     public byte[] downloadRenderedBinary(
-        @WebParam(name = "path", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "path", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String path)
         throws IStreamDownloadDownloadRenderedBinaryCoreServiceFaultFaultFaultMessage
     ;

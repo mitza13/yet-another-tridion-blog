@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="LoadFlags" type="{http://www.sdltridion.com/ContentManager/R6}LoadFlags" minOccurs="0"/>
+ *         &lt;element name="UseDynamicVersion" type="{http://www.sdltridion.com/ContentManager/R6}DynamicVersionResolvingConditions" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -31,13 +32,17 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ReadOptions", propOrder = {
-    "loadFlags"
+    "loadFlags",
+    "useDynamicVersion"
 })
 public class ReadOptions {
 
     @XmlList
     @XmlElement(name = "LoadFlags")
     protected List<String> loadFlags;
+    @XmlList
+    @XmlElement(name = "UseDynamicVersion")
+    protected List<String> useDynamicVersion;
 
     /**
      * Gets the value of the loadFlags property.
@@ -66,6 +71,35 @@ public class ReadOptions {
             loadFlags = new ArrayList<String>();
         }
         return this.loadFlags;
+    }
+
+    /**
+     * Gets the value of the useDynamicVersion property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the useDynamicVersion property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getUseDynamicVersion().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
+     */
+    public List<String> getUseDynamicVersion() {
+        if (useDynamicVersion == null) {
+            useDynamicVersion = new ArrayList<String>();
+        }
+        return this.useDynamicVersion;
     }
 
 }

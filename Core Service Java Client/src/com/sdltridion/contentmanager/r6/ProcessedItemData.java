@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="ReasonOfRenderFailure" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="RenderTime" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="ResolvedItem" type="{http://www.sdltridion.com/ContentManager/R6}ResolvedItemData" minOccurs="0"/>
+ *         &lt;element name="UndoState" type="{http://www.sdltridion.com/ContentManager/R6}UndoState" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,7 +37,8 @@ import javax.xml.bind.annotation.XmlType;
     "isRendered",
     "reasonOfRenderFailure",
     "renderTime",
-    "resolvedItem"
+    "resolvedItem",
+    "undoState"
 })
 public class ProcessedItemData {
 
@@ -50,6 +52,8 @@ public class ProcessedItemData {
     protected String renderTime;
     @XmlElement(name = "ResolvedItem", nillable = true)
     protected ResolvedItemData resolvedItem;
+    @XmlElement(name = "UndoState", nillable = true)
+    protected UndoState undoState;
 
     /**
      * Gets the value of the hasRenderFailure property.
@@ -169,6 +173,30 @@ public class ProcessedItemData {
      */
     public void setResolvedItem(ResolvedItemData value) {
         this.resolvedItem = value;
+    }
+
+    /**
+     * Gets the value of the undoState property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link UndoState }
+     *     
+     */
+    public UndoState getUndoState() {
+        return undoState;
+    }
+
+    /**
+     * Sets the value of the undoState property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link UndoState }
+     *     
+     */
+    public void setUndoState(UndoState value) {
+        this.undoState = value;
     }
 
 }

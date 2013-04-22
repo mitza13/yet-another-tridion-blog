@@ -24,6 +24,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="MultimediaType" type="{http://www.sdltridion.com/ContentManager/R6}LinkToMultimediaTypeData" minOccurs="0"/>
  *         &lt;element name="UploadFromFile" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="MimeType" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="ExternalBinaryUri" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="Size" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -40,7 +42,9 @@ import javax.xml.bind.annotation.XmlType;
     "isExternal",
     "multimediaType",
     "uploadFromFile",
-    "mimeType"
+    "mimeType",
+    "externalBinaryUri",
+    "size"
 })
 public class BinaryContentData {
 
@@ -58,6 +62,10 @@ public class BinaryContentData {
     protected String uploadFromFile;
     @XmlElement(name = "MimeType", nillable = true)
     protected String mimeType;
+    @XmlElement(name = "ExternalBinaryUri", nillable = true)
+    protected String externalBinaryUri;
+    @XmlElement(name = "Size", nillable = true)
+    protected Long size;
 
     /**
      * Gets the value of the binaryId property.
@@ -225,6 +233,54 @@ public class BinaryContentData {
      */
     public void setMimeType(String value) {
         this.mimeType = value;
+    }
+
+    /**
+     * Gets the value of the externalBinaryUri property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getExternalBinaryUri() {
+        return externalBinaryUri;
+    }
+
+    /**
+     * Sets the value of the externalBinaryUri property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setExternalBinaryUri(String value) {
+        this.externalBinaryUri = value;
+    }
+
+    /**
+     * Gets the value of the size property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Long }
+     *     
+     */
+    public Long getSize() {
+        return size;
+    }
+
+    /**
+     * Sets the value of the size property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Long }
+     *     
+     */
+    public void setSize(Long value) {
+        this.size = value;
     }
 
 }

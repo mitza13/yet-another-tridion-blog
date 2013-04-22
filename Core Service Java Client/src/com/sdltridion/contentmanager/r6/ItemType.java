@@ -7,12 +7,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ItemTypes.
+ * <p>Java class for ItemType.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="ItemTypes">
+ * &lt;simpleType name="ItemType">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
  *     &lt;enumeration value="None"/>
  *     &lt;enumeration value="Publication"/>
@@ -36,8 +36,10 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="Group"/>
  *     &lt;enumeration value="DirectoryService"/>
  *     &lt;enumeration value="DirectoryGroupMapping"/>
+ *     &lt;enumeration value="Batch"/>
  *     &lt;enumeration value="MultipleOperations"/>
  *     &lt;enumeration value="PublishTransaction"/>
+ *     &lt;enumeration value="WorkflowType"/>
  *     &lt;enumeration value="ApprovalStatus"/>
  *     &lt;enumeration value="ProcessDefinition"/>
  *     &lt;enumeration value="ProcessInstance"/>
@@ -52,7 +54,7 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  * 
  */
-@XmlType(name = "ItemTypes")
+@XmlType(name = "ItemType")
 @XmlEnum
 public enum ItemType {
 
@@ -100,10 +102,14 @@ public enum ItemType {
     DIRECTORY_SERVICE("DirectoryService"),
     @XmlEnumValue("DirectoryGroupMapping")
     DIRECTORY_GROUP_MAPPING("DirectoryGroupMapping"),
+    @XmlEnumValue("Batch")
+    BATCH("Batch"),
     @XmlEnumValue("MultipleOperations")
     MULTIPLE_OPERATIONS("MultipleOperations"),
     @XmlEnumValue("PublishTransaction")
     PUBLISH_TRANSACTION("PublishTransaction"),
+    @XmlEnumValue("WorkflowType")
+    WORKFLOW_TYPE("WorkflowType"),
     @XmlEnumValue("ApprovalStatus")
     APPROVAL_STATUS("ApprovalStatus"),
     @XmlEnumValue("ProcessDefinition")

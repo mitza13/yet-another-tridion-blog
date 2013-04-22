@@ -5,7 +5,7 @@ import mitza.coreservice.util.Utils;
 import org.w3c.dom.Element;
 
 import com.sdltridion.contentmanager.coreservice.ICoreService;
-import com.sdltridion.contentmanager.coreservice._2011.GetSystemWideListXmlResponse.GetSystemWideListXmlResult;
+import com.sdltridion.contentmanager.coreservice._2012.GetSystemWideListXmlResponse.GetSystemWideListXmlResult;
 import com.sdltridion.contentmanager.r6.ArrayOfIdentifiableObjectData;
 import com.sdltridion.contentmanager.r6.IdentifiableObjectData;
 import com.sdltridion.contentmanager.r6.PublicationData;
@@ -32,13 +32,15 @@ public class Test {
 		} else if (args.length == 3) { // URL, username, password
 			CoreServiceFactory.setDefault(args[0], args[1], args[2]);
 		} else {
-			CoreServiceFactory.setDefault("http://t2011sp1hr1.playground");
+			CoreServiceFactory.setDefault("http://t2013.playground");
 		}
 		ICoreService client = CoreServiceFactory.getBasicHttpClient();
 
 		duration = System.currentTimeMillis() - duration;
 		System.out.println(String.format("Client initialized in %.3fs", duration / 1000.0));
 		duration = System.currentTimeMillis();
+
+		System.out.println("Api version: " + client.getApiVersion());
 
 		UserData currentUser = client.getCurrentUser();
 		System.out.println("Current user: '" + currentUser.getTitle() + "' '" + currentUser.getDescription() + "' " +
@@ -55,7 +57,7 @@ public class Test {
 		System.out.println("Publications XML:");
 		GetSystemWideListXmlResult resultXml = client.getSystemWideListXml(filter);
 		Element element = (Element) resultXml.getAny();
-		System.out.println(Utils.printDocument(element.getOwnerDocument()));
+		Utils.printDocument(element.getOwnerDocument(), System.out);
 
 		duration = System.currentTimeMillis() - duration;
 		System.out.println(String.format("Execution took %.3fs", duration / 1000.0));

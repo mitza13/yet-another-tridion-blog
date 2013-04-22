@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="ExcludeTrustees" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfLinkToTrusteeData" minOccurs="0"/>
  *         &lt;element name="IncludePathColumn" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="IncludeRelativeWebDavUrlColumn" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;element name="IncludeTrustees" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfLinkToTrusteeData" minOccurs="0"/>
  *         &lt;element name="ItemTypes" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfItemType" minOccurs="0"/>
  *       &lt;/sequence>
@@ -33,6 +34,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "OrganizationalItemsFilterData", propOrder = {
     "excludeTrustees",
     "includePathColumn",
+    "includeRelativeWebDavUrlColumn",
     "includeTrustees",
     "itemTypes"
 })
@@ -44,6 +46,8 @@ public class OrganizationalItemsFilterData
     protected ArrayOfLinkToTrusteeData excludeTrustees;
     @XmlElement(name = "IncludePathColumn", nillable = true)
     protected Boolean includePathColumn;
+    @XmlElement(name = "IncludeRelativeWebDavUrlColumn", nillable = true)
+    protected Boolean includeRelativeWebDavUrlColumn;
     @XmlElement(name = "IncludeTrustees", nillable = true)
     protected ArrayOfLinkToTrusteeData includeTrustees;
     @XmlElement(name = "ItemTypes", nillable = true)
@@ -95,6 +99,30 @@ public class OrganizationalItemsFilterData
      */
     public void setIncludePathColumn(Boolean value) {
         this.includePathColumn = value;
+    }
+
+    /**
+     * Gets the value of the includeRelativeWebDavUrlColumn property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIncludeRelativeWebDavUrlColumn() {
+        return includeRelativeWebDavUrlColumn;
+    }
+
+    /**
+     * Sets the value of the includeRelativeWebDavUrlColumn property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIncludeRelativeWebDavUrlColumn(Boolean value) {
+        this.includeRelativeWebDavUrlColumn = value;
     }
 
     /**

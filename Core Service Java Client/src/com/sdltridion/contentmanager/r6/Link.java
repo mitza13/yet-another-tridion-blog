@@ -37,8 +37,8 @@ import javax.xml.bind.annotation.XmlType;
 })
 @XmlSeeAlso({
     LinkToComponentTemplateData.class,
-    LinkToOrganizationalItemData.class,
     LinkToRepositoryLocalObjectData.class,
+    LinkToOrganizationalItemData.class,
     LinkToVersionedItemData.class,
     LinkToStructureGroupData.class,
     LinkToTemplateData.class,
@@ -48,6 +48,7 @@ import javax.xml.bind.annotation.XmlType;
     LinkToGroupData.class,
     LinkToIdentifiableObjectData.class,
     LinkToMultimediaTypeData.class,
+    LinkToWorkflowTypeData.class,
     LinkToCategoryData.class,
     LinkToTemplateBuildingBlockData.class,
     LinkToProcessInstanceData.class,

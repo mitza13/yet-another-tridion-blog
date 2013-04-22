@@ -34,8 +34,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlSeeAlso({
     WorkItemData.class,
     ActivityData.class,
-    ActivityDefinitionData.class,
-    ProcessData.class
+    ProcessData.class,
+    ActivityDefinitionData.class
 })
 public class WorkflowObjectData
     extends IdentifiableObjectData

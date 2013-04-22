@@ -28,11 +28,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SystemWideObjectData")
 @XmlSeeAlso({
+    PublishTransactionData.class,
     MultimediaTypeData.class,
     ApprovalStatusData.class,
+    RegisteredTypeData.class,
+    BatchData.class,
     TrusteeData.class,
     PublishingTargetData.class,
-    PublishTransactionData.class,
     RepositoryData.class
 })
 public class SystemWideObjectData

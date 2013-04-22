@@ -1,9 +1,12 @@
 
 package com.sdltridion.contentmanager.r6;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
@@ -21,6 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="Assignee" type="{http://www.sdltridion.com/ContentManager/R6}LinkToTrusteeData" minOccurs="0"/>
  *         &lt;element name="Description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="ProcessDefinition" type="{http://www.sdltridion.com/ContentManager/R6}LinkToProcessDefinitionData" minOccurs="0"/>
+ *         &lt;element name="ActivityConstraints" type="{http://www.sdltridion.com/ContentManager/R6}ActivityConstraints" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -33,7 +37,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "ActivityDefinitionData", propOrder = {
     "assignee",
     "description",
-    "processDefinition"
+    "processDefinition",
+    "activityConstraints"
 })
 @XmlSeeAlso({
     TridionActivityDefinitionData.class
@@ -48,6 +53,9 @@ public class ActivityDefinitionData
     protected String description;
     @XmlElement(name = "ProcessDefinition", nillable = true)
     protected LinkToProcessDefinitionData processDefinition;
+    @XmlList
+    @XmlElement(name = "ActivityConstraints", nillable = true)
+    protected List<String> activityConstraints;
 
     /**
      * Gets the value of the assignee property.
@@ -119,6 +127,35 @@ public class ActivityDefinitionData
      */
     public void setProcessDefinition(LinkToProcessDefinitionData value) {
         this.processDefinition = value;
+    }
+
+    /**
+     * Gets the value of the activityConstraints property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the activityConstraints property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getActivityConstraints().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
+     */
+    public List<String> getActivityConstraints() {
+        if (activityConstraints == null) {
+            activityConstraints = new ArrayList<String>();
+        }
+        return this.activityConstraints;
     }
 
 }

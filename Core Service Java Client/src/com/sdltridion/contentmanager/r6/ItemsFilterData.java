@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="LockResult" type="{http://www.sdltridion.com/ContentManager/R6}LockType" minOccurs="0"/>
  *         &lt;element name="Recursive" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *         &lt;element name="SchemaPurposes" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfSchemaPurpose" minOccurs="0"/>
+ *         &lt;element name="IncludeDescriptionColumn" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -44,7 +45,8 @@ import javax.xml.bind.annotation.XmlType;
     "lockFilter",
     "lockResult",
     "recursive",
-    "schemaPurposes"
+    "schemaPurposes",
+    "includeDescriptionColumn"
 })
 @XmlSeeAlso({
     RepositoryItemsFilterData.class,
@@ -70,6 +72,8 @@ public class ItemsFilterData
     protected Boolean recursive;
     @XmlElement(name = "SchemaPurposes", nillable = true)
     protected ArrayOfSchemaPurpose schemaPurposes;
+    @XmlElement(name = "IncludeDescriptionColumn")
+    protected Boolean includeDescriptionColumn;
 
     /**
      * Gets the value of the componentTypes property.
@@ -247,6 +251,30 @@ public class ItemsFilterData
      */
     public void setSchemaPurposes(ArrayOfSchemaPurpose value) {
         this.schemaPurposes = value;
+    }
+
+    /**
+     * Gets the value of the includeDescriptionColumn property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isIncludeDescriptionColumn() {
+        return includeDescriptionColumn;
+    }
+
+    /**
+     * Sets the value of the includeDescriptionColumn property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setIncludeDescriptionColumn(Boolean value) {
+        this.includeDescriptionColumn = value;
     }
 
 }

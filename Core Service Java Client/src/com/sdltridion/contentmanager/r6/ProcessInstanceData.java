@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;extension base="{http://www.sdltridion.com/ContentManager/R6}ProcessData">
  *       &lt;sequence>
  *         &lt;element name="ProcessDefinition" type="{http://www.sdltridion.com/ContentManager/R6}LinkToProcessDefinitionData" minOccurs="0"/>
+ *         &lt;element name="Variables" type="{http://www.sdltridion.com/ContentManager/R6}VariablesDictionary" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -28,7 +29,8 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ProcessInstanceData", propOrder = {
-    "processDefinition"
+    "processDefinition",
+    "variables"
 })
 public class ProcessInstanceData
     extends ProcessData
@@ -36,6 +38,8 @@ public class ProcessInstanceData
 
     @XmlElement(name = "ProcessDefinition", nillable = true)
     protected LinkToProcessDefinitionData processDefinition;
+    @XmlElement(name = "Variables", nillable = true)
+    protected VariablesDictionary variables;
 
     /**
      * Gets the value of the processDefinition property.
@@ -59,6 +63,30 @@ public class ProcessInstanceData
      */
     public void setProcessDefinition(LinkToProcessDefinitionData value) {
         this.processDefinition = value;
+    }
+
+    /**
+     * Gets the value of the variables property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link VariablesDictionary }
+     *     
+     */
+    public VariablesDictionary getVariables() {
+        return variables;
+    }
+
+    /**
+     * Sets the value of the variables property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link VariablesDictionary }
+     *     
+     */
+    public void setVariables(VariablesDictionary value) {
+        this.variables = value;
     }
 
 }

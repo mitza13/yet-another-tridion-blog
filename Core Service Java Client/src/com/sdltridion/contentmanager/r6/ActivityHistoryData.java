@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="ActivityType" type="{http://www.sdltridion.com/ContentManager/R6}ActivityType" minOccurs="0"/>
  *         &lt;element name="ApprovalStatus" type="{http://www.sdltridion.com/ContentManager/R6}LinkToApprovalStatusData" minOccurs="0"/>
  *         &lt;element name="Description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="ActivityDefinitionTitle" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -32,7 +33,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "ActivityHistoryData", propOrder = {
     "activityType",
     "approvalStatus",
-    "description"
+    "description",
+    "activityDefinitionTitle"
 })
 public class ActivityHistoryData
     extends ActivityData
@@ -44,6 +46,8 @@ public class ActivityHistoryData
     protected LinkToApprovalStatusData approvalStatus;
     @XmlElement(name = "Description", nillable = true)
     protected String description;
+    @XmlElement(name = "ActivityDefinitionTitle", nillable = true)
+    protected String activityDefinitionTitle;
 
     /**
      * Gets the value of the activityType property.
@@ -115,6 +119,30 @@ public class ActivityHistoryData
      */
     public void setDescription(String value) {
         this.description = value;
+    }
+
+    /**
+     * Gets the value of the activityDefinitionTitle property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getActivityDefinitionTitle() {
+        return activityDefinitionTitle;
+    }
+
+    /**
+     * Sets the value of the activityDefinitionTitle property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setActivityDefinitionTitle(String value) {
+        this.activityDefinitionTitle = value;
     }
 
 }

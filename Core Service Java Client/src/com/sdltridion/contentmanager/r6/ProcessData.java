@@ -20,7 +20,9 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="Activities" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfActivityData" minOccurs="0"/>
  *         &lt;element name="HasSnapshots" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
- *         &lt;element name="Subjects" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfLinkToVersionedItemData" minOccurs="0"/>
+ *         &lt;element name="Subjects" type="{http://www.sdltridion.com/ContentManager/R6}ArrayOfLinkToIdentifiableObjectData" minOccurs="0"/>
+ *         &lt;element name="Creator" type="{http://www.sdltridion.com/ContentManager/R6}LinkToUserData" minOccurs="0"/>
+ *         &lt;element name="WorkflowType" type="{http://www.sdltridion.com/ContentManager/R6}LinkToWorkflowTypeData" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -33,7 +35,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "ProcessData", propOrder = {
     "activities",
     "hasSnapshots",
-    "subjects"
+    "subjects",
+    "creator",
+    "workflowType"
 })
 @XmlSeeAlso({
     ProcessHistoryData.class,
@@ -48,7 +52,11 @@ public class ProcessData
     @XmlElement(name = "HasSnapshots", nillable = true)
     protected Boolean hasSnapshots;
     @XmlElement(name = "Subjects", nillable = true)
-    protected ArrayOfLinkToVersionedItemData subjects;
+    protected ArrayOfLinkToIdentifiableObjectData subjects;
+    @XmlElement(name = "Creator", nillable = true)
+    protected LinkToUserData creator;
+    @XmlElement(name = "WorkflowType", nillable = true)
+    protected LinkToWorkflowTypeData workflowType;
 
     /**
      * Gets the value of the activities property.
@@ -103,10 +111,10 @@ public class ProcessData
      * 
      * @return
      *     possible object is
-     *     {@link ArrayOfLinkToVersionedItemData }
+     *     {@link ArrayOfLinkToIdentifiableObjectData }
      *     
      */
-    public ArrayOfLinkToVersionedItemData getSubjects() {
+    public ArrayOfLinkToIdentifiableObjectData getSubjects() {
         return subjects;
     }
 
@@ -115,11 +123,59 @@ public class ProcessData
      * 
      * @param value
      *     allowed object is
-     *     {@link ArrayOfLinkToVersionedItemData }
+     *     {@link ArrayOfLinkToIdentifiableObjectData }
      *     
      */
-    public void setSubjects(ArrayOfLinkToVersionedItemData value) {
+    public void setSubjects(ArrayOfLinkToIdentifiableObjectData value) {
         this.subjects = value;
+    }
+
+    /**
+     * Gets the value of the creator property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link LinkToUserData }
+     *     
+     */
+    public LinkToUserData getCreator() {
+        return creator;
+    }
+
+    /**
+     * Sets the value of the creator property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link LinkToUserData }
+     *     
+     */
+    public void setCreator(LinkToUserData value) {
+        this.creator = value;
+    }
+
+    /**
+     * Gets the value of the workflowType property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link LinkToWorkflowTypeData }
+     *     
+     */
+    public LinkToWorkflowTypeData getWorkflowType() {
+        return workflowType;
+    }
+
+    /**
+     * Sets the value of the workflowType property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link LinkToWorkflowTypeData }
+     *     
+     */
+    public void setWorkflowType(LinkToWorkflowTypeData value) {
+        this.workflowType = value;
     }
 
 }

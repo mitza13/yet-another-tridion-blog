@@ -27,10 +27,13 @@ import org.w3._2001.xmlschema.Adapter1;
  *         &lt;element name="CheckOutDate" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/>
  *         &lt;element name="CheckOutUser" type="{http://www.sdltridion.com/ContentManager/R6}LinkToUserData" minOccurs="0"/>
  *         &lt;element name="IsNew" type="{http://www.w3.org/2001/XMLSchema}boolean" minOccurs="0"/>
+ *         &lt;element name="LastVersion" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="LockType" type="{http://www.sdltridion.com/ContentManager/R6}LockType" minOccurs="0"/>
  *         &lt;element name="Revision" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
  *         &lt;element name="Revisor" type="{http://www.sdltridion.com/ContentManager/R6}LinkToUserData" minOccurs="0"/>
+ *         &lt;element name="SystemComment" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="Version" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/>
+ *         &lt;element name="UserComment" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/extension>
  *   &lt;/complexContent>
@@ -44,10 +47,13 @@ import org.w3._2001.xmlschema.Adapter1;
     "checkOutDate",
     "checkOutUser",
     "isNew",
+    "lastVersion",
     "lockType",
     "revision",
     "revisor",
-    "version"
+    "systemComment",
+    "version",
+    "userComment"
 })
 public class FullVersionInfo
     extends LimitedVersionInfo
@@ -61,6 +67,8 @@ public class FullVersionInfo
     protected LinkToUserData checkOutUser;
     @XmlElement(name = "IsNew", nillable = true)
     protected Boolean isNew;
+    @XmlElement(name = "LastVersion", nillable = true)
+    protected Integer lastVersion;
     @XmlList
     @XmlElement(name = "LockType", nillable = true)
     protected List<String> lockType;
@@ -68,8 +76,12 @@ public class FullVersionInfo
     protected Integer revision;
     @XmlElement(name = "Revisor", nillable = true)
     protected LinkToUserData revisor;
+    @XmlElement(name = "SystemComment", nillable = true)
+    protected String systemComment;
     @XmlElement(name = "Version", nillable = true)
     protected Integer version;
+    @XmlElement(name = "UserComment", nillable = true)
+    protected String userComment;
 
     /**
      * Gets the value of the checkOutDate property.
@@ -141,6 +153,30 @@ public class FullVersionInfo
      */
     public void setIsNew(Boolean value) {
         this.isNew = value;
+    }
+
+    /**
+     * Gets the value of the lastVersion property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getLastVersion() {
+        return lastVersion;
+    }
+
+    /**
+     * Sets the value of the lastVersion property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setLastVersion(Integer value) {
+        this.lastVersion = value;
     }
 
     /**
@@ -221,6 +257,30 @@ public class FullVersionInfo
     }
 
     /**
+     * Gets the value of the systemComment property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSystemComment() {
+        return systemComment;
+    }
+
+    /**
+     * Sets the value of the systemComment property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSystemComment(String value) {
+        this.systemComment = value;
+    }
+
+    /**
      * Gets the value of the version property.
      * 
      * @return
@@ -242,6 +302,30 @@ public class FullVersionInfo
      */
     public void setVersion(Integer value) {
         this.version = value;
+    }
+
+    /**
+     * Gets the value of the userComment property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getUserComment() {
+        return userComment;
+    }
+
+    /**
+     * Sets the value of the userComment property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setUserComment(String value) {
+        this.userComment = value;
     }
 
 }

@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="Protocol"/>
  *     &lt;enumeration value="VirtualFolderType"/>
  *     &lt;enumeration value="TemplateParameters"/>
+ *     &lt;enumeration value="Bundle"/>
  *     &lt;enumeration value="UnknownByClient"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
@@ -45,6 +46,8 @@ public enum SchemaPurpose {
     VIRTUAL_FOLDER_TYPE("VirtualFolderType"),
     @XmlEnumValue("TemplateParameters")
     TEMPLATE_PARAMETERS("TemplateParameters"),
+    @XmlEnumValue("Bundle")
+    BUNDLE("Bundle"),
     @XmlEnumValue("UnknownByClient")
     UNKNOWN_BY_CLIENT("UnknownByClient");
     private final String value;

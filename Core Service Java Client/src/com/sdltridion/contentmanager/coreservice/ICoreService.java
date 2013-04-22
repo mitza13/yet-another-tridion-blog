@@ -1,6 +1,7 @@
 
 package com.sdltridion.contentmanager.coreservice;
 
+import java.util.Date;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -15,6 +16,7 @@ import com.sdltridion.contentmanager.r6.ActivityInstanceData;
 import com.sdltridion.contentmanager.r6.ApplicationData;
 import com.sdltridion.contentmanager.r6.ApplicationDataDictionary;
 import com.sdltridion.contentmanager.r6.ArrayOfApplicationData;
+import com.sdltridion.contentmanager.r6.ArrayOfBundleTypeData;
 import com.sdltridion.contentmanager.r6.ArrayOfIdentifiableObjectData;
 import com.sdltridion.contentmanager.r6.ArrayOfPublicationType;
 import com.sdltridion.contentmanager.r6.ArrayOfPublishContextData;
@@ -24,14 +26,28 @@ import com.sdltridion.contentmanager.r6.ArrayOfQueueData;
 import com.sdltridion.contentmanager.r6.ArrayOfQueueMessageData;
 import com.sdltridion.contentmanager.r6.ArrayOfTcmUri;
 import com.sdltridion.contentmanager.r6.ArrayOfTemplateType;
+import com.sdltridion.contentmanager.r6.ArrayOfTridionEnumValue;
+import com.sdltridion.contentmanager.r6.ArrayOfTridionLanguageInfo;
+import com.sdltridion.contentmanager.r6.ArrayOfWorkItemData;
+import com.sdltridion.contentmanager.r6.ArrayOfWorkflowScriptType;
 import com.sdltridion.contentmanager.r6.ClassificationInfoData;
 import com.sdltridion.contentmanager.r6.DeleteTaxonomyNodeMode;
 import com.sdltridion.contentmanager.r6.IdentifiableObjectData;
 import com.sdltridion.contentmanager.r6.InstanceData;
 import com.sdltridion.contentmanager.r6.ItemType;
+import com.sdltridion.contentmanager.r6.KeywordData;
+import com.sdltridion.contentmanager.r6.OrganizationalItemData;
+import com.sdltridion.contentmanager.r6.PredefinedBatchOperation;
+import com.sdltridion.contentmanager.r6.PredefinedQueue;
+import com.sdltridion.contentmanager.r6.ProcessDefinitionAssociationDictionary;
+import com.sdltridion.contentmanager.r6.ProcessDefinitionType;
 import com.sdltridion.contentmanager.r6.ProcessHistoryData;
+import com.sdltridion.contentmanager.r6.ProcessInstanceData;
 import com.sdltridion.contentmanager.r6.PublishInstructionData;
 import com.sdltridion.contentmanager.r6.PublishPriority;
+import com.sdltridion.contentmanager.r6.PublishTransactionData;
+import com.sdltridion.contentmanager.r6.PurgeOldVersionsInstructionData;
+import com.sdltridion.contentmanager.r6.QueueMessagePriority;
 import com.sdltridion.contentmanager.r6.ReadOptions;
 import com.sdltridion.contentmanager.r6.RenderedItemData;
 import com.sdltridion.contentmanager.r6.RepositoryLocalObjectData;
@@ -40,8 +56,10 @@ import com.sdltridion.contentmanager.r6.SchemaData;
 import com.sdltridion.contentmanager.r6.SchemaFieldsData;
 import com.sdltridion.contentmanager.r6.SearchQueryData;
 import com.sdltridion.contentmanager.r6.SecurityDescriptorDataDictionary;
+import com.sdltridion.contentmanager.r6.StartWorkflowInstructionData;
 import com.sdltridion.contentmanager.r6.SubjectRelatedListFilterData;
 import com.sdltridion.contentmanager.r6.SystemWideListFilterData;
+import com.sdltridion.contentmanager.r6.TemplateData;
 import com.sdltridion.contentmanager.r6.UnPublishInstructionData;
 import com.sdltridion.contentmanager.r6.UserData;
 import com.sdltridion.contentmanager.r6.VersionedItemData;
@@ -56,16 +74,322 @@ import com.sdltridion.security.DirectoryUsersFilter;
  * Generated source version: 2.1
  * 
  */
-@WebService(name = "ICoreService", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+@WebService(name = "ICoreService", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
 @XmlSeeAlso({
-    com.microsoft.schemas._2003._10.serialization.ObjectFactory.class,
-    com.sdltridion.contentmanager.r6.ObjectFactory.class,
-    com.sdltridion.contentmanager.coreservice._2011.ObjectFactory.class,
     com.sdltridion.security.ObjectFactory.class,
-    com.microsoft.schemas._2003._10.serialization.arrays.ObjectFactory.class
+    com.sdltridion.contentmanager.coreservice._2012.ObjectFactory.class,
+    com.microsoft.schemas._2003._10.serialization.arrays.ObjectFactory.class,
+    com.sdltridion.contentmanager.r6.ObjectFactory.class,
+    com.microsoft.schemas._2003._10.serialization.ObjectFactory.class
 })
 public interface ICoreService {
 
+
+    /**
+     * 
+     * @param itemIds
+     * @param pruneTree
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.ArrayOfBundleTypeData
+     * @throws ICoreServiceResolveBundleTypesCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "ResolveBundleTypes", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/ResolveBundleTypes")
+    @WebResult(name = "ResolveBundleTypesResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "ResolveBundleTypes", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ResolveBundleTypes")
+    @ResponseWrapper(localName = "ResolveBundleTypesResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ResolveBundleTypesResponse")
+    public ArrayOfBundleTypeData resolveBundleTypes(
+        @WebParam(name = "itemIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ArrayOfstring itemIds,
+        @WebParam(name = "pruneTree", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        Boolean pruneTree)
+        throws ICoreServiceResolveBundleTypesCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param readBackOptions
+     * @param sourceKeywordId
+     * @param destinationId
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.KeywordData
+     * @throws ICoreServiceCopyToKeywordCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "CopyToKeyword", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/CopyToKeyword")
+    @WebResult(name = "CopyToKeywordResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "CopyToKeyword", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.CopyToKeyword")
+    @ResponseWrapper(localName = "CopyToKeywordResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.CopyToKeywordResponse")
+    public KeywordData copyToKeyword(
+        @WebParam(name = "sourceKeywordId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String sourceKeywordId,
+        @WebParam(name = "destinationId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String destinationId,
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ReadOptions readBackOptions)
+        throws ICoreServiceCopyToKeywordCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param readBackOptions
+     * @param sourceKeywordId
+     * @param destinationId
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.KeywordData
+     * @throws ICoreServiceMoveToKeywordCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "MoveToKeyword", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/MoveToKeyword")
+    @WebResult(name = "MoveToKeywordResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "MoveToKeyword", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.MoveToKeyword")
+    @ResponseWrapper(localName = "MoveToKeywordResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.MoveToKeywordResponse")
+    public KeywordData moveToKeyword(
+        @WebParam(name = "sourceKeywordId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String sourceKeywordId,
+        @WebParam(name = "destinationId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String destinationId,
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ReadOptions readBackOptions)
+        throws ICoreServiceMoveToKeywordCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.ArrayOfTridionLanguageInfo
+     * @throws ICoreServiceGetTridionLanguagesCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "GetTridionLanguages", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetTridionLanguages")
+    @WebResult(name = "GetTridionLanguagesResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetTridionLanguages", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetTridionLanguages")
+    @ResponseWrapper(localName = "GetTridionLanguagesResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetTridionLanguagesResponse")
+    public ArrayOfTridionLanguageInfo getTridionLanguages()
+        throws ICoreServiceGetTridionLanguagesCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.ArrayOfWorkflowScriptType
+     * @throws ICoreServiceGetListWorkflowScriptTypesCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "GetListWorkflowScriptTypes", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetListWorkflowScriptTypes")
+    @WebResult(name = "GetListWorkflowScriptTypesResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetListWorkflowScriptTypes", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListWorkflowScriptTypes")
+    @ResponseWrapper(localName = "GetListWorkflowScriptTypesResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListWorkflowScriptTypesResponse")
+    public ArrayOfWorkflowScriptType getListWorkflowScriptTypes()
+        throws ICoreServiceGetListWorkflowScriptTypesCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param readBackOptions
+     * @param subjectIds
+     * @param activityInstanceId
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.ArrayOfWorkItemData
+     * @throws ICoreServiceAddToWorkflowCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "AddToWorkflow", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/AddToWorkflow")
+    @WebResult(name = "AddToWorkflowResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "AddToWorkflow", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.AddToWorkflow")
+    @ResponseWrapper(localName = "AddToWorkflowResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.AddToWorkflowResponse")
+    public ArrayOfWorkItemData addToWorkflow(
+        @WebParam(name = "subjectIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ArrayOfstring subjectIds,
+        @WebParam(name = "activityInstanceId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String activityInstanceId,
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ReadOptions readBackOptions)
+        throws ICoreServiceAddToWorkflowCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param readBackOptions
+     * @param subjectIds
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.ArrayOfWorkItemData
+     * @throws ICoreServiceRemoveFromWorkflowCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "RemoveFromWorkflow", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/RemoveFromWorkflow")
+    @WebResult(name = "RemoveFromWorkflowResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "RemoveFromWorkflow", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.RemoveFromWorkflow")
+    @ResponseWrapper(localName = "RemoveFromWorkflowResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.RemoveFromWorkflowResponse")
+    public ArrayOfWorkItemData removeFromWorkflow(
+        @WebParam(name = "subjectIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ArrayOfstring subjectIds,
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ReadOptions readBackOptions)
+        throws ICoreServiceRemoveFromWorkflowCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param readBackOptions
+     * @param organizationalItemId
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.OrganizationalItemData
+     * @throws ICoreServiceLockCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "Lock", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/Lock")
+    @WebResult(name = "LockResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "Lock", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.Lock")
+    @ResponseWrapper(localName = "LockResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.LockResponse")
+    public OrganizationalItemData lock(
+        @WebParam(name = "organizationalItemId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String organizationalItemId,
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ReadOptions readBackOptions)
+        throws ICoreServiceLockCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param readBackOptions
+     * @param organizationalItemId
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.OrganizationalItemData
+     * @throws ICoreServiceUnlockCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "Unlock", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/Unlock")
+    @WebResult(name = "UnlockResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "Unlock", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.Unlock")
+    @ResponseWrapper(localName = "UnlockResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.UnlockResponse")
+    public OrganizationalItemData unlock(
+        @WebParam(name = "organizationalItemId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String organizationalItemId,
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ReadOptions readBackOptions)
+        throws ICoreServiceUnlockCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param readBackOptions
+     * @param instruction
+     * @param repositoryId
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.ProcessInstanceData
+     * @throws ICoreServiceStartWorkflowCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "StartWorkflow", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/StartWorkflow")
+    @WebResult(name = "StartWorkflowResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "StartWorkflow", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.StartWorkflow")
+    @ResponseWrapper(localName = "StartWorkflowResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.StartWorkflowResponse")
+    public ProcessInstanceData startWorkflow(
+        @WebParam(name = "repositoryId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String repositoryId,
+        @WebParam(name = "instruction", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        StartWorkflowInstructionData instruction,
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ReadOptions readBackOptions)
+        throws ICoreServiceStartWorkflowCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param publishTransactionId
+     * @param readBackOptions
+     * @param priority
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.PublishTransactionData
+     * @throws ICoreServiceUndoPublishTransactionCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "UndoPublishTransaction", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/UndoPublishTransaction")
+    @WebResult(name = "UndoPublishTransactionResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "UndoPublishTransaction", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.UndoPublishTransaction")
+    @ResponseWrapper(localName = "UndoPublishTransactionResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.UndoPublishTransactionResponse")
+    public PublishTransactionData undoPublishTransaction(
+        @WebParam(name = "publishTransactionId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String publishTransactionId,
+        @WebParam(name = "priority", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        QueueMessagePriority priority,
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ReadOptions readBackOptions)
+        throws ICoreServiceUndoPublishTransactionCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param processDefinitionType
+     * @param itemIds
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.ProcessDefinitionAssociationDictionary
+     * @throws ICoreServiceGetProcessDefinitionsForItemsCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "GetProcessDefinitionsForItems", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetProcessDefinitionsForItems")
+    @WebResult(name = "GetProcessDefinitionsForItemsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetProcessDefinitionsForItems", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetProcessDefinitionsForItems")
+    @ResponseWrapper(localName = "GetProcessDefinitionsForItemsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetProcessDefinitionsForItemsResponse")
+    public ProcessDefinitionAssociationDictionary getProcessDefinitionsForItems(
+        @WebParam(name = "itemIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ArrayOfstring itemIds,
+        @WebParam(name = "processDefinitionType", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ProcessDefinitionType processDefinitionType)
+        throws ICoreServiceGetProcessDefinitionsForItemsCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param filename
+     * @return
+     *     returns java.lang.String
+     * @throws ICoreServiceGetSystemXsdCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "GetSystemXsd", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetSystemXsd")
+    @WebResult(name = "GetSystemXsdResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetSystemXsd", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSystemXsd")
+    @ResponseWrapper(localName = "GetSystemXsdResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSystemXsdResponse")
+    public String getSystemXsd(
+        @WebParam(name = "filename", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String filename)
+        throws ICoreServiceGetSystemXsdCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param readBackOptions
+     * @param newAssigneeId
+     * @param activityInstanceId
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.ActivityInstanceData
+     * @throws ICoreServiceReAssignActivityCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "ReAssignActivity", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/ReAssignActivity")
+    @WebResult(name = "ReAssignActivityResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "ReAssignActivity", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ReAssignActivity")
+    @ResponseWrapper(localName = "ReAssignActivityResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ReAssignActivityResponse")
+    public ActivityInstanceData reAssignActivity(
+        @WebParam(name = "activityInstanceId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String activityInstanceId,
+        @WebParam(name = "newAssigneeId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String newAssigneeId,
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ReadOptions readBackOptions)
+        throws ICoreServiceReAssignActivityCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param readOptions
+     * @param activityInstanceId
+     * @param activityFinishData
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.ActivityInstanceData
+     * @throws ICoreServiceFinishActivityCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "FinishActivity", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/FinishActivity")
+    @WebResult(name = "FinishActivityResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "FinishActivity", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.FinishActivity")
+    @ResponseWrapper(localName = "FinishActivityResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.FinishActivityResponse")
+    public ActivityInstanceData finishActivity(
+        @WebParam(name = "activityInstanceId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String activityInstanceId,
+        @WebParam(name = "activityFinishData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ActivityFinishData activityFinishData,
+        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ReadOptions readOptions)
+        throws ICoreServiceFinishActivityCoreServiceFaultFaultFaultMessage
+    ;
 
     /**
      * 
@@ -76,18 +400,38 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ProcessHistoryData
      * @throws ICoreServiceForceFinishProcessCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "ForceFinishProcess", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/ForceFinishProcess")
-    @WebResult(name = "ForceFinishProcessResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "ForceFinishProcess", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ForceFinishProcess")
-    @ResponseWrapper(localName = "ForceFinishProcessResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ForceFinishProcessResponse")
+    @WebMethod(operationName = "ForceFinishProcess", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/ForceFinishProcess")
+    @WebResult(name = "ForceFinishProcessResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "ForceFinishProcess", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ForceFinishProcess")
+    @ResponseWrapper(localName = "ForceFinishProcessResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ForceFinishProcessResponse")
     public ProcessHistoryData forceFinishProcess(
-        @WebParam(name = "processInstanceId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "processInstanceId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String processInstanceId,
-        @WebParam(name = "approvalStatusId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "approvalStatusId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String approvalStatusId,
-        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readOptions)
         throws ICoreServiceForceFinishProcessCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param readOptions
+     * @param activityInstanceId
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.ActivityInstanceData
+     * @throws ICoreServiceResumeActivityCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "ResumeActivity", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/ResumeActivity")
+    @WebResult(name = "ResumeActivityResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "ResumeActivity", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ResumeActivity")
+    @ResponseWrapper(localName = "ResumeActivityResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ResumeActivityResponse")
+    public ActivityInstanceData resumeActivity(
+        @WebParam(name = "activityInstanceId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String activityInstanceId,
+        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ReadOptions readOptions)
+        throws ICoreServiceResumeActivityCoreServiceFaultFaultFaultMessage
     ;
 
     /**
@@ -97,14 +441,28 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ArrayOfQueueMessageData
      * @throws ICoreServiceGetListQueueMessagesCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetListQueueMessages", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetListQueueMessages")
-    @WebResult(name = "GetListQueueMessagesResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetListQueueMessages", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListQueueMessages")
-    @ResponseWrapper(localName = "GetListQueueMessagesResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListQueueMessagesResponse")
+    @WebMethod(operationName = "GetListQueueMessages", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetListQueueMessages")
+    @WebResult(name = "GetListQueueMessagesResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetListQueueMessages", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListQueueMessages")
+    @ResponseWrapper(localName = "GetListQueueMessagesResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListQueueMessagesResponse")
     public ArrayOfQueueMessageData getListQueueMessages(
-        @WebParam(name = "queueId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "queueId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         Integer queueId)
         throws ICoreServiceGetListQueueMessagesCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param queueId
+     * @throws ICoreServicePurgeQueueCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "PurgeQueue", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/PurgeQueue")
+    @RequestWrapper(localName = "PurgeQueue", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.PurgeQueue")
+    @ResponseWrapper(localName = "PurgeQueueResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.PurgeQueueResponse")
+    public void purgeQueue(
+        @WebParam(name = "queueId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        Integer queueId)
+        throws ICoreServicePurgeQueueCoreServiceFaultFaultFaultMessage
     ;
 
     /**
@@ -113,10 +471,10 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ArrayOfQueueData
      * @throws ICoreServiceGetListQueuesCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetListQueues", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetListQueues")
-    @WebResult(name = "GetListQueuesResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetListQueues", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListQueues")
-    @ResponseWrapper(localName = "GetListQueuesResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListQueuesResponse")
+    @WebMethod(operationName = "GetListQueues", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetListQueues")
+    @WebResult(name = "GetListQueuesResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetListQueues", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListQueues")
+    @ResponseWrapper(localName = "GetListQueuesResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListQueuesResponse")
     public ArrayOfQueueData getListQueues()
         throws ICoreServiceGetListQueuesCoreServiceFaultFaultFaultMessage
     ;
@@ -129,14 +487,14 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ApplicationData
      * @throws ICoreServiceReadApplicationDataCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "ReadApplicationData", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/ReadApplicationData")
-    @WebResult(name = "ReadApplicationDataResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "ReadApplicationData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ReadApplicationData")
-    @ResponseWrapper(localName = "ReadApplicationDataResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ReadApplicationDataResponse")
+    @WebMethod(operationName = "ReadApplicationData", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/ReadApplicationData")
+    @WebResult(name = "ReadApplicationDataResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "ReadApplicationData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ReadApplicationData")
+    @ResponseWrapper(localName = "ReadApplicationDataResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ReadApplicationDataResponse")
     public ApplicationData readApplicationData(
-        @WebParam(name = "subjectId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "subjectId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String subjectId,
-        @WebParam(name = "applicationId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "applicationId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String applicationId)
         throws ICoreServiceReadApplicationDataCoreServiceFaultFaultFaultMessage
     ;
@@ -148,12 +506,12 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ArrayOfApplicationData
      * @throws ICoreServiceReadAllApplicationDataCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "ReadAllApplicationData", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/ReadAllApplicationData")
-    @WebResult(name = "ReadAllApplicationDataResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "ReadAllApplicationData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ReadAllApplicationData")
-    @ResponseWrapper(localName = "ReadAllApplicationDataResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ReadAllApplicationDataResponse")
+    @WebMethod(operationName = "ReadAllApplicationData", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/ReadAllApplicationData")
+    @WebResult(name = "ReadAllApplicationDataResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "ReadAllApplicationData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ReadAllApplicationData")
+    @ResponseWrapper(localName = "ReadAllApplicationDataResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ReadAllApplicationDataResponse")
     public ArrayOfApplicationData readAllApplicationData(
-        @WebParam(name = "subjectId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "subjectId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String subjectId)
         throws ICoreServiceReadAllApplicationDataCoreServiceFaultFaultFaultMessage
     ;
@@ -164,13 +522,13 @@ public interface ICoreService {
      * @param subjectId
      * @throws ICoreServiceSaveApplicationDataCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "SaveApplicationData", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/SaveApplicationData")
-    @RequestWrapper(localName = "SaveApplicationData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.SaveApplicationData")
-    @ResponseWrapper(localName = "SaveApplicationDataResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.SaveApplicationDataResponse")
+    @WebMethod(operationName = "SaveApplicationData", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/SaveApplicationData")
+    @RequestWrapper(localName = "SaveApplicationData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.SaveApplicationData")
+    @ResponseWrapper(localName = "SaveApplicationDataResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.SaveApplicationDataResponse")
     public void saveApplicationData(
-        @WebParam(name = "subjectId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "subjectId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String subjectId,
-        @WebParam(name = "applicationData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "applicationData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ArrayOfApplicationData applicationData)
         throws ICoreServiceSaveApplicationDataCoreServiceFaultFaultFaultMessage
     ;
@@ -181,13 +539,13 @@ public interface ICoreService {
      * @param applicationId
      * @throws ICoreServiceDeleteApplicationDataCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "DeleteApplicationData", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/DeleteApplicationData")
-    @RequestWrapper(localName = "DeleteApplicationData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.DeleteApplicationData")
-    @ResponseWrapper(localName = "DeleteApplicationDataResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.DeleteApplicationDataResponse")
+    @WebMethod(operationName = "DeleteApplicationData", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/DeleteApplicationData")
+    @RequestWrapper(localName = "DeleteApplicationData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.DeleteApplicationData")
+    @ResponseWrapper(localName = "DeleteApplicationDataResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.DeleteApplicationDataResponse")
     public void deleteApplicationData(
-        @WebParam(name = "subjectId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "subjectId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String subjectId,
-        @WebParam(name = "applicationId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "applicationId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String applicationId)
         throws ICoreServiceDeleteApplicationDataCoreServiceFaultFaultFaultMessage
     ;
@@ -198,10 +556,10 @@ public interface ICoreService {
      *     returns com.microsoft.schemas._2003._10.serialization.arrays.ArrayOfstring
      * @throws ICoreServiceGetApplicationIdsCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetApplicationIds", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetApplicationIds")
-    @WebResult(name = "GetApplicationIdsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetApplicationIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetApplicationIds")
-    @ResponseWrapper(localName = "GetApplicationIdsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetApplicationIdsResponse")
+    @WebMethod(operationName = "GetApplicationIds", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetApplicationIds")
+    @WebResult(name = "GetApplicationIdsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetApplicationIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetApplicationIds")
+    @ResponseWrapper(localName = "GetApplicationIdsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetApplicationIdsResponse")
     public ArrayOfstring getApplicationIds()
         throws ICoreServiceGetApplicationIdsCoreServiceFaultFaultFaultMessage
     ;
@@ -211,13 +569,47 @@ public interface ICoreService {
      * @param applicationId
      * @throws ICoreServicePurgeApplicationDataCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "PurgeApplicationData", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/PurgeApplicationData")
-    @RequestWrapper(localName = "PurgeApplicationData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.PurgeApplicationData")
-    @ResponseWrapper(localName = "PurgeApplicationDataResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.PurgeApplicationDataResponse")
+    @WebMethod(operationName = "PurgeApplicationData", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/PurgeApplicationData")
+    @RequestWrapper(localName = "PurgeApplicationData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.PurgeApplicationData")
+    @ResponseWrapper(localName = "PurgeApplicationDataResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.PurgeApplicationDataResponse")
     public void purgeApplicationData(
-        @WebParam(name = "applicationId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "applicationId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String applicationId)
         throws ICoreServicePurgeApplicationDataCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param operation
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.PredefinedBatchOperation
+     * @throws ICoreServiceParsePredefinedBatchOperationCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "ParsePredefinedBatchOperation", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/ParsePredefinedBatchOperation")
+    @WebResult(name = "ParsePredefinedBatchOperationResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "ParsePredefinedBatchOperation", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ParsePredefinedBatchOperation")
+    @ResponseWrapper(localName = "ParsePredefinedBatchOperationResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ParsePredefinedBatchOperationResponse")
+    public PredefinedBatchOperation parsePredefinedBatchOperation(
+        @WebParam(name = "operation", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String operation)
+        throws ICoreServiceParsePredefinedBatchOperationCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param operation
+     * @return
+     *     returns java.lang.String
+     * @throws ICoreServiceGetPredefinedBatchOperationNameCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "GetPredefinedBatchOperationName", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetPredefinedBatchOperationName")
+    @WebResult(name = "GetPredefinedBatchOperationNameResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetPredefinedBatchOperationName", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetPredefinedBatchOperationName")
+    @ResponseWrapper(localName = "GetPredefinedBatchOperationNameResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetPredefinedBatchOperationNameResponse")
+    public String getPredefinedBatchOperationName(
+        @WebParam(name = "operation", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        PredefinedBatchOperation operation)
+        throws ICoreServiceGetPredefinedBatchOperationNameCoreServiceFaultFaultFaultMessage
     ;
 
     /**
@@ -230,18 +622,18 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ArrayOfPublishContextData
      * @throws ICoreServiceResolveItemsCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "ResolveItems", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/ResolveItems")
-    @WebResult(name = "ResolveItemsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "ResolveItems", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ResolveItems")
-    @ResponseWrapper(localName = "ResolveItemsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ResolveItemsResponse")
+    @WebMethod(operationName = "ResolveItems", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/ResolveItems")
+    @WebResult(name = "ResolveItemsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "ResolveItems", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ResolveItems")
+    @ResponseWrapper(localName = "ResolveItemsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ResolveItemsResponse")
     public ArrayOfPublishContextData resolveItems(
-        @WebParam(name = "ids", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "ids", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ArrayOfstring ids,
-        @WebParam(name = "resolveInstruction", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "resolveInstruction", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ResolveInstructionData resolveInstruction,
-        @WebParam(name = "targets", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "targets", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ArrayOfstring targets,
-        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readOptions)
         throws ICoreServiceResolveItemsCoreServiceFaultFaultFaultMessage
     ;
@@ -250,15 +642,15 @@ public interface ICoreService {
      * 
      * @param filter
      * @return
-     *     returns com.sdltridion.contentmanager.coreservice._2011.GetSearchResultsXmlResponse.GetSearchResultsXmlResult
+     *     returns com.sdltridion.contentmanager.coreservice._2012.GetSearchResultsXmlResponse.GetSearchResultsXmlResult
      * @throws ICoreServiceGetSearchResultsXmlCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetSearchResultsXml", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetSearchResultsXml")
-    @WebResult(name = "GetSearchResultsXmlResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetSearchResultsXml", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetSearchResultsXml")
-    @ResponseWrapper(localName = "GetSearchResultsXmlResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetSearchResultsXmlResponse")
-    public com.sdltridion.contentmanager.coreservice._2011.GetSearchResultsXmlResponse.GetSearchResultsXmlResult getSearchResultsXml(
-        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+    @WebMethod(operationName = "GetSearchResultsXml", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetSearchResultsXml")
+    @WebResult(name = "GetSearchResultsXmlResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetSearchResultsXml", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSearchResultsXml")
+    @ResponseWrapper(localName = "GetSearchResultsXmlResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSearchResultsXmlResponse")
+    public com.sdltridion.contentmanager.coreservice._2012.GetSearchResultsXmlResponse.GetSearchResultsXmlResult getSearchResultsXml(
+        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         SearchQueryData filter)
         throws ICoreServiceGetSearchResultsXmlCoreServiceFaultFaultFaultMessage
     ;
@@ -269,19 +661,19 @@ public interface ICoreService {
      * @param maxRows
      * @param filter
      * @return
-     *     returns com.sdltridion.contentmanager.coreservice._2011.GetSearchResultsXmlPagedResponse.GetSearchResultsXmlPagedResult
+     *     returns com.sdltridion.contentmanager.coreservice._2012.GetSearchResultsXmlPagedResponse.GetSearchResultsXmlPagedResult
      * @throws ICoreServiceGetSearchResultsXmlPagedCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetSearchResultsXmlPaged", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetSearchResultsXmlPaged")
-    @WebResult(name = "GetSearchResultsXmlPagedResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetSearchResultsXmlPaged", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetSearchResultsXmlPaged")
-    @ResponseWrapper(localName = "GetSearchResultsXmlPagedResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetSearchResultsXmlPagedResponse")
-    public com.sdltridion.contentmanager.coreservice._2011.GetSearchResultsXmlPagedResponse.GetSearchResultsXmlPagedResult getSearchResultsXmlPaged(
-        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+    @WebMethod(operationName = "GetSearchResultsXmlPaged", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetSearchResultsXmlPaged")
+    @WebResult(name = "GetSearchResultsXmlPagedResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetSearchResultsXmlPaged", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSearchResultsXmlPaged")
+    @ResponseWrapper(localName = "GetSearchResultsXmlPagedResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSearchResultsXmlPagedResponse")
+    public com.sdltridion.contentmanager.coreservice._2012.GetSearchResultsXmlPagedResponse.GetSearchResultsXmlPagedResult getSearchResultsXmlPaged(
+        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         SearchQueryData filter,
-        @WebParam(name = "startRowIndex", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "startRowIndex", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         Integer startRowIndex,
-        @WebParam(name = "maxRows", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "maxRows", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         Integer maxRows)
         throws ICoreServiceGetSearchResultsXmlPagedCoreServiceFaultFaultFaultMessage
     ;
@@ -293,12 +685,12 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ArrayOfIdentifiableObjectData
      * @throws ICoreServiceGetSearchResultsCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetSearchResults", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetSearchResults")
-    @WebResult(name = "GetSearchResultsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetSearchResults", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetSearchResults")
-    @ResponseWrapper(localName = "GetSearchResultsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetSearchResultsResponse")
+    @WebMethod(operationName = "GetSearchResults", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetSearchResults")
+    @WebResult(name = "GetSearchResultsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetSearchResults", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSearchResults")
+    @ResponseWrapper(localName = "GetSearchResultsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSearchResultsResponse")
     public ArrayOfIdentifiableObjectData getSearchResults(
-        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         SearchQueryData filter)
         throws ICoreServiceGetSearchResultsCoreServiceFaultFaultFaultMessage
     ;
@@ -312,16 +704,16 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ArrayOfIdentifiableObjectData
      * @throws ICoreServiceGetSearchResultsPagedCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetSearchResultsPaged", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetSearchResultsPaged")
-    @WebResult(name = "GetSearchResultsPagedResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetSearchResultsPaged", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetSearchResultsPaged")
-    @ResponseWrapper(localName = "GetSearchResultsPagedResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetSearchResultsPagedResponse")
+    @WebMethod(operationName = "GetSearchResultsPaged", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetSearchResultsPaged")
+    @WebResult(name = "GetSearchResultsPagedResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetSearchResultsPaged", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSearchResultsPaged")
+    @ResponseWrapper(localName = "GetSearchResultsPagedResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSearchResultsPagedResponse")
     public ArrayOfIdentifiableObjectData getSearchResultsPaged(
-        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         SearchQueryData filter,
-        @WebParam(name = "startRowIndex", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "startRowIndex", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         Integer startRowIndex,
-        @WebParam(name = "maxRows", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "maxRows", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         Integer maxRows)
         throws ICoreServiceGetSearchResultsPagedCoreServiceFaultFaultFaultMessage
     ;
@@ -336,20 +728,46 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.RenderedItemData
      * @throws ICoreServiceRenderItemCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "RenderItem", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/RenderItem")
-    @WebResult(name = "RenderItemResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "RenderItem", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.RenderItem")
-    @ResponseWrapper(localName = "RenderItemResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.RenderItemResponse")
+    @WebMethod(operationName = "RenderItem", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/RenderItem")
+    @WebResult(name = "RenderItemResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "RenderItem", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.RenderItem")
+    @ResponseWrapper(localName = "RenderItemResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.RenderItemResponse")
     public RenderedItemData renderItem(
-        @WebParam(name = "itemId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "itemId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String itemId,
-        @WebParam(name = "templateId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "templateId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String templateId,
-        @WebParam(name = "publishInstruction", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "publishInstruction", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         PublishInstructionData publishInstruction,
-        @WebParam(name = "publicationTargetId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "publicationTargetId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String publicationTargetId)
         throws ICoreServiceRenderItemCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param itemData
+     * @param templateData
+     * @param publicationTargetId
+     * @param publishInstruction
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.RenderedItemData
+     * @throws ICoreServicePreviewItemCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "PreviewItem", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/PreviewItem")
+    @WebResult(name = "PreviewItemResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "PreviewItem", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.PreviewItem")
+    @ResponseWrapper(localName = "PreviewItemResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.PreviewItemResponse")
+    public RenderedItemData previewItem(
+        @WebParam(name = "itemData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        RepositoryLocalObjectData itemData,
+        @WebParam(name = "templateData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        TemplateData templateData,
+        @WebParam(name = "publishInstruction", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        PublishInstructionData publishInstruction,
+        @WebParam(name = "publicationTargetId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String publicationTargetId)
+        throws ICoreServicePreviewItemCoreServiceFaultFaultFaultMessage
     ;
 
     /**
@@ -363,20 +781,20 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ArrayOfPublishTransactionData
      * @throws ICoreServicePublishCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "Publish", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/Publish")
-    @WebResult(name = "PublishResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "Publish", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.Publish")
-    @ResponseWrapper(localName = "PublishResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.PublishResponse")
+    @WebMethod(operationName = "Publish", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/Publish")
+    @WebResult(name = "PublishResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "Publish", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.Publish")
+    @ResponseWrapper(localName = "PublishResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.PublishResponse")
     public ArrayOfPublishTransactionData publish(
-        @WebParam(name = "ids", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "ids", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ArrayOfstring ids,
-        @WebParam(name = "publishInstruction", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "publishInstruction", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         PublishInstructionData publishInstruction,
-        @WebParam(name = "targets", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "targets", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ArrayOfstring targets,
-        @WebParam(name = "priority", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "priority", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         PublishPriority priority,
-        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readOptions)
         throws ICoreServicePublishCoreServiceFaultFaultFaultMessage
     ;
@@ -392,20 +810,20 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ArrayOfPublishTransactionData
      * @throws ICoreServiceUnPublishCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "UnPublish", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/UnPublish")
-    @WebResult(name = "UnPublishResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "UnPublish", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.UnPublish")
-    @ResponseWrapper(localName = "UnPublishResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.UnPublishResponse")
+    @WebMethod(operationName = "UnPublish", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/UnPublish")
+    @WebResult(name = "UnPublishResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "UnPublish", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.UnPublish")
+    @ResponseWrapper(localName = "UnPublishResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.UnPublishResponse")
     public ArrayOfPublishTransactionData unPublish(
-        @WebParam(name = "ids", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "ids", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ArrayOfstring ids,
-        @WebParam(name = "unPublishInstruction", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "unPublishInstruction", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         UnPublishInstructionData unPublishInstruction,
-        @WebParam(name = "targets", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "targets", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ArrayOfstring targets,
-        @WebParam(name = "priority", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "priority", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         PublishPriority priority,
-        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readOptions)
         throws ICoreServiceUnPublishCoreServiceFaultFaultFaultMessage
     ;
@@ -419,16 +837,16 @@ public interface ICoreService {
      *     returns java.lang.Boolean
      * @throws ICoreServiceIsPublishedCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "IsPublished", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/IsPublished")
-    @WebResult(name = "IsPublishedResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "IsPublished", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.IsPublished")
-    @ResponseWrapper(localName = "IsPublishedResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.IsPublishedResponse")
+    @WebMethod(operationName = "IsPublished", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/IsPublished")
+    @WebResult(name = "IsPublishedResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "IsPublished", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.IsPublished")
+    @ResponseWrapper(localName = "IsPublishedResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.IsPublishedResponse")
     public Boolean isPublished(
-        @WebParam(name = "itemId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "itemId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String itemId,
-        @WebParam(name = "publicationTargetId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "publicationTargetId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String publicationTargetId,
-        @WebParam(name = "isPublishedInContext", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "isPublishedInContext", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         Boolean isPublishedInContext)
         throws ICoreServiceIsPublishedCoreServiceFaultFaultFaultMessage
     ;
@@ -440,12 +858,12 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.RenderedItemData
      * @throws ICoreServiceGetWorkItemSnapshotCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetWorkItemSnapshot", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetWorkItemSnapshot")
-    @WebResult(name = "GetWorkItemSnapshotResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetWorkItemSnapshot", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetWorkItemSnapshot")
-    @ResponseWrapper(localName = "GetWorkItemSnapshotResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetWorkItemSnapshotResponse")
+    @WebMethod(operationName = "GetWorkItemSnapshot", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetWorkItemSnapshot")
+    @WebResult(name = "GetWorkItemSnapshotResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetWorkItemSnapshot", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetWorkItemSnapshot")
+    @ResponseWrapper(localName = "GetWorkItemSnapshotResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetWorkItemSnapshotResponse")
     public RenderedItemData getWorkItemSnapshot(
-        @WebParam(name = "workItemId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "workItemId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String workItemId)
         throws ICoreServiceGetWorkItemSnapshotCoreServiceFaultFaultFaultMessage
     ;
@@ -457,12 +875,12 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ArrayOfPublishInfoData
      * @throws ICoreServiceGetListPublishInfoCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetListPublishInfo", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetListPublishInfo")
-    @WebResult(name = "GetListPublishInfoResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetListPublishInfo", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListPublishInfo")
-    @ResponseWrapper(localName = "GetListPublishInfoResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListPublishInfoResponse")
+    @WebMethod(operationName = "GetListPublishInfo", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetListPublishInfo")
+    @WebResult(name = "GetListPublishInfoResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetListPublishInfo", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListPublishInfo")
+    @ResponseWrapper(localName = "GetListPublishInfoResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListPublishInfoResponse")
     public ArrayOfPublishInfoData getListPublishInfo(
-        @WebParam(name = "itemId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "itemId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String itemId)
         throws ICoreServiceGetListPublishInfoCoreServiceFaultFaultFaultMessage
     ;
@@ -474,12 +892,12 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ActionFlags
      * @throws ICoreServiceCastActionsCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "CastActions", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/CastActions")
-    @WebResult(name = "CastActionsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "CastActions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.CastActions")
-    @ResponseWrapper(localName = "CastActionsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.CastActionsResponse")
+    @WebMethod(operationName = "CastActions", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/CastActions")
+    @WebResult(name = "CastActionsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "CastActions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.CastActions")
+    @ResponseWrapper(localName = "CastActionsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.CastActionsResponse")
     public ActionFlags castActions(
-        @WebParam(name = "numericActions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "numericActions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         Integer numericActions)
         throws ICoreServiceCastActionsCoreServiceFaultFaultFaultMessage
     ;
@@ -489,11 +907,11 @@ public interface ICoreService {
      * @param data
      * @throws ICoreServiceValidateXmlCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "ValidateXml", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/ValidateXml")
-    @RequestWrapper(localName = "ValidateXml", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ValidateXml")
-    @ResponseWrapper(localName = "ValidateXmlResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ValidateXmlResponse")
+    @WebMethod(operationName = "ValidateXml", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/ValidateXml")
+    @RequestWrapper(localName = "ValidateXml", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ValidateXml")
+    @ResponseWrapper(localName = "ValidateXmlResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ValidateXmlResponse")
     public void validateXml(
-        @WebParam(name = "data", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "data", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         IdentifiableObjectData data)
         throws ICoreServiceValidateXmlCoreServiceFaultFaultFaultMessage
     ;
@@ -505,12 +923,12 @@ public interface ICoreService {
      *     returns java.lang.Boolean
      * @throws ICoreServiceIsValidTridionWebSchemaXmlCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "IsValidTridionWebSchemaXml", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/IsValidTridionWebSchemaXml")
-    @WebResult(name = "IsValidTridionWebSchemaXmlResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "IsValidTridionWebSchemaXml", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.IsValidTridionWebSchemaXml")
-    @ResponseWrapper(localName = "IsValidTridionWebSchemaXmlResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.IsValidTridionWebSchemaXmlResponse")
+    @WebMethod(operationName = "IsValidTridionWebSchemaXml", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/IsValidTridionWebSchemaXml")
+    @WebResult(name = "IsValidTridionWebSchemaXmlResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "IsValidTridionWebSchemaXml", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.IsValidTridionWebSchemaXml")
+    @ResponseWrapper(localName = "IsValidTridionWebSchemaXmlResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.IsValidTridionWebSchemaXmlResponse")
     public Boolean isValidTridionWebSchemaXml(
-        @WebParam(name = "data", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "data", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         SchemaData data)
         throws ICoreServiceIsValidTridionWebSchemaXmlCoreServiceFaultFaultFaultMessage
     ;
@@ -522,12 +940,12 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ArrayOfTcmUri
      * @throws ICoreServiceGetSubjectIdsWithApplicationDataCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetSubjectIdsWithApplicationData", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetSubjectIdsWithApplicationData")
-    @WebResult(name = "GetSubjectIdsWithApplicationDataResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetSubjectIdsWithApplicationData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetSubjectIdsWithApplicationData")
-    @ResponseWrapper(localName = "GetSubjectIdsWithApplicationDataResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetSubjectIdsWithApplicationDataResponse")
+    @WebMethod(operationName = "GetSubjectIdsWithApplicationData", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetSubjectIdsWithApplicationData")
+    @WebResult(name = "GetSubjectIdsWithApplicationDataResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetSubjectIdsWithApplicationData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSubjectIdsWithApplicationData")
+    @ResponseWrapper(localName = "GetSubjectIdsWithApplicationDataResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSubjectIdsWithApplicationDataResponse")
     public ArrayOfTcmUri getSubjectIdsWithApplicationData(
-        @WebParam(name = "applicationId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "applicationId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String applicationId)
         throws ICoreServiceGetSubjectIdsWithApplicationDataCoreServiceFaultFaultFaultMessage
     ;
@@ -540,14 +958,14 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ApplicationDataDictionary
      * @throws ICoreServiceReadApplicationDataForSubjectsIdsCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "ReadApplicationDataForSubjectsIds", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/ReadApplicationDataForSubjectsIds")
-    @WebResult(name = "ReadApplicationDataForSubjectsIdsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "ReadApplicationDataForSubjectsIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ReadApplicationDataForSubjectsIds")
-    @ResponseWrapper(localName = "ReadApplicationDataForSubjectsIdsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ReadApplicationDataForSubjectsIdsResponse")
+    @WebMethod(operationName = "ReadApplicationDataForSubjectsIds", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/ReadApplicationDataForSubjectsIds")
+    @WebResult(name = "ReadApplicationDataForSubjectsIdsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "ReadApplicationDataForSubjectsIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ReadApplicationDataForSubjectsIds")
+    @ResponseWrapper(localName = "ReadApplicationDataForSubjectsIdsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ReadApplicationDataForSubjectsIdsResponse")
     public ApplicationDataDictionary readApplicationDataForSubjectsIds(
-        @WebParam(name = "subjectIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "subjectIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ArrayOfstring subjectIds,
-        @WebParam(name = "applicationIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "applicationIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ArrayOfstring applicationIds)
         throws ICoreServiceReadApplicationDataForSubjectsIdsCoreServiceFaultFaultFaultMessage
     ;
@@ -559,14 +977,164 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.SecurityDescriptorDataDictionary
      * @throws ICoreServiceGetSecurityDescriptorsForSubjectsIdsCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetSecurityDescriptorsForSubjectsIds", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetSecurityDescriptorsForSubjectsIds")
-    @WebResult(name = "GetSecurityDescriptorsForSubjectsIdsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetSecurityDescriptorsForSubjectsIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetSecurityDescriptorsForSubjectsIds")
-    @ResponseWrapper(localName = "GetSecurityDescriptorsForSubjectsIdsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetSecurityDescriptorsForSubjectsIdsResponse")
+    @WebMethod(operationName = "GetSecurityDescriptorsForSubjectsIds", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetSecurityDescriptorsForSubjectsIds")
+    @WebResult(name = "GetSecurityDescriptorsForSubjectsIdsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetSecurityDescriptorsForSubjectsIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSecurityDescriptorsForSubjectsIds")
+    @ResponseWrapper(localName = "GetSecurityDescriptorsForSubjectsIdsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSecurityDescriptorsForSubjectsIdsResponse")
     public SecurityDescriptorDataDictionary getSecurityDescriptorsForSubjectsIds(
-        @WebParam(name = "subjectIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "subjectIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ArrayOfstring subjectIds)
         throws ICoreServiceGetSecurityDescriptorsForSubjectsIdsCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param organizationalItemIds
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.SecurityDescriptorDataDictionary
+     * @throws ICoreServiceGetContentSecurityDescriptorsForOrgItemIdsCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "GetContentSecurityDescriptorsForOrgItemIds", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetContentSecurityDescriptorsForOrgItemIds")
+    @WebResult(name = "GetContentSecurityDescriptorsForOrgItemIdsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetContentSecurityDescriptorsForOrgItemIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetContentSecurityDescriptorsForOrgItemIds")
+    @ResponseWrapper(localName = "GetContentSecurityDescriptorsForOrgItemIdsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetContentSecurityDescriptorsForOrgItemIdsResponse")
+    public SecurityDescriptorDataDictionary getContentSecurityDescriptorsForOrgItemIds(
+        @WebParam(name = "organizationalItemIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ArrayOfstring organizationalItemIds)
+        throws ICoreServiceGetContentSecurityDescriptorsForOrgItemIdsCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param id
+     * @throws ICoreServiceReIndexCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "ReIndex", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/ReIndex")
+    @RequestWrapper(localName = "ReIndex", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ReIndex")
+    @ResponseWrapper(localName = "ReIndexResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ReIndexResponse")
+    public void reIndex(
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String id)
+        throws ICoreServiceReIndexCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param queueId
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.PredefinedQueue
+     * @throws ICoreServiceCastPredefinedQueueCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "CastPredefinedQueue", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/CastPredefinedQueue")
+    @WebResult(name = "CastPredefinedQueueResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "CastPredefinedQueue", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.CastPredefinedQueue")
+    @ResponseWrapper(localName = "CastPredefinedQueueResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.CastPredefinedQueueResponse")
+    public PredefinedQueue castPredefinedQueue(
+        @WebParam(name = "queueId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        Integer queueId)
+        throws ICoreServiceCastPredefinedQueueCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param instruction
+     * @return
+     *     returns java.lang.Integer
+     * @throws ICoreServicePurgeOldVersionsCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "PurgeOldVersions", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/PurgeOldVersions")
+    @WebResult(name = "PurgeOldVersionsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "PurgeOldVersions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.PurgeOldVersions")
+    @ResponseWrapper(localName = "PurgeOldVersionsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.PurgeOldVersionsResponse")
+    public Integer purgeOldVersions(
+        @WebParam(name = "instruction", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        PurgeOldVersionsInstructionData instruction)
+        throws ICoreServicePurgeOldVersionsCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param id
+     * @return
+     *     returns com.sdltridion.contentmanager.coreservice._2012.GetListExternalLinksResponse.GetListExternalLinksResult
+     * @throws ICoreServiceGetListExternalLinksCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "GetListExternalLinks", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetListExternalLinks")
+    @WebResult(name = "GetListExternalLinksResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetListExternalLinks", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListExternalLinks")
+    @ResponseWrapper(localName = "GetListExternalLinksResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListExternalLinksResponse")
+    public com.sdltridion.contentmanager.coreservice._2012.GetListExternalLinksResponse.GetListExternalLinksResult getListExternalLinks(
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String id)
+        throws ICoreServiceGetListExternalLinksCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param searchQueryXml
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.SearchQueryData
+     * @throws ICoreServiceConvertXmlToSearchQueryCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "ConvertXmlToSearchQuery", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/ConvertXmlToSearchQuery")
+    @WebResult(name = "ConvertXmlToSearchQueryResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "ConvertXmlToSearchQuery", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ConvertXmlToSearchQuery")
+    @ResponseWrapper(localName = "ConvertXmlToSearchQueryResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ConvertXmlToSearchQueryResponse")
+    public SearchQueryData convertXmlToSearchQuery(
+        @WebParam(name = "searchQueryXml", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        com.sdltridion.contentmanager.coreservice._2012.ConvertXmlToSearchQuery.SearchQueryXml searchQueryXml)
+        throws ICoreServiceConvertXmlToSearchQueryCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param searchQueryData
+     * @return
+     *     returns com.sdltridion.contentmanager.coreservice._2012.ConvertSearchQueryToXmlResponse.ConvertSearchQueryToXmlResult
+     * @throws ICoreServiceConvertSearchQueryToXmlCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "ConvertSearchQueryToXml", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/ConvertSearchQueryToXml")
+    @WebResult(name = "ConvertSearchQueryToXmlResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "ConvertSearchQueryToXml", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ConvertSearchQueryToXml")
+    @ResponseWrapper(localName = "ConvertSearchQueryToXmlResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ConvertSearchQueryToXmlResponse")
+    public com.sdltridion.contentmanager.coreservice._2012.ConvertSearchQueryToXmlResponse.ConvertSearchQueryToXmlResult convertSearchQueryToXml(
+        @WebParam(name = "searchQueryData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        SearchQueryData searchQueryData)
+        throws ICoreServiceConvertSearchQueryToXmlCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param namespaceUri
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.SchemaData
+     * @throws ICoreServiceGetVirtualFolderTypeSchemaCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "GetVirtualFolderTypeSchema", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetVirtualFolderTypeSchema")
+    @WebResult(name = "GetVirtualFolderTypeSchemaResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetVirtualFolderTypeSchema", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetVirtualFolderTypeSchema")
+    @ResponseWrapper(localName = "GetVirtualFolderTypeSchemaResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetVirtualFolderTypeSchemaResponse")
+    public SchemaData getVirtualFolderTypeSchema(
+        @WebParam(name = "namespaceUri", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String namespaceUri)
+        throws ICoreServiceGetVirtualFolderTypeSchemaCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param type
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.ArrayOfTridionEnumValue
+     * @throws ICoreServiceGetEnumValuesCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "GetEnumValues", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetEnumValues")
+    @WebResult(name = "GetEnumValuesResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetEnumValues", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetEnumValues")
+    @ResponseWrapper(localName = "GetEnumValuesResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetEnumValuesResponse")
+    public ArrayOfTridionEnumValue getEnumValues(
+        @WebParam(name = "type", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String type)
+        throws ICoreServiceGetEnumValuesCoreServiceFaultFaultFaultMessage
     ;
 
     /**
@@ -575,10 +1143,10 @@ public interface ICoreService {
      *     returns java.lang.String
      * @throws ICoreServiceGetApiVersionCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetApiVersion", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetApiVersion")
-    @WebResult(name = "GetApiVersionResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetApiVersion", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetApiVersion")
-    @ResponseWrapper(localName = "GetApiVersionResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetApiVersionResponse")
+    @WebMethod(operationName = "GetApiVersion", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetApiVersion")
+    @WebResult(name = "GetApiVersionResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetApiVersion", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetApiVersion")
+    @ResponseWrapper(localName = "GetApiVersionResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetApiVersionResponse")
     public String getApiVersion()
         throws ICoreServiceGetApiVersionCoreServiceFaultFaultFaultMessage
     ;
@@ -589,10 +1157,10 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.UserData
      * @throws ICoreServiceGetCurrentUserCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetCurrentUser", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetCurrentUser")
-    @WebResult(name = "GetCurrentUserResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetCurrentUser", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetCurrentUser")
-    @ResponseWrapper(localName = "GetCurrentUserResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetCurrentUserResponse")
+    @WebMethod(operationName = "GetCurrentUser", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetCurrentUser")
+    @WebResult(name = "GetCurrentUserResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetCurrentUser", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetCurrentUser")
+    @ResponseWrapper(localName = "GetCurrentUserResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetCurrentUserResponse")
     public UserData getCurrentUser()
         throws ICoreServiceGetCurrentUserCoreServiceFaultFaultFaultMessage
     ;
@@ -604,12 +1172,12 @@ public interface ICoreService {
      *     returns java.lang.Boolean
      * @throws ICoreServiceIsExistingObjectCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "IsExistingObject", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/IsExistingObject")
-    @WebResult(name = "IsExistingObjectResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "IsExistingObject", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.IsExistingObject")
-    @ResponseWrapper(localName = "IsExistingObjectResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.IsExistingObjectResponse")
+    @WebMethod(operationName = "IsExistingObject", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/IsExistingObject")
+    @WebResult(name = "IsExistingObjectResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "IsExistingObject", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.IsExistingObject")
+    @ResponseWrapper(localName = "IsExistingObjectResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.IsExistingObjectResponse")
     public Boolean isExistingObject(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id)
         throws ICoreServiceIsExistingObjectCoreServiceFaultFaultFaultMessage
     ;
@@ -623,18 +1191,41 @@ public interface ICoreService {
      *     returns java.lang.String
      * @throws ICoreServiceGetTcmUriCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetTcmUri", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetTcmUri")
-    @WebResult(name = "GetTcmUriResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetTcmUri", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetTcmUri")
-    @ResponseWrapper(localName = "GetTcmUriResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetTcmUriResponse")
+    @WebMethod(operationName = "GetTcmUri", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetTcmUri")
+    @WebResult(name = "GetTcmUriResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetTcmUri", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetTcmUri")
+    @ResponseWrapper(localName = "GetTcmUriResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetTcmUriResponse")
     public String getTcmUri(
-        @WebParam(name = "baseUri", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "baseUri", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String baseUri,
-        @WebParam(name = "contextRepositoryUri", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "contextRepositoryUri", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String contextRepositoryUri,
-        @WebParam(name = "version", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "version", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         Long version)
         throws ICoreServiceGetTcmUriCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param contextRepositoryUri
+     * @param baseUri
+     * @param version
+     * @return
+     *     returns java.lang.String
+     * @throws ICoreServiceTryGetTcmUriCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "TryGetTcmUri", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/TryGetTcmUri")
+    @WebResult(name = "TryGetTcmUriResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "TryGetTcmUri", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.TryGetTcmUri")
+    @ResponseWrapper(localName = "TryGetTcmUriResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.TryGetTcmUriResponse")
+    public String tryGetTcmUri(
+        @WebParam(name = "baseUri", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String baseUri,
+        @WebParam(name = "contextRepositoryUri", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String contextRepositoryUri,
+        @WebParam(name = "version", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        Long version)
+        throws ICoreServiceTryGetTcmUriCoreServiceFaultFaultFaultMessage
     ;
 
     /**
@@ -645,16 +1236,36 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.IdentifiableObjectData
      * @throws ICoreServiceReadCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "Read", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/Read")
-    @WebResult(name = "ReadResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "Read", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.Read")
-    @ResponseWrapper(localName = "ReadResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ReadResponse")
+    @WebMethod(operationName = "Read", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/Read")
+    @WebResult(name = "ReadResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "Read", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.Read")
+    @ResponseWrapper(localName = "ReadResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ReadResponse")
     public IdentifiableObjectData read(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id,
-        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readOptions)
         throws ICoreServiceReadCoreServiceFaultFaultFaultMessage
+    ;
+
+    /**
+     * 
+     * @param id
+     * @param readOptions
+     * @return
+     *     returns com.sdltridion.contentmanager.r6.IdentifiableObjectData
+     * @throws ICoreServiceTryReadCoreServiceFaultFaultFaultMessage
+     */
+    @WebMethod(operationName = "TryRead", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/TryRead")
+    @WebResult(name = "TryReadResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "TryRead", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.TryRead")
+    @ResponseWrapper(localName = "TryReadResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.TryReadResponse")
+    public IdentifiableObjectData tryRead(
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String id,
+        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ReadOptions readOptions)
+        throws ICoreServiceTryReadCoreServiceFaultFaultFaultMessage
     ;
 
     /**
@@ -666,16 +1277,16 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.SchemaFieldsData
      * @throws ICoreServiceReadSchemaFieldsCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "ReadSchemaFields", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/ReadSchemaFields")
-    @WebResult(name = "ReadSchemaFieldsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "ReadSchemaFields", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ReadSchemaFields")
-    @ResponseWrapper(localName = "ReadSchemaFieldsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ReadSchemaFieldsResponse")
+    @WebMethod(operationName = "ReadSchemaFields", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/ReadSchemaFields")
+    @WebResult(name = "ReadSchemaFieldsResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "ReadSchemaFields", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ReadSchemaFields")
+    @ResponseWrapper(localName = "ReadSchemaFieldsResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ReadSchemaFieldsResponse")
     public SchemaFieldsData readSchemaFields(
-        @WebParam(name = "schemaId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "schemaId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String schemaId,
-        @WebParam(name = "expandEmbeddedFields", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "expandEmbeddedFields", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         Boolean expandEmbeddedFields,
-        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readOptions)
         throws ICoreServiceReadSchemaFieldsCoreServiceFaultFaultFaultMessage
     ;
@@ -684,15 +1295,15 @@ public interface ICoreService {
      * 
      * @param schemaFieldsData
      * @return
-     *     returns com.sdltridion.contentmanager.coreservice._2011.ConvertSchemaFieldsToXsdResponse.ConvertSchemaFieldsToXsdResult
+     *     returns com.sdltridion.contentmanager.coreservice._2012.ConvertSchemaFieldsToXsdResponse.ConvertSchemaFieldsToXsdResult
      * @throws ICoreServiceConvertSchemaFieldsToXsdCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "ConvertSchemaFieldsToXsd", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/ConvertSchemaFieldsToXsd")
-    @WebResult(name = "ConvertSchemaFieldsToXsdResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "ConvertSchemaFieldsToXsd", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ConvertSchemaFieldsToXsd")
-    @ResponseWrapper(localName = "ConvertSchemaFieldsToXsdResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ConvertSchemaFieldsToXsdResponse")
-    public com.sdltridion.contentmanager.coreservice._2011.ConvertSchemaFieldsToXsdResponse.ConvertSchemaFieldsToXsdResult convertSchemaFieldsToXsd(
-        @WebParam(name = "schemaFieldsData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+    @WebMethod(operationName = "ConvertSchemaFieldsToXsd", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/ConvertSchemaFieldsToXsd")
+    @WebResult(name = "ConvertSchemaFieldsToXsdResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "ConvertSchemaFieldsToXsd", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ConvertSchemaFieldsToXsd")
+    @ResponseWrapper(localName = "ConvertSchemaFieldsToXsdResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ConvertSchemaFieldsToXsdResponse")
+    public com.sdltridion.contentmanager.coreservice._2012.ConvertSchemaFieldsToXsdResponse.ConvertSchemaFieldsToXsdResult convertSchemaFieldsToXsd(
+        @WebParam(name = "schemaFieldsData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         SchemaFieldsData schemaFieldsData)
         throws ICoreServiceConvertSchemaFieldsToXsdCoreServiceFaultFaultFaultMessage
     ;
@@ -705,14 +1316,14 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.IdentifiableObjectData
      * @throws ICoreServiceSaveCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "Save", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/Save")
-    @WebResult(name = "SaveResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "Save", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.Save")
-    @ResponseWrapper(localName = "SaveResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.SaveResponse")
+    @WebMethod(operationName = "Save", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/Save")
+    @WebResult(name = "SaveResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "Save", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.Save")
+    @ResponseWrapper(localName = "SaveResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.SaveResponse")
     public IdentifiableObjectData save(
-        @WebParam(name = "deltaData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "deltaData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         IdentifiableObjectData deltaData,
-        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readBackOptions)
         throws ICoreServiceSaveCoreServiceFaultFaultFaultMessage
     ;
@@ -722,11 +1333,11 @@ public interface ICoreService {
      * @param id
      * @throws ICoreServiceDeleteCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "Delete", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/Delete")
-    @RequestWrapper(localName = "Delete", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.Delete")
-    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.DeleteResponse")
+    @WebMethod(operationName = "Delete", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/Delete")
+    @RequestWrapper(localName = "Delete", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.Delete")
+    @ResponseWrapper(localName = "DeleteResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.DeleteResponse")
     public void delete(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id)
         throws ICoreServiceDeleteCoreServiceFaultFaultFaultMessage
     ;
@@ -737,34 +1348,37 @@ public interface ICoreService {
      * @param deleteTaxonomyNodeMode
      * @throws ICoreServiceDeleteTaxonomyNodeCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "DeleteTaxonomyNode", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/DeleteTaxonomyNode")
-    @RequestWrapper(localName = "DeleteTaxonomyNode", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.DeleteTaxonomyNode")
-    @ResponseWrapper(localName = "DeleteTaxonomyNodeResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.DeleteTaxonomyNodeResponse")
+    @WebMethod(operationName = "DeleteTaxonomyNode", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/DeleteTaxonomyNode")
+    @RequestWrapper(localName = "DeleteTaxonomyNode", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.DeleteTaxonomyNode")
+    @ResponseWrapper(localName = "DeleteTaxonomyNodeResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.DeleteTaxonomyNodeResponse")
     public void deleteTaxonomyNode(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id,
-        @WebParam(name = "deleteTaxonomyNodeMode", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "deleteTaxonomyNodeMode", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         DeleteTaxonomyNodeMode deleteTaxonomyNodeMode)
         throws ICoreServiceDeleteTaxonomyNodeCoreServiceFaultFaultFaultMessage
     ;
 
     /**
      * 
+     * @param readOptions
      * @param itemType
      * @param containerId
      * @return
      *     returns com.sdltridion.contentmanager.r6.IdentifiableObjectData
      * @throws ICoreServiceGetDefaultDataCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetDefaultData", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetDefaultData")
-    @WebResult(name = "GetDefaultDataResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetDefaultData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetDefaultData")
-    @ResponseWrapper(localName = "GetDefaultDataResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetDefaultDataResponse")
+    @WebMethod(operationName = "GetDefaultData", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetDefaultData")
+    @WebResult(name = "GetDefaultDataResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetDefaultData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetDefaultData")
+    @ResponseWrapper(localName = "GetDefaultDataResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetDefaultDataResponse")
     public IdentifiableObjectData getDefaultData(
-        @WebParam(name = "itemType", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "itemType", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ItemType itemType,
-        @WebParam(name = "containerId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-        String containerId)
+        @WebParam(name = "containerId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String containerId,
+        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        ReadOptions readOptions)
         throws ICoreServiceGetDefaultDataCoreServiceFaultFaultFaultMessage
     ;
 
@@ -777,16 +1391,16 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.RepositoryLocalObjectData
      * @throws ICoreServiceMoveCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "Move", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/Move")
-    @WebResult(name = "MoveResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "Move", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.Move")
-    @ResponseWrapper(localName = "MoveResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.MoveResponse")
+    @WebMethod(operationName = "Move", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/Move")
+    @WebResult(name = "MoveResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "Move", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.Move")
+    @ResponseWrapper(localName = "MoveResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.MoveResponse")
     public RepositoryLocalObjectData move(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id,
-        @WebParam(name = "destinationId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "destinationId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String destinationId,
-        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readBackOptions)
         throws ICoreServiceMoveCoreServiceFaultFaultFaultMessage
     ;
@@ -801,18 +1415,18 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.RepositoryLocalObjectData
      * @throws ICoreServiceCopyCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "Copy", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/Copy")
-    @WebResult(name = "CopyResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "Copy", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.Copy")
-    @ResponseWrapper(localName = "CopyResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.CopyResponse")
+    @WebMethod(operationName = "Copy", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/Copy")
+    @WebResult(name = "CopyResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "Copy", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.Copy")
+    @ResponseWrapper(localName = "CopyResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.CopyResponse")
     public RepositoryLocalObjectData copy(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id,
-        @WebParam(name = "destinationId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "destinationId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String destinationId,
-        @WebParam(name = "makeUnique", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "makeUnique", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         Boolean makeUnique,
-        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readBackOptions)
         throws ICoreServiceCopyCoreServiceFaultFaultFaultMessage
     ;
@@ -826,16 +1440,16 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.InstanceData
      * @throws ICoreServiceGetInstanceDataCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetInstanceData", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetInstanceData")
-    @WebResult(name = "GetInstanceDataResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetInstanceData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetInstanceData")
-    @ResponseWrapper(localName = "GetInstanceDataResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetInstanceDataResponse")
+    @WebMethod(operationName = "GetInstanceData", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetInstanceData")
+    @WebResult(name = "GetInstanceDataResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetInstanceData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetInstanceData")
+    @ResponseWrapper(localName = "GetInstanceDataResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetInstanceDataResponse")
     public InstanceData getInstanceData(
-        @WebParam(name = "schemaId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "schemaId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String schemaId,
-        @WebParam(name = "containerItemId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "containerItemId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String containerItemId,
-        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readOptions)
         throws ICoreServiceGetInstanceDataCoreServiceFaultFaultFaultMessage
     ;
@@ -848,14 +1462,14 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.IdentifiableObjectData
      * @throws ICoreServiceTryCheckOutCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "TryCheckOut", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/TryCheckOut")
-    @WebResult(name = "TryCheckOutResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "TryCheckOut", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.TryCheckOut")
-    @ResponseWrapper(localName = "TryCheckOutResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.TryCheckOutResponse")
+    @WebMethod(operationName = "TryCheckOut", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/TryCheckOut")
+    @WebResult(name = "TryCheckOutResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "TryCheckOut", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.TryCheckOut")
+    @ResponseWrapper(localName = "TryCheckOutResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.TryCheckOutResponse")
     public IdentifiableObjectData tryCheckOut(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id,
-        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readBackOptions)
         throws ICoreServiceTryCheckOutCoreServiceFaultFaultFaultMessage
     ;
@@ -869,16 +1483,16 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.VersionedItemData
      * @throws ICoreServiceCheckOutCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "CheckOut", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/CheckOut")
-    @WebResult(name = "CheckOutResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "CheckOut", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.CheckOut")
-    @ResponseWrapper(localName = "CheckOutResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.CheckOutResponse")
+    @WebMethod(operationName = "CheckOut", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/CheckOut")
+    @WebResult(name = "CheckOutResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "CheckOut", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.CheckOut")
+    @ResponseWrapper(localName = "CheckOutResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.CheckOutResponse")
     public VersionedItemData checkOut(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id,
-        @WebParam(name = "permanentLock", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "permanentLock", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         Boolean permanentLock,
-        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readBackOptions)
         throws ICoreServiceCheckOutCoreServiceFaultFaultFaultMessage
     ;
@@ -887,18 +1501,24 @@ public interface ICoreService {
      * 
      * @param id
      * @param readBackOptions
+     * @param userComment
+     * @param removePermanentLock
      * @return
      *     returns com.sdltridion.contentmanager.r6.VersionedItemData
      * @throws ICoreServiceCheckInCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "CheckIn", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/CheckIn")
-    @WebResult(name = "CheckInResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "CheckIn", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.CheckIn")
-    @ResponseWrapper(localName = "CheckInResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.CheckInResponse")
+    @WebMethod(operationName = "CheckIn", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/CheckIn")
+    @WebResult(name = "CheckInResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "CheckIn", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.CheckIn")
+    @ResponseWrapper(localName = "CheckInResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.CheckInResponse")
     public VersionedItemData checkIn(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id,
-        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "removePermanentLock", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        Boolean removePermanentLock,
+        @WebParam(name = "userComment", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String userComment,
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readBackOptions)
         throws ICoreServiceCheckInCoreServiceFaultFaultFaultMessage
     ;
@@ -911,14 +1531,14 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.IdentifiableObjectData
      * @throws ICoreServiceUpdateCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "Update", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/Update")
-    @WebResult(name = "UpdateResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "Update", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.Update")
-    @ResponseWrapper(localName = "UpdateResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.UpdateResponse")
+    @WebMethod(operationName = "Update", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/Update")
+    @WebResult(name = "UpdateResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "Update", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.Update")
+    @ResponseWrapper(localName = "UpdateResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.UpdateResponse")
     public IdentifiableObjectData update(
-        @WebParam(name = "deltaData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "deltaData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         IdentifiableObjectData deltaData,
-        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readBackOptions)
         throws ICoreServiceUpdateCoreServiceFaultFaultFaultMessage
     ;
@@ -931,14 +1551,14 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.IdentifiableObjectData
      * @throws ICoreServiceCreateCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "Create", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/Create")
-    @WebResult(name = "CreateResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "Create", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.Create")
-    @ResponseWrapper(localName = "CreateResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.CreateResponse")
+    @WebMethod(operationName = "Create", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/Create")
+    @WebResult(name = "CreateResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "Create", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.Create")
+    @ResponseWrapper(localName = "CreateResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.CreateResponse")
     public IdentifiableObjectData create(
-        @WebParam(name = "data", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "data", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         IdentifiableObjectData data,
-        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readBackOptions)
         throws ICoreServiceCreateCoreServiceFaultFaultFaultMessage
     ;
@@ -952,16 +1572,16 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.VersionedItemData
      * @throws ICoreServiceUndoCheckOutCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "UndoCheckOut", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/UndoCheckOut")
-    @WebResult(name = "UndoCheckOutResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "UndoCheckOut", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.UndoCheckOut")
-    @ResponseWrapper(localName = "UndoCheckOutResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.UndoCheckOutResponse")
+    @WebMethod(operationName = "UndoCheckOut", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/UndoCheckOut")
+    @WebResult(name = "UndoCheckOutResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "UndoCheckOut", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.UndoCheckOut")
+    @ResponseWrapper(localName = "UndoCheckOutResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.UndoCheckOutResponse")
     public VersionedItemData undoCheckOut(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id,
-        @WebParam(name = "permanentLock", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "permanentLock", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         Boolean permanentLock,
-        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readBackOptions)
         throws ICoreServiceUndoCheckOutCoreServiceFaultFaultFaultMessage
     ;
@@ -976,18 +1596,18 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.VersionedItemData
      * @throws ICoreServiceRollbackCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "Rollback", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/Rollback")
-    @WebResult(name = "RollbackResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "Rollback", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.Rollback")
-    @ResponseWrapper(localName = "RollbackResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.RollbackResponse")
+    @WebMethod(operationName = "Rollback", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/Rollback")
+    @WebResult(name = "RollbackResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "Rollback", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.Rollback")
+    @ResponseWrapper(localName = "RollbackResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.RollbackResponse")
     public VersionedItemData rollback(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id,
-        @WebParam(name = "deleteVersions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "deleteVersions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         Boolean deleteVersions,
-        @WebParam(name = "comment", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "comment", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String comment,
-        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readBackOptions)
         throws ICoreServiceRollbackCoreServiceFaultFaultFaultMessage
     ;
@@ -1000,14 +1620,14 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.RepositoryLocalObjectData
      * @throws ICoreServiceLocalizeCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "Localize", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/Localize")
-    @WebResult(name = "LocalizeResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "Localize", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.Localize")
-    @ResponseWrapper(localName = "LocalizeResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.LocalizeResponse")
+    @WebMethod(operationName = "Localize", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/Localize")
+    @WebResult(name = "LocalizeResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "Localize", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.Localize")
+    @ResponseWrapper(localName = "LocalizeResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.LocalizeResponse")
     public RepositoryLocalObjectData localize(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id,
-        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readBackOptions)
         throws ICoreServiceLocalizeCoreServiceFaultFaultFaultMessage
     ;
@@ -1020,14 +1640,14 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.RepositoryLocalObjectData
      * @throws ICoreServiceUnLocalizeCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "UnLocalize", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/UnLocalize")
-    @WebResult(name = "UnLocalizeResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "UnLocalize", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.UnLocalize")
-    @ResponseWrapper(localName = "UnLocalizeResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.UnLocalizeResponse")
+    @WebMethod(operationName = "UnLocalize", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/UnLocalize")
+    @WebResult(name = "UnLocalizeResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "UnLocalize", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.UnLocalize")
+    @ResponseWrapper(localName = "UnLocalizeResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.UnLocalizeResponse")
     public RepositoryLocalObjectData unLocalize(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id,
-        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readBackOptions)
         throws ICoreServiceUnLocalizeCoreServiceFaultFaultFaultMessage
     ;
@@ -1039,12 +1659,12 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ArrayOfTemplateType
      * @throws ICoreServiceGetListTemplateTypesCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetListTemplateTypes", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetListTemplateTypes")
-    @WebResult(name = "GetListTemplateTypesResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetListTemplateTypes", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListTemplateTypes")
-    @ResponseWrapper(localName = "GetListTemplateTypesResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListTemplateTypesResponse")
+    @WebMethod(operationName = "GetListTemplateTypes", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetListTemplateTypes")
+    @WebResult(name = "GetListTemplateTypesResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetListTemplateTypes", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListTemplateTypes")
+    @ResponseWrapper(localName = "GetListTemplateTypesResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListTemplateTypesResponse")
     public ArrayOfTemplateType getListTemplateTypes(
-        @WebParam(name = "itemType", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "itemType", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ItemType itemType)
         throws ICoreServiceGetListTemplateTypesCoreServiceFaultFaultFaultMessage
     ;
@@ -1055,10 +1675,10 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ArrayOfPublicationType
      * @throws ICoreServiceGetListPublicationTypesCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetListPublicationTypes", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetListPublicationTypes")
-    @WebResult(name = "GetListPublicationTypesResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetListPublicationTypes", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListPublicationTypes")
-    @ResponseWrapper(localName = "GetListPublicationTypesResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListPublicationTypesResponse")
+    @WebMethod(operationName = "GetListPublicationTypes", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetListPublicationTypes")
+    @WebResult(name = "GetListPublicationTypesResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetListPublicationTypes", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListPublicationTypes")
+    @ResponseWrapper(localName = "GetListPublicationTypesResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListPublicationTypesResponse")
     public ArrayOfPublicationType getListPublicationTypes()
         throws ICoreServiceGetListPublicationTypesCoreServiceFaultFaultFaultMessage
     ;
@@ -1067,15 +1687,15 @@ public interface ICoreService {
      * 
      * @param filter
      * @return
-     *     returns com.sdltridion.contentmanager.coreservice._2011.GetSystemWideListXmlResponse.GetSystemWideListXmlResult
+     *     returns com.sdltridion.contentmanager.coreservice._2012.GetSystemWideListXmlResponse.GetSystemWideListXmlResult
      * @throws ICoreServiceGetSystemWideListXmlCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetSystemWideListXml", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetSystemWideListXml")
-    @WebResult(name = "GetSystemWideListXmlResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetSystemWideListXml", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetSystemWideListXml")
-    @ResponseWrapper(localName = "GetSystemWideListXmlResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetSystemWideListXmlResponse")
-    public com.sdltridion.contentmanager.coreservice._2011.GetSystemWideListXmlResponse.GetSystemWideListXmlResult getSystemWideListXml(
-        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+    @WebMethod(operationName = "GetSystemWideListXml", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetSystemWideListXml")
+    @WebResult(name = "GetSystemWideListXmlResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetSystemWideListXml", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSystemWideListXml")
+    @ResponseWrapper(localName = "GetSystemWideListXmlResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSystemWideListXmlResponse")
+    public com.sdltridion.contentmanager.coreservice._2012.GetSystemWideListXmlResponse.GetSystemWideListXmlResult getSystemWideListXml(
+        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         SystemWideListFilterData filter)
         throws ICoreServiceGetSystemWideListXmlCoreServiceFaultFaultFaultMessage
     ;
@@ -1087,12 +1707,12 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ArrayOfIdentifiableObjectData
      * @throws ICoreServiceGetSystemWideListCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetSystemWideList", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetSystemWideList")
-    @WebResult(name = "GetSystemWideListResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetSystemWideList", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetSystemWideList")
-    @ResponseWrapper(localName = "GetSystemWideListResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetSystemWideListResponse")
+    @WebMethod(operationName = "GetSystemWideList", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetSystemWideList")
+    @WebResult(name = "GetSystemWideListResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetSystemWideList", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSystemWideList")
+    @ResponseWrapper(localName = "GetSystemWideListResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetSystemWideListResponse")
     public ArrayOfIdentifiableObjectData getSystemWideList(
-        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         SystemWideListFilterData filter)
         throws ICoreServiceGetSystemWideListCoreServiceFaultFaultFaultMessage
     ;
@@ -1102,17 +1722,17 @@ public interface ICoreService {
      * @param id
      * @param filter
      * @return
-     *     returns com.sdltridion.contentmanager.coreservice._2011.GetListXmlResponse.GetListXmlResult
+     *     returns com.sdltridion.contentmanager.coreservice._2012.GetListXmlResponse.GetListXmlResult
      * @throws ICoreServiceGetListXmlCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetListXml", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetListXml")
-    @WebResult(name = "GetListXmlResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetListXml", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListXml")
-    @ResponseWrapper(localName = "GetListXmlResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListXmlResponse")
-    public com.sdltridion.contentmanager.coreservice._2011.GetListXmlResponse.GetListXmlResult getListXml(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+    @WebMethod(operationName = "GetListXml", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetListXml")
+    @WebResult(name = "GetListXmlResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetListXml", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListXml")
+    @ResponseWrapper(localName = "GetListXmlResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListXmlResponse")
+    public com.sdltridion.contentmanager.coreservice._2012.GetListXmlResponse.GetListXmlResult getListXml(
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id,
-        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         SubjectRelatedListFilterData filter)
         throws ICoreServiceGetListXmlCoreServiceFaultFaultFaultMessage
     ;
@@ -1125,14 +1745,14 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ArrayOfIdentifiableObjectData
      * @throws ICoreServiceGetListCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetList", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetList")
-    @WebResult(name = "GetListResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetList", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetList")
-    @ResponseWrapper(localName = "GetListResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListResponse")
+    @WebMethod(operationName = "GetList", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetList")
+    @WebResult(name = "GetListResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetList", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetList")
+    @ResponseWrapper(localName = "GetListResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListResponse")
     public ArrayOfIdentifiableObjectData getList(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id,
-        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         SubjectRelatedListFilterData filter)
         throws ICoreServiceGetListCoreServiceFaultFaultFaultMessage
     ;
@@ -1143,10 +1763,10 @@ public interface ICoreService {
      *     returns com.microsoft.schemas._2003._10.serialization.arrays.ArrayOfstring
      * @throws ICoreServiceGetListDirectoryServiceNamesCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetListDirectoryServiceNames", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetListDirectoryServiceNames")
-    @WebResult(name = "GetListDirectoryServiceNamesResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetListDirectoryServiceNames", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListDirectoryServiceNames")
-    @ResponseWrapper(localName = "GetListDirectoryServiceNamesResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListDirectoryServiceNamesResponse")
+    @WebMethod(operationName = "GetListDirectoryServiceNames", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetListDirectoryServiceNames")
+    @WebResult(name = "GetListDirectoryServiceNamesResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetListDirectoryServiceNames", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListDirectoryServiceNames")
+    @ResponseWrapper(localName = "GetListDirectoryServiceNamesResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListDirectoryServiceNamesResponse")
     public ArrayOfstring getListDirectoryServiceNames()
         throws ICoreServiceGetListDirectoryServiceNamesCoreServiceFaultFaultFaultMessage
     ;
@@ -1158,12 +1778,12 @@ public interface ICoreService {
      *     returns com.sdltridion.security.ArrayOfWindowsUser
      * @throws ICoreServiceGetListWindowsDomainUsersCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetListWindowsDomainUsers", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetListWindowsDomainUsers")
-    @WebResult(name = "GetListWindowsDomainUsersResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetListWindowsDomainUsers", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListWindowsDomainUsers")
-    @ResponseWrapper(localName = "GetListWindowsDomainUsersResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListWindowsDomainUsersResponse")
+    @WebMethod(operationName = "GetListWindowsDomainUsers", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetListWindowsDomainUsers")
+    @WebResult(name = "GetListWindowsDomainUsersResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetListWindowsDomainUsers", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListWindowsDomainUsers")
+    @ResponseWrapper(localName = "GetListWindowsDomainUsersResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListWindowsDomainUsersResponse")
     public ArrayOfWindowsUser getListWindowsDomainUsers(
-        @WebParam(name = "domainName", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "domainName", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String domainName)
         throws ICoreServiceGetListWindowsDomainUsersCoreServiceFaultFaultFaultMessage
     ;
@@ -1175,12 +1795,12 @@ public interface ICoreService {
      *     returns com.sdltridion.security.ArrayOfDirectoryServiceUser
      * @throws ICoreServiceGetListDirectoryServiceAllUsersCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetListDirectoryServiceAllUsers", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetListDirectoryServiceAllUsers")
-    @WebResult(name = "GetListDirectoryServiceAllUsersResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetListDirectoryServiceAllUsers", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListDirectoryServiceAllUsers")
-    @ResponseWrapper(localName = "GetListDirectoryServiceAllUsersResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListDirectoryServiceAllUsersResponse")
+    @WebMethod(operationName = "GetListDirectoryServiceAllUsers", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetListDirectoryServiceAllUsers")
+    @WebResult(name = "GetListDirectoryServiceAllUsersResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetListDirectoryServiceAllUsers", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListDirectoryServiceAllUsers")
+    @ResponseWrapper(localName = "GetListDirectoryServiceAllUsersResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListDirectoryServiceAllUsersResponse")
     public ArrayOfDirectoryServiceUser getListDirectoryServiceAllUsers(
-        @WebParam(name = "directoryServiceName", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "directoryServiceName", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String directoryServiceName)
         throws ICoreServiceGetListDirectoryServiceAllUsersCoreServiceFaultFaultFaultMessage
     ;
@@ -1193,14 +1813,14 @@ public interface ICoreService {
      *     returns com.sdltridion.security.ArrayOfDirectoryServiceUser
      * @throws ICoreServiceGetListDirectoryServiceGroupMembersCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetListDirectoryServiceGroupMembers", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetListDirectoryServiceGroupMembers")
-    @WebResult(name = "GetListDirectoryServiceGroupMembersResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetListDirectoryServiceGroupMembers", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListDirectoryServiceGroupMembers")
-    @ResponseWrapper(localName = "GetListDirectoryServiceGroupMembersResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListDirectoryServiceGroupMembersResponse")
+    @WebMethod(operationName = "GetListDirectoryServiceGroupMembers", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetListDirectoryServiceGroupMembers")
+    @WebResult(name = "GetListDirectoryServiceGroupMembersResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetListDirectoryServiceGroupMembers", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListDirectoryServiceGroupMembers")
+    @ResponseWrapper(localName = "GetListDirectoryServiceGroupMembersResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListDirectoryServiceGroupMembersResponse")
     public ArrayOfDirectoryServiceUser getListDirectoryServiceGroupMembers(
-        @WebParam(name = "directoryServiceName", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "directoryServiceName", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String directoryServiceName,
-        @WebParam(name = "groupDN", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "groupDN", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String groupDN)
         throws ICoreServiceGetListDirectoryServiceGroupMembersCoreServiceFaultFaultFaultMessage
     ;
@@ -1213,14 +1833,14 @@ public interface ICoreService {
      *     returns com.sdltridion.security.ArrayOfDirectoryServiceUser
      * @throws ICoreServiceGetListDirectoryServiceUsersCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "GetListDirectoryServiceUsers", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/GetListDirectoryServiceUsers")
-    @WebResult(name = "GetListDirectoryServiceUsersResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "GetListDirectoryServiceUsers", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListDirectoryServiceUsers")
-    @ResponseWrapper(localName = "GetListDirectoryServiceUsersResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.GetListDirectoryServiceUsersResponse")
+    @WebMethod(operationName = "GetListDirectoryServiceUsers", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/GetListDirectoryServiceUsers")
+    @WebResult(name = "GetListDirectoryServiceUsersResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "GetListDirectoryServiceUsers", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListDirectoryServiceUsers")
+    @ResponseWrapper(localName = "GetListDirectoryServiceUsersResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.GetListDirectoryServiceUsersResponse")
     public ArrayOfDirectoryServiceUser getListDirectoryServiceUsers(
-        @WebParam(name = "directoryServiceName", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "directoryServiceName", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String directoryServiceName,
-        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "filter", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         DirectoryUsersFilter filter)
         throws ICoreServiceGetListDirectoryServiceUsersCoreServiceFaultFaultFaultMessage
     ;
@@ -1234,16 +1854,16 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ClassificationInfoData
      * @throws ICoreServiceClassifyCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "Classify", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/Classify")
-    @WebResult(name = "ClassifyResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "Classify", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.Classify")
-    @ResponseWrapper(localName = "ClassifyResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ClassifyResponse")
+    @WebMethod(operationName = "Classify", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/Classify")
+    @WebResult(name = "ClassifyResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "Classify", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.Classify")
+    @ResponseWrapper(localName = "ClassifyResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ClassifyResponse")
     public ClassificationInfoData classify(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id,
-        @WebParam(name = "keywordIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "keywordIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ArrayOfstring keywordIds,
-        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readOptions)
         throws ICoreServiceClassifyCoreServiceFaultFaultFaultMessage
     ;
@@ -1257,16 +1877,16 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ClassificationInfoData
      * @throws ICoreServiceUnClassifyCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "UnClassify", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/UnClassify")
-    @WebResult(name = "UnClassifyResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "UnClassify", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.UnClassify")
-    @ResponseWrapper(localName = "UnClassifyResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.UnClassifyResponse")
+    @WebMethod(operationName = "UnClassify", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/UnClassify")
+    @WebResult(name = "UnClassifyResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "UnClassify", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.UnClassify")
+    @ResponseWrapper(localName = "UnClassifyResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.UnClassifyResponse")
     public ClassificationInfoData unClassify(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id,
-        @WebParam(name = "keywordIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "keywordIds", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ArrayOfstring keywordIds,
-        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readOptions)
         throws ICoreServiceUnClassifyCoreServiceFaultFaultFaultMessage
     ;
@@ -1281,18 +1901,18 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ClassificationInfoData
      * @throws ICoreServiceReClassifyCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "ReClassify", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/ReClassify")
-    @WebResult(name = "ReClassifyResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "ReClassify", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ReClassify")
-    @ResponseWrapper(localName = "ReClassifyResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ReClassifyResponse")
+    @WebMethod(operationName = "ReClassify", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/ReClassify")
+    @WebResult(name = "ReClassifyResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "ReClassify", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ReClassify")
+    @ResponseWrapper(localName = "ReClassifyResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.ReClassifyResponse")
     public ClassificationInfoData reClassify(
-        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "id", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String id,
-        @WebParam(name = "keywordIdsToRemove", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "keywordIdsToRemove", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ArrayOfstring keywordIdsToRemove,
-        @WebParam(name = "keywordIdsToAdd", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "keywordIdsToAdd", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ArrayOfstring keywordIdsToAdd,
-        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readOptions)
         throws ICoreServiceReClassifyCoreServiceFaultFaultFaultMessage
     ;
@@ -1305,14 +1925,14 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ActivityInstanceData
      * @throws ICoreServiceStartActivityCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "StartActivity", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/StartActivity")
-    @WebResult(name = "StartActivityResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "StartActivity", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.StartActivity")
-    @ResponseWrapper(localName = "StartActivityResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.StartActivityResponse")
+    @WebMethod(operationName = "StartActivity", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/StartActivity")
+    @WebResult(name = "StartActivityResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "StartActivity", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.StartActivity")
+    @ResponseWrapper(localName = "StartActivityResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.StartActivityResponse")
     public ActivityInstanceData startActivity(
-        @WebParam(name = "activityInstanceId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "activityInstanceId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String activityInstanceId,
-        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readBackOptions)
         throws ICoreServiceStartActivityCoreServiceFaultFaultFaultMessage
     ;
@@ -1320,19 +1940,28 @@ public interface ICoreService {
     /**
      * 
      * @param readBackOptions
+     * @param reason
+     * @param resumeBookmark
+     * @param resumeAt
      * @param activityInstanceId
      * @return
      *     returns com.sdltridion.contentmanager.r6.ActivityInstanceData
      * @throws ICoreServiceSuspendActivityCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "SuspendActivity", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/SuspendActivity")
-    @WebResult(name = "SuspendActivityResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "SuspendActivity", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.SuspendActivity")
-    @ResponseWrapper(localName = "SuspendActivityResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.SuspendActivityResponse")
+    @WebMethod(operationName = "SuspendActivity", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/SuspendActivity")
+    @WebResult(name = "SuspendActivityResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "SuspendActivity", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.SuspendActivity")
+    @ResponseWrapper(localName = "SuspendActivityResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.SuspendActivityResponse")
     public ActivityInstanceData suspendActivity(
-        @WebParam(name = "activityInstanceId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "activityInstanceId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String activityInstanceId,
-        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "reason", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String reason,
+        @WebParam(name = "resumeAt", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        Date resumeAt,
+        @WebParam(name = "resumeBookmark", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+        String resumeBookmark,
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readBackOptions)
         throws ICoreServiceSuspendActivityCoreServiceFaultFaultFaultMessage
     ;
@@ -1345,62 +1974,16 @@ public interface ICoreService {
      *     returns com.sdltridion.contentmanager.r6.ActivityInstanceData
      * @throws ICoreServiceRestartActivityCoreServiceFaultFaultFaultMessage
      */
-    @WebMethod(operationName = "RestartActivity", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/RestartActivity")
-    @WebResult(name = "RestartActivityResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "RestartActivity", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.RestartActivity")
-    @ResponseWrapper(localName = "RestartActivityResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.RestartActivityResponse")
+    @WebMethod(operationName = "RestartActivity", action = "http://www.sdltridion.com/ContentManager/CoreService/2012/ICoreService/RestartActivity")
+    @WebResult(name = "RestartActivityResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
+    @RequestWrapper(localName = "RestartActivity", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.RestartActivity")
+    @ResponseWrapper(localName = "RestartActivityResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012", className = "com.sdltridion.contentmanager.coreservice._2012.RestartActivityResponse")
     public ActivityInstanceData restartActivity(
-        @WebParam(name = "activityInstanceId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "activityInstanceId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         String activityInstanceId,
-        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
+        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2012")
         ReadOptions readBackOptions)
         throws ICoreServiceRestartActivityCoreServiceFaultFaultFaultMessage
-    ;
-
-    /**
-     * 
-     * @param readBackOptions
-     * @param newAssigneeId
-     * @param activityInstanceId
-     * @return
-     *     returns com.sdltridion.contentmanager.r6.ActivityInstanceData
-     * @throws ICoreServiceReAssignActivityCoreServiceFaultFaultFaultMessage
-     */
-    @WebMethod(operationName = "ReAssignActivity", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/ReAssignActivity")
-    @WebResult(name = "ReAssignActivityResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "ReAssignActivity", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ReAssignActivity")
-    @ResponseWrapper(localName = "ReAssignActivityResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.ReAssignActivityResponse")
-    public ActivityInstanceData reAssignActivity(
-        @WebParam(name = "activityInstanceId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-        String activityInstanceId,
-        @WebParam(name = "newAssigneeId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-        String newAssigneeId,
-        @WebParam(name = "readBackOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-        ReadOptions readBackOptions)
-        throws ICoreServiceReAssignActivityCoreServiceFaultFaultFaultMessage
-    ;
-
-    /**
-     * 
-     * @param readOptions
-     * @param activityInstanceId
-     * @param activityFinishData
-     * @return
-     *     returns com.sdltridion.contentmanager.r6.ActivityInstanceData
-     * @throws ICoreServiceFinishActivityCoreServiceFaultFaultFaultMessage
-     */
-    @WebMethod(operationName = "FinishActivity", action = "http://www.sdltridion.com/ContentManager/CoreService/2011/ICoreService/FinishActivity")
-    @WebResult(name = "FinishActivityResult", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-    @RequestWrapper(localName = "FinishActivity", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.FinishActivity")
-    @ResponseWrapper(localName = "FinishActivityResponse", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011", className = "com.sdltridion.contentmanager.coreservice._2011.FinishActivityResponse")
-    public ActivityInstanceData finishActivity(
-        @WebParam(name = "activityInstanceId", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-        String activityInstanceId,
-        @WebParam(name = "activityFinishData", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-        ActivityFinishData activityFinishData,
-        @WebParam(name = "readOptions", targetNamespace = "http://www.sdltridion.com/ContentManager/CoreService/2011")
-        ReadOptions readOptions)
-        throws ICoreServiceFinishActivityCoreServiceFaultFaultFaultMessage
     ;
 
 }
