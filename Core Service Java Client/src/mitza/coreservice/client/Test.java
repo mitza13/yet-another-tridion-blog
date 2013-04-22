@@ -1,16 +1,15 @@
 package mitza.coreservice.client;
 
-import java.net.Authenticator;
-import java.net.URL;
+import mitza.coreservice.util.Utils;
 
-import javax.xml.namespace.QName;
+import org.w3c.dom.Element;
 
-import com.sdltridion.contentmanager.coreservice.CoreService2011;
 import com.sdltridion.contentmanager.coreservice.ICoreService;
-import com.sdltridion.contentmanager.r6.ComponentData;
-import com.sdltridion.contentmanager.r6.FolderData;
-import com.sdltridion.contentmanager.r6.ItemType;
-import com.sdltridion.contentmanager.r6.ReadOptions;
+import com.sdltridion.contentmanager.coreservice._2011.GetSystemWideListXmlResponse.GetSystemWideListXmlResult;
+import com.sdltridion.contentmanager.r6.ArrayOfIdentifiableObjectData;
+import com.sdltridion.contentmanager.r6.IdentifiableObjectData;
+import com.sdltridion.contentmanager.r6.PublicationData;
+import com.sdltridion.contentmanager.r6.PublicationsFilterData;
 import com.sdltridion.contentmanager.r6.UserData;
 
 /**
@@ -18,26 +17,47 @@ import com.sdltridion.contentmanager.r6.UserData;
  */
 public class Test {
 
-	private static final QName Q_NAME = new QName("http://www.sdltridion.com/ContentManager/CoreService",
-			"CoreService2011");
-
 	public static void main(String[] args) throws Exception {
-		BasicHttpAuthenticator basicHttpAuthenticator = new BasicHttpAuthenticator(args[0], args[1]);
-		Authenticator.setDefault(basicHttpAuthenticator);
+		long duration = System.currentTimeMillis();
+		System.out.println("Starting...");
 
-		URL url = new URL("http://localhost/webservices/CoreService2011.svc?wsdl");
-		CoreService2011 service = new CoreService2011(url, Q_NAME);
-		ICoreService client = service.getBasicHttp();
+		// Fiddler proxy
+		// System.setProperty("http.proxyHost", "localhost");
+		// System.setProperty("http.proxyPort", "8888");
+
+		if (args.length == 1) { // URL
+			CoreServiceFactory.setDefault(args[0]);
+		} else if (args.length == 2) { // username, password
+			CoreServiceFactory.setDefault(args[0], args[1]);
+		} else if (args.length == 3) { // URL, username, password
+			CoreServiceFactory.setDefault(args[0], args[1], args[2]);
+		} else {
+			CoreServiceFactory.setDefault("http://t2011sp1hr1.playground");
+		}
+		ICoreService client = CoreServiceFactory.getBasicHttpClient();
+
+		duration = System.currentTimeMillis() - duration;
+		System.out.println(String.format("Client initialized in %.3fs", duration / 1000.0));
+		duration = System.currentTimeMillis();
 
 		UserData currentUser = client.getCurrentUser();
-		System.out.println(String.format("'%s' %s", currentUser.getTitle(), currentUser.getId()));
+		System.out.println("Current user: '" + currentUser.getTitle() + "' '" + currentUser.getDescription() + "' " +
+				currentUser.getId());
 
-		ReadOptions readOptions = new ReadOptions();
-		ComponentData component = (ComponentData) client.read("tcm:1-852", readOptions);
-		System.out.println(String.format("'%s' %s", component.getTitle(), component.getId()));
+		System.out.println("Publication objects:");
+		PublicationsFilterData filter = new PublicationsFilterData();
+		ArrayOfIdentifiableObjectData systemWideList = client.getSystemWideList(filter);
+		for (IdentifiableObjectData iod : systemWideList.getIdentifiableObjectData()) {
+			PublicationData publication = (PublicationData) iod;
+			System.out.println("\t" + publication.getTitle());
+		}
 
-		FolderData folder = (FolderData) client.getDefaultData(ItemType.FOLDER, "tcm:1-1-2");
-		folder = (FolderData) client.save(folder, readOptions);
-		System.out.println(String.format("'%s' %s", folder.getTitle(), folder.getId()));
+		System.out.println("Publications XML:");
+		GetSystemWideListXmlResult resultXml = client.getSystemWideListXml(filter);
+		Element element = (Element) resultXml.getAny();
+		System.out.println(Utils.printDocument(element.getOwnerDocument()));
+
+		duration = System.currentTimeMillis() - duration;
+		System.out.println(String.format("Execution took %.3fs", duration / 1000.0));
 	}
 }

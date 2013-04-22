@@ -1,8 +1,11 @@
-package mitza.coreservice.client;
+package mitza.coreservice.security;
 
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 
+/**
+ * @author Mihai Cadariu
+ */
 public class BasicHttpAuthenticator extends Authenticator {
 
 	private String user;
@@ -15,7 +18,6 @@ public class BasicHttpAuthenticator extends Authenticator {
 
 	@Override
 	protected PasswordAuthentication getPasswordAuthentication() {
-		PasswordAuthentication auth = new PasswordAuthentication(user, password.toCharArray());
-		return auth;
+		return new PasswordAuthentication(user, password.toCharArray());
 	}
 }

@@ -274,7 +274,7 @@ public class ObjectFactory {
     private final static QName _LinkToVersionedItemData_QNAME = new QName("http://www.sdltridion.com/ContentManager/R6", "LinkToVersionedItemData");
     private final static QName _RenderInstructionData_QNAME = new QName("http://www.sdltridion.com/ContentManager/R6", "RenderInstructionData");
     private final static QName _TrusteesFilterData_QNAME = new QName("http://www.sdltridion.com/ContentManager/R6", "TrusteesFilterData");
-    private final static QName _ItemType_QNAME = new QName("http://www.sdltridion.com/ContentManager/R6", "ItemType");
+    private final static QName _ItemType_QNAME = new QName("http://www.sdltridion.com/ContentManager/R6", "ItemTypes");
     private final static QName _ArrayOfIdentifiableObjectData_QNAME = new QName("http://www.sdltridion.com/ContentManager/R6", "ArrayOfIdentifiableObjectData");
     private final static QName _ProcessDefinitionData_QNAME = new QName("http://www.sdltridion.com/ContentManager/R6", "ProcessDefinitionData");
     private final static QName _ArrayOfClaimMappingData_QNAME = new QName("http://www.sdltridion.com/ContentManager/R6", "ArrayOfClaimMappingData");
@@ -4480,10 +4480,10 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link ItemType }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ItemTypes }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://www.sdltridion.com/ContentManager/R6", name = "ItemType")
+    @XmlElementDecl(namespace = "http://www.sdltridion.com/ContentManager/R6", name = "ItemTypes")
     public JAXBElement<ItemType> createItemType(ItemType value) {
         return new JAXBElement<ItemType>(_ItemType_QNAME, ItemType.class, null, value);
     }

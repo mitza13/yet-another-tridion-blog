@@ -19,7 +19,7 @@ import com.sdltridion.contentmanager.r6.ItemType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="itemType" type="{http://www.sdltridion.com/ContentManager/R6}ItemType" minOccurs="0"/>
+ *         &lt;element name="itemType" type="{http://www.sdltridion.com/ContentManager/R6}ItemTypes" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -43,7 +43,7 @@ public class GetListTemplateTypes {
      * 
      * @return
      *     possible object is
-     *     {@link ItemType }
+     *     {@link ItemTypes }
      *     
      */
     public ItemType getItemType() {
@@ -55,7 +55,7 @@ public class GetListTemplateTypes {
      * 
      * @param value
      *     allowed object is
-     *     {@link ItemType }
+     *     {@link ItemTypes }
      *     
      */
     public void setItemType(ItemType value) {

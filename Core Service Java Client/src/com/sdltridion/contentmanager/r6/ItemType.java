@@ -7,12 +7,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for ItemType.
+ * <p>Java class for ItemTypes.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
  * <pre>
- * &lt;simpleType name="ItemType">
+ * &lt;simpleType name="ItemTypes">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
  *     &lt;enumeration value="None"/>
  *     &lt;enumeration value="Publication"/>
@@ -52,7 +52,7 @@ import javax.xml.bind.annotation.XmlType;
  * </pre>
  * 
  */
-@XmlType(name = "ItemType")
+@XmlType(name = "ItemTypes")
 @XmlEnum
 public enum ItemType {
 
