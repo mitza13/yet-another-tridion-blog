@@ -1,0 +1,9 @@
+Tridion.Common.dll
+Tridion.ContentManager.Common.dll
+Tridion.ContentManager.dll
+Tridion.ContentManager.Publishing.dll
+Tridion.ContentManager.Queuing.dll
+Tridion.ContentManager.TemplateTypes.dll
+Tridion.ContentManager.Templating.dll
+Tridion.ContentManager.TypeRegistration.dll
+Tridion.Logging.dll
