@@ -3,6 +3,9 @@ package net.mitza.odata.parser;
 import com.tridion.broker.querying.criteria.Criteria;
 import com.tridion.broker.querying.criteria.operators.AndCriteria;
 
+/**
+ * @author Mihai Cadariu
+ */
 public class AndCriteriaExpression extends LogicalExpression {
 
 	public AndCriteriaExpression(Expression node) {

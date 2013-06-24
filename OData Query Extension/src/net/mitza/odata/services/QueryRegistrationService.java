@@ -15,6 +15,9 @@ import com.tridion.webservices.odata.model.wrappers.ComponentPresentationPropert
 import com.tridion.webservices.odata.model.wrappers.ComponentPropertyWrapper;
 import com.tridion.webservices.odata.model.wrappers.PagePropertyWrapper;
 
+/**
+ * @author Mihai Cadariu
+ */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class QueryRegistrationService implements ODataResourceBundleRegistrationService {
 	private static String AREA_NAME;

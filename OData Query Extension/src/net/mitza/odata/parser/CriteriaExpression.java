@@ -4,6 +4,9 @@ import net.mitza.odata.builder.CriteriaBuilder;
 
 import com.tridion.broker.querying.criteria.Criteria;
 
+/**
+ * @author Mihai Cadariu
+ */
 public class CriteriaExpression implements Expression {
 
 	private Criteria criteria;

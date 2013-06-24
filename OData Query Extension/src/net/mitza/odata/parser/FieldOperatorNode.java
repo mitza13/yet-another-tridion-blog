@@ -2,6 +2,9 @@ package net.mitza.odata.parser;
 
 import com.tridion.broker.querying.criteria.FieldOperator;
 
+/**
+ * @author Mihai Cadariu
+ */
 public class FieldOperatorNode {
 
 	private String fieldOperator;

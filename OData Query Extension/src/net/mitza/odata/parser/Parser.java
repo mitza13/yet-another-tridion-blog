@@ -3,6 +3,21 @@ package net.mitza.odata.parser;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Parser for logical expressions combined with SDL Tridion Criteria object on the lowest level of nodes and leaves<br>
+ * Implementation based on Cogito Learning series on "Writing a Java Parser" http://cogitolearning.co.uk/?p=523<br>
+ * The parser takes a String expression in the OData query format ($filter URL parameter) and builds a Tridion Content
+ * Delivery Criteria object model from it.<br>
+ * Example:<br>
+ * The OData $filter parameter
+ * <code>Publication eq 123 and (SchemaTitle like 'Artic%' or CustomKeyValue eq 'Press Release')</code> becomes an
+ * AndCriteria between a PublicationCriteria(123) and an OrCriteria object betwen SchemaTitleCriteria("Artic%",
+ * FieldOperator.Like) and CustomKeyValueCriteria("Press Release")<br>
+ * 
+ * @author Mihai Cadariu
+ * @see http://cogitolearning.co.uk/?p=523
+ * @see http://cogitolearning.co.uk/?p=573
+ */
 public class Parser {
 
 	// Terminal symbols:

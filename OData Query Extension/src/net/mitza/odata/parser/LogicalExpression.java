@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.tridion.broker.querying.criteria.Criteria;
 
+/**
+ * @author Mihai Cadariu
+ */
 public abstract class LogicalExpression implements Expression {
 
 	protected List<Criteria> criterias;

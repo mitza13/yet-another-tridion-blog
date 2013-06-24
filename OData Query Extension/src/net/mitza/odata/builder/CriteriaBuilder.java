@@ -39,6 +39,9 @@ import com.tridion.broker.querying.criteria.structuregroups.StructureGroupTitleC
 import com.tridion.broker.querying.criteria.taxonomy.TaxonomyCriteria;
 import com.tridion.webservices.odata.input.ODataInputElement;
 
+/**
+ * @author Mihai Cadariu
+ */
 public class CriteriaBuilder {
 
 	private static final String $FILTER = "$filter";

@@ -1,5 +1,8 @@
 package net.mitza.odata.parser;
 
+/**
+ * @author Mihai Cadariu
+ */
 @SuppressWarnings("serial")
 public class ParserException extends RuntimeException {
 

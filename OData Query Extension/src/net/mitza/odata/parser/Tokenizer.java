@@ -4,6 +4,9 @@ import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author Mihai Cadariu
+ */
 public class Tokenizer {
 
 	private LinkedList<TokenInfo> tokenInfos;
@@ -21,7 +24,8 @@ public class Tokenizer {
 		add("([0-9]+(.[0-9]+)?|true|false)", TokenTypes.VALUE);
 		add("(BinaryType|ItemCreationDate|ItemInitialPublishDate|ItemLastPublishedDate|ItemModificationDate|ItemReference|ItemSchema|ItemTitle|Multimedia|PageTemplate|PageURL|Publication|SchemaTitle|"
 				+ "PublicationKey|PublicationMultimediaPath|PublicationMultimediaURL|PublicationPath|PublicationTitle|PublicationURL|"
-				+ "StructureGroup|StructureGroupDirectory|StructureGroupTitle|Taxonomy|CustomMetaKey|CustomMetaValue)\\s", TokenTypes.CRITERIA);
+				+ "StructureGroup|StructureGroupDirectory|StructureGroupTitle|Taxonomy|CustomMetaKey|CustomMetaValue)\\s",
+				TokenTypes.CRITERIA);
 	}
 
 	public void add(String regex, TokenTypes stringLiteral) {

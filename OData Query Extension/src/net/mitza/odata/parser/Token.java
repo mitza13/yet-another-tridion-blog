@@ -1,5 +1,8 @@
 package net.mitza.odata.parser;
 
+/**
+ * @author Mihai Cadariu
+ */
 public class Token {
 	public final TokenTypes tokenType;
 	public final String sequence;

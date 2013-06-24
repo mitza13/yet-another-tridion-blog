@@ -27,6 +27,9 @@ import com.tridion.webservices.odata.model.ODataEntry;
 import com.tridion.webservices.odata.model.ODataErrorResponse;
 import com.tridion.webservices.odata.model.ODataFeed;
 
+/**
+ * @author Mihai Cadariu
+ */
 public class QueryComponentResolver extends ResolverBase {
 
 	private final Logger log = LoggerFactory.getLogger(QueryComponentResolver.class);

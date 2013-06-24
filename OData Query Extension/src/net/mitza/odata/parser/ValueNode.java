@@ -1,5 +1,8 @@
 package net.mitza.odata.parser;
 
+/**
+ * @author Mihai Cadariu
+ */
 public class ValueNode {
 
 	private String value;
