@@ -8,6 +8,9 @@ import net.mitza.odata.parser.Expression;
 import net.mitza.odata.parser.Parser;
 import net.mitza.odata.parser.ParserException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.tridion.broker.querying.criteria.Criteria;
 import com.tridion.broker.querying.criteria.CriteriaException;
 import com.tridion.broker.querying.criteria.FieldOperator;
@@ -44,35 +47,38 @@ import com.tridion.webservices.odata.input.ODataInputElement;
  */
 public class CriteriaBuilder {
 
-	private static final String $FILTER = "$filter";
-	private static final String BYNARY_TYPE = "BinaryType";
-	private static final String ITEM_CREATION_DATE = "ItemCreationDate";
-	private static final String ITEM_INITIAL_PUBLISH_DATE = "ItemInitialPublishDate";
-	private static final String ITEM_LAST_PUBLISHED_DATE = "ItemLastPublishedDate";
-	private static final String ITEM_MODIFICATION_DATE = "ItemModificationDate";
-	private static final String ITEM_REFERENCE = "ItemReference";
-	private static final String ITEM_SCHEMA = "ItemSchema";
-	private static final String ITEM_TITLE = "ItemTitle";
-	private static final String MULTIMEDIA = "Multimedia";
-	private static final String PAGE_TEMPLATE = "PageTemplate";
-	private static final String PAGE_URL = "PageURL";
-	private static final String PUBLICATION = "Publication";
-	private static final String SCHEMA_TITLE = "SchemaTitle";
+	public static final String BYNARY_TYPE = "BinaryType";
+	public static final String ITEM_CREATION_DATE = "ItemCreationDate";
+	public static final String ITEM_INITIAL_PUBLISH_DATE = "ItemInitialPublishDate";
+	public static final String ITEM_LAST_PUBLISHED_DATE = "ItemLastPublishedDate";
+	public static final String ITEM_MODIFICATION_DATE = "ItemModificationDate";
+	public static final String ITEM_REFERENCE = "ItemReference";
+	public static final String ITEM_SCHEMA = "ItemSchema";
+	public static final String ITEM_TITLE = "ItemTitle";
+	public static final String MULTIMEDIA = "Multimedia";
+	public static final String PAGE_TEMPLATE = "PageTemplate";
+	public static final String PAGE_URL = "PageURL";
+	public static final String PUBLICATION = "Publication";
+	public static final String SCHEMA_TITLE = "SchemaTitle";
 
-	private static final String PUBLICATION_KEY = "PublicationKey";
-	private static final String PUBLICATION_MULTIMEDIA_PATH = "PublicationMultimediaPath";
-	private static final String PUBLICATION_MULTIMEDIA_URL = "PublicationMultimediaURL";
-	private static final String PUBLICATION_PATH = "PublicationPath";
-	private static final String PUBLICATION_TITLE = "PublicationTitle";
-	private static final String PUBLICATION_URL = "PublicationURL";
+	public static final String PUBLICATION_KEY = "PublicationKey";
+	public static final String PUBLICATION_MULTIMEDIA_PATH = "PublicationMultimediaPath";
+	public static final String PUBLICATION_MULTIMEDIA_URL = "PublicationMultimediaURL";
+	public static final String PUBLICATION_PATH = "PublicationPath";
+	public static final String PUBLICATION_TITLE = "PublicationTitle";
+	public static final String PUBLICATION_URL = "PublicationURL";
 
-	private static final String STRUCTURE_GROUP = "StructureGroup";
-	private static final String STRUCTURE_GROUP_DIRECTORY = "StructureGroupDirectory";
-	private static final String STRUCTURE_GROUP_TITLE = "StructureGroupTitle";
-	private static final String TAXONOMY = "Taxonomy";
+	public static final String STRUCTURE_GROUP = "StructureGroup";
+	public static final String STRUCTURE_GROUP_DIRECTORY = "StructureGroupDirectory";
+	public static final String STRUCTURE_GROUP_TITLE = "StructureGroupTitle";
+	public static final String TAXONOMY = "Taxonomy";
 
-	private static final String CUSTOM_META_KEY = "CustomMetaKey";
-	private static final String CUSTOM_META_VALUE = "CustomMetaValue";
+	public static final String CUSTOM_META_KEY = "CustomMetaKey";
+	public static final String CUSTOM_META_VALUE = "CustomMetaValue";
+
+	public static final String $FILTER = "$filter";
+
+	private static final Logger log = LoggerFactory.getLogger(CriteriaBuilder.class);
 
 	private final ODataInputElement oDataInputElement;
 	private final Map<String, String> requestParametersMap;
@@ -94,6 +100,16 @@ public class CriteriaBuilder {
 
 	public Criteria getCriteria() {
 		return criteria;
+	}
+
+	public Criteria getCriteria(Criteria initialCriteria) {
+		if (criteria == null) {
+			return initialCriteria;
+		} else {
+			log.debug("Add initial " + initialCriteria);
+			criteria.addCriteria(initialCriteria);
+			return getCriteria();
+		}
 	}
 
 	public static Criteria parseCriteria(String criteria, String value, FieldOperator fieldOperator) {
@@ -185,9 +201,13 @@ public class CriteriaBuilder {
 				return new CustomMetaValueCriteria(value, fieldOperator);
 			}
 		} catch (NumberFormatException nfe) {
-			throw new ParserException("NumberFormatException occurred: " + nfe.getMessage(), nfe);
+			String messsage = "NumberFormatException occurred: " + nfe.getMessage();
+			log.error(messsage, nfe);
+			throw new ParserException(messsage, nfe);
 		} catch (CriteriaException ce) {
-			throw new ParserException("CriteriaException occurred: " + ce.getMessage(), ce);
+			String messsage = "CriteriaException occurred: " + ce.getMessage();
+			log.error(messsage, ce);
+			throw new ParserException(messsage, ce);
 		}
 		throw new ParserException("Unknown criteria " + criteria);
 	}
@@ -206,12 +226,15 @@ public class CriteriaBuilder {
 		for (String key : oDataInputElement.getIdentifierKeys()) {
 			String value = oDataInputElement.getIdentifier(key);
 			Criteria criteria = parseCriteria(key, value, FieldOperator.EQUAL);
+			log.debug("Add Criteria from identifiers " + criteria);
 			criterias.add(criteria);
 		}
 
 		if (requestParametersMap.containsKey($FILTER)) {
 			filter = requestParametersMap.get($FILTER);
-			criterias.add(buildFromFilter());
+			Criteria criteria = buildFromFilter();
+			log.debug("Add Criteria from $filter " + criteria);
+			criterias.add(criteria);
 		}
 
 		Criteria result = new AndCriteria(criterias.toArray(new Criteria[0]));

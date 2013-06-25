@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import net.mitza.odata.builder.CriteriaBuilder;
+import net.mitza.odata.builder.QueryBuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,9 +44,7 @@ public class QueryPageResolver extends ResolverBase {
 	@Override
 	protected ODataBase resolveCollection() {
 		try {
-			CriteriaBuilder builder = new CriteriaBuilder(oDataInputElement, getRequestParametersMap());
-			Criteria criteria = builder.getCriteria();
-			return buildQueryEntries(getQueries(criteria));
+			return buildQueryEntries(getQueries());
 		} catch (Exception e) {
 			log.error("Error occurred while querying for pages", e);
 			return new ODataErrorResponse("Unable to build query entries", e.getMessage());
@@ -69,17 +67,14 @@ public class QueryPageResolver extends ResolverBase {
 		return feed;
 	}
 
-	List<PageMeta> getQueries(Criteria criteria) throws StorageException {
+	List<PageMeta> getQueries() throws StorageException {
 		List<PageMeta> result = new ArrayList<PageMeta>();
 		Criteria pageTypeCriteria = new ItemTypeCriteria(ItemTypes.PAGE);
-		if (criteria == null) {
-			criteria = pageTypeCriteria;
-		} else {
-			criteria.addCriteria(pageTypeCriteria);
-		}
+		QueryBuilder queryBuilder = new QueryBuilder(oDataInputElement, getRequestParametersMap(), pageTypeCriteria);
 
-		Query query = new Query(criteria);
+		Query query = queryBuilder.getQuery();
 		Item[] items = query.executeEntityQuery();
+
 		for (Item item : items) {
 			PageMeta pageMeta = new PageMeta((com.tridion.meta.PageMeta) item);
 			result.add(pageMeta);

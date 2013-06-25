@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import net.mitza.odata.builder.CriteriaBuilder;
+import net.mitza.odata.builder.QueryBuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,9 +47,7 @@ public class QueryComponentPresentationResolver extends ResolverBase {
 	@Override
 	protected ODataBase resolveCollection() {
 		try {
-			CriteriaBuilder builder = new CriteriaBuilder(oDataInputElement, getRequestParametersMap());
-			Criteria criteria = builder.getCriteria();
-			return buildQueryEntries(getQueries(criteria));
+			return buildQueryEntries(getComponentPresentations());
 		} catch (Exception e) {
 			log.error("Error occurred while querying for content", e);
 			return new ODataErrorResponse("Unable to build query entries", e.getMessage());
@@ -73,16 +71,13 @@ public class QueryComponentPresentationResolver extends ResolverBase {
 		return feed;
 	}
 
-	List<ComponentPresentation> getQueries(Criteria criteria) throws StorageException, ParseException {
+	List<ComponentPresentation> getComponentPresentations() throws StorageException, ParseException {
 		List<ComponentPresentation> result = new ArrayList<ComponentPresentation>();
 		Criteria componentTypeCriteria = new ItemTypeCriteria(ItemTypes.COMPONENT);
-		if (criteria == null) {
-			criteria = componentTypeCriteria;
-		} else {
-			criteria.addCriteria(componentTypeCriteria);
-		}
+		QueryBuilder queryBuilder = new QueryBuilder(oDataInputElement, getRequestParametersMap(),
+				componentTypeCriteria);
 
-		Query query = new Query(criteria);
+		Query query = queryBuilder.getQuery();
 		String[] items = query.executeQuery();
 		if (items.length == 0) {
 			return result;

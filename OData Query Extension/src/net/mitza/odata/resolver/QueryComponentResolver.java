@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import net.mitza.odata.builder.CriteriaBuilder;
+import net.mitza.odata.builder.QueryBuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import com.tridion.ItemTypes;
 import com.tridion.broker.StorageException;
 import com.tridion.broker.querying.Query;
-import com.tridion.broker.querying.criteria.Criteria;
 import com.tridion.broker.querying.criteria.content.ItemTypeCriteria;
 import com.tridion.meta.Item;
 import com.tridion.storage.ComponentMeta;
@@ -46,9 +45,7 @@ public class QueryComponentResolver extends ResolverBase {
 	@Override
 	protected ODataBase resolveCollection() {
 		try {
-			CriteriaBuilder builder = new CriteriaBuilder(oDataInputElement, getRequestParametersMap());
-			Criteria criteria = builder.getCriteria();
-			return buildQueryEntries(getComponents(criteria));
+			return buildQueryEntries(getComponents());
 		} catch (Exception e) {
 			log.error("Error occurred while querying for content", e);
 			return new ODataErrorResponse("Unable to build query entries", e.getMessage());
@@ -71,17 +68,15 @@ public class QueryComponentResolver extends ResolverBase {
 		return feed;
 	}
 
-	private List<ComponentMeta> getComponents(Criteria criteria) throws StorageException {
+	private List<ComponentMeta> getComponents() throws StorageException {
 		List<ComponentMeta> result = new ArrayList<ComponentMeta>();
 		ItemTypeCriteria componentTypeCriteria = new ItemTypeCriteria(ItemTypes.COMPONENT);
-		if (criteria == null) {
-			criteria = componentTypeCriteria;
-		} else {
-			criteria.addCriteria(componentTypeCriteria);
-		}
+		QueryBuilder queryBuilder = new QueryBuilder(oDataInputElement, getRequestParametersMap(),
+				componentTypeCriteria);
 
-		Query query = new Query(criteria);
+		Query query = queryBuilder.getQuery();
 		Item[] items = query.executeEntityQuery();
+
 		for (Item item : items) {
 			ComponentMeta componentMeta = MapperFactory.mapComponentMeta((com.tridion.meta.ComponentMeta) item);
 			result.add(componentMeta);
