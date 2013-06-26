@@ -19,13 +19,17 @@ public class Tokenizer {
 		add("\\)", TokenTypes.CLOSE_BRACKET);
 		add("or\\s", TokenTypes.OR_OPERATOR);
 		add("and\\s", TokenTypes.AND_OPERATOR);
-		add("(eq|neq|gt|ge|lt|le|like)\\s", TokenTypes.FIELD_OPERATOR);
+		add("\\s*,\\s*", TokenTypes.SEPARATOR);
+		add("(eq|neq|gt|ge|lt|le|like)", TokenTypes.FIELD_OPERATOR);
 		add("'.+?[^\\\\]'", TokenTypes.STRING);
-		add("([0-9]+(.[0-9]+)?|true|false)", TokenTypes.VALUE);
+		add("(-?[0-9]+(\\.[0-9]+)?|true|false)", TokenTypes.VALUE);
 		add("(BinaryType|ItemCreationDate|ItemInitialPublishDate|ItemLastPublishedDate|ItemModificationDate|ItemReference|ItemSchema|ItemTitle|Multimedia|PageTemplate|PageURL|Publication|SchemaTitle|"
 				+ "PublicationKey|PublicationMultimediaPath|PublicationMultimediaURL|PublicationPath|PublicationTitle|PublicationURL|"
-				+ "StructureGroup|StructureGroupDirectory|StructureGroupTitle|Taxonomy|CustomMetaKey|CustomMetaValue)\\s",
+				+ "StructureGroup|StructureGroupDirectory|StructureGroupTitle|Taxonomy|TaxonomyUsedForIdentification|CustomMetaKey|CustomMetaValue)\\s",
 				TokenTypes.CRITERIA);
+		add("(CustomMetaValue|CustomMetaKey|CustomMetaDateRange|CustomMetaStringRange|NumericalRange|"
+				+ "TaxonomyKeywordDescription|TaxonomyKeywordKey|TaxonomyKeywordName|TaxonomyKeyword|"
+				+ "StructureGroupDirectory|StructureGroupTitle|StructureGroup)", TokenTypes.FUNCTION);
 	}
 
 	public void add(String regex, TokenTypes stringLiteral) {

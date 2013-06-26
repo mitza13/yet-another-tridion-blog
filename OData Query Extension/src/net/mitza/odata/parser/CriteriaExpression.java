@@ -14,7 +14,10 @@ public class CriteriaExpression implements Expression {
 
 	private static final Logger log = LoggerFactory.getLogger(CriteriaExpression.class);
 
-	private Criteria criteria;
+	protected Criteria criteria;
+
+	public CriteriaExpression() {
+	}
 
 	public CriteriaExpression(String criteriaName, FieldOperatorNode fieldOperator) {
 		criteria = CriteriaBuilder.parseCriteria(criteriaName, fieldOperator.getValue(),

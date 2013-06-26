@@ -40,6 +40,7 @@ import com.tridion.broker.querying.criteria.structuregroups.StructureGroupCriter
 import com.tridion.broker.querying.criteria.structuregroups.StructureGroupDirectoryCriteria;
 import com.tridion.broker.querying.criteria.structuregroups.StructureGroupTitleCriteria;
 import com.tridion.broker.querying.criteria.taxonomy.TaxonomyCriteria;
+import com.tridion.broker.querying.criteria.taxonomy.TaxonomyUsedForIdentificationCriteria;
 import com.tridion.webservices.odata.input.ODataInputElement;
 
 /**
@@ -71,7 +72,9 @@ public class CriteriaBuilder {
 	public static final String STRUCTURE_GROUP = "StructureGroup";
 	public static final String STRUCTURE_GROUP_DIRECTORY = "StructureGroupDirectory";
 	public static final String STRUCTURE_GROUP_TITLE = "StructureGroupTitle";
+
 	public static final String TAXONOMY = "Taxonomy";
+	public static final String TAXONOMY_USED_FOR_IDENTIFICATION = "TaxonomyUsedForIdentification";
 
 	public static final String CUSTOM_META_KEY = "CustomMetaKey";
 	public static final String CUSTOM_META_VALUE = "CustomMetaValue";
@@ -181,7 +184,7 @@ public class CriteriaBuilder {
 
 				// Structure Group stuff
 			} else if (STRUCTURE_GROUP.equals(criteria)) {
-				return new StructureGroupCriteria(value); // TODO: other param
+				return new StructureGroupCriteria(value);
 			} else if (STRUCTURE_GROUP_DIRECTORY.equals(criteria)) {
 				return new StructureGroupDirectoryCriteria(value, fieldOperator);
 			} else if (STRUCTURE_GROUP_TITLE.equals(criteria)) {
@@ -193,6 +196,11 @@ public class CriteriaBuilder {
 					throw new ParserException("Illegal FieldOperator " + fieldOperator + " for criteria " + criteria);
 				}
 				return new TaxonomyCriteria(value);
+			} else if (TAXONOMY_USED_FOR_IDENTIFICATION.equals(criteria)) {
+				if (fieldOperator != FieldOperator.EQUAL) {
+					throw new ParserException("Illegal FieldOperator " + fieldOperator + " for criteria " + criteria);
+				}
+				return new TaxonomyUsedForIdentificationCriteria(Boolean.parseBoolean(value));
 
 				// Custom meta stuff
 			} else if (CUSTOM_META_KEY.equals(criteria)) {

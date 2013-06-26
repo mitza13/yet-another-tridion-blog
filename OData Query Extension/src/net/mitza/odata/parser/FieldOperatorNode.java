@@ -12,7 +12,13 @@ public class FieldOperatorNode {
 
 	public FieldOperatorNode(String fieldOperation, ValueNode value) {
 		this.fieldOperator = fieldOperation;
-		this.value = value.getValue();
+		setValue(value);
+	}
+
+	public void setValue(ValueNode value) {
+		if (value != null) {
+			this.value = value.getValue();
+		}
 	}
 
 	public String getValue() {
@@ -37,5 +43,10 @@ public class FieldOperatorNode {
 		}
 
 		throw new ParserException("Invalid FieldOperator found " + fieldOperator);
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("[%s %s]", getFieldOperator(), getValue());
 	}
 }
