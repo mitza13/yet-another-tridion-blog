@@ -141,7 +141,10 @@ public class CriteriaBuilder {
 				}
 				return new ItemSchemaCriteria(Integer.parseInt(value));
 			} else if (ITEM_TITLE.equals(criteria)) {
-				return new ItemTitleCriteria(value, fieldOperator);
+				if (fieldOperator != FieldOperator.EQUAL) {
+					throw new ParserException("Illegal FieldOperator " + fieldOperator + " for criteria " + criteria);
+				}
+				return new ItemTitleCriteria(value);
 			} else if (MULTIMEDIA.equals(criteria)) {
 				if (fieldOperator != FieldOperator.EQUAL) {
 					throw new ParserException("Illegal FieldOperator " + fieldOperator + " for criteria " + criteria);
@@ -153,7 +156,10 @@ public class CriteriaBuilder {
 				}
 				return new PageTemplateCriteria(Integer.parseInt(value));
 			} else if (PAGE_URL.equals(criteria)) {
-				return new PageURLCriteria(value, fieldOperator);
+				if (fieldOperator != FieldOperator.EQUAL) {
+					throw new ParserException("Illegal FieldOperator " + fieldOperator + " for criteria " + criteria);
+				}
+				return new PageURLCriteria(value);
 			} else if (PUBLICATION.equals(criteria)) {
 				if (fieldOperator != FieldOperator.EQUAL) {
 					throw new ParserException("Illegal FieldOperator " + fieldOperator + " for criteria " + criteria);
@@ -178,9 +184,6 @@ public class CriteriaBuilder {
 
 				// Structure Group stuff
 			} else if (STRUCTURE_GROUP.equals(criteria)) {
-				if (fieldOperator != FieldOperator.EQUAL) {
-					throw new ParserException("Illegal FieldOperator " + fieldOperator + " for criteria " + criteria);
-				}
 				return new StructureGroupCriteria(value);
 			} else if (STRUCTURE_GROUP_DIRECTORY.equals(criteria)) {
 				return new StructureGroupDirectoryCriteria(value, fieldOperator);

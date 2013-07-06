@@ -102,59 +102,48 @@ public class SortParameterBuilder {
 	}
 
 	private SortColumn getSortColumn() {
+		SortColumn sortColumn = null;
 		if (COMPONENT_SCHEMA.equals(curentToken)) {
-			nextToken();
-			return SortParameter.ITEMS_SCHEMA_ID;
+			sortColumn = SortParameter.ITEMS_SCHEMA_ID;
 		} else if (ITEM_CREATION_DATE.equals(curentToken)) {
-			nextToken();
-			return SortParameter.ITEMS_CREATION_DATE;
+			sortColumn = SortParameter.ITEMS_CREATION_DATE;
 		} else if (ITEM_ID.equals(curentToken)) {
-			nextToken();
-			return SortParameter.ITEMS_ITEM_REFERENCE_ID;
+			sortColumn = SortParameter.ITEMS_ITEM_REFERENCE_ID;
 		} else if (ITEM_INITIAL_PUBLICATION.equals(curentToken)) {
-			nextToken();
-			return SortParameter.ITEMS_INITIAL_PUBLICATION_DATE;
+			sortColumn = SortParameter.ITEMS_INITIAL_PUBLICATION_DATE;
 		} else if (ITEM_LAST_PUBLISH.equals(curentToken)) {
-			nextToken();
-			return SortParameter.ITEMS_LAST_PUBLISHED_DATE;
+			sortColumn = SortParameter.ITEMS_LAST_PUBLISHED_DATE;
 		} else if (ITEM_MAJOR_VERSION.equals(curentToken)) {
-			nextToken();
-			return SortParameter.ITEMS_MAJOR_VERSION;
+			sortColumn = SortParameter.ITEMS_MAJOR_VERSION;
 		} else if (ITEM_MINOR_VERSION.equals(curentToken)) {
-			nextToken();
-			return SortParameter.ITEMS_MINOR_VERSION;
+			sortColumn = SortParameter.ITEMS_MINOR_VERSION;
 		} else if (ITEM_MODIFICATION.equals(curentToken)) {
-			nextToken();
-			return SortParameter.ITEMS_MODIFICATION_DATE;
+			sortColumn = SortParameter.ITEMS_MODIFICATION_DATE;
 		} else if (ITEM_OWNING_PUBLICATION.equals(curentToken)) {
-			nextToken();
-			return SortParameter.ITEMS_OWNING_PUBLICATION_ID;
+			sortColumn = SortParameter.ITEMS_OWNING_PUBLICATION_ID;
 		} else if (ITEM_PUBLICATION.equals(curentToken)) {
-			nextToken();
-			return SortParameter.ITEMS_PUBLICATION_ID;
+			sortColumn = SortParameter.ITEMS_PUBLICATION_ID;
 		} else if (ITEM_TITLE.equals(curentToken)) {
-			nextToken();
-			return SortParameter.ITEMS_TITLE;
+			sortColumn = SortParameter.ITEMS_TITLE;
 		} else if (ITEM_TRUSTEE.equals(curentToken)) {
-			nextToken();
-			return SortParameter.ITEMS_TRUSTEE;
+			sortColumn = SortParameter.ITEMS_TRUSTEE;
 		} else if (ITEM_TYPE.equals(curentToken)) {
-			nextToken();
-			return SortParameter.ITEMS_ITEM_TYPE;
+			sortColumn = SortParameter.ITEMS_ITEM_TYPE;
 		} else if (PAGE_FILENAME.equals(curentToken)) {
-			nextToken();
-			return SortParameter.ITEMS_FILENAME;
+			sortColumn = SortParameter.ITEMS_FILENAME;
 		} else if (PAGE_TEMPLATE.equals(curentToken)) {
-			nextToken();
-			return SortParameter.ITEMS_PAGE_TEMPLATE_ID;
+			sortColumn = SortParameter.ITEMS_PAGE_TEMPLATE_ID;
 		} else if (PAGE_URL.equals(curentToken)) {
-			nextToken();
-			return SortParameter.ITEMS_URL;
+			sortColumn = SortParameter.ITEMS_URL;
 		}
 
-		// assume it's custom meta key sort column
-		String customMetaKey = curentToken;
 		nextToken();
+		if (sortColumn != null) {
+			return sortColumn;
+		}
+
+		// assume it's custom meta key
+		String customMetaKey = curentToken;
 		MetadataType metadataType = getMetadataType();
 
 		log.debug("Identified CustomMetaKeyColumn(" + customMetaKey + ", " + metadataType + ")");
