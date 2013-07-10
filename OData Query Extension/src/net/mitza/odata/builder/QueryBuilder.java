@@ -24,17 +24,20 @@ public class QueryBuilder {
 		criteria = criteriaBuilder.getCriteria(intialCriteria);
 		query = new Query(criteria);
 
-		ResultFilterBuilder resultFilterBuilder = new ResultFilterBuilder(requestParametersMap);
-		resultFilter = resultFilterBuilder.getResultFilter();
-		if (resultFilter != null) {
-			query.setResultFilter(resultFilter);
+		buildResultAndSort(requestParametersMap);
+	}
+
+	public QueryBuilder(Map<String, String> requestParametersMap) {
+		if (requestParametersMap.containsKey(CriteriaBuilder.$FILTER)) {
+			String filter = requestParametersMap.get(CriteriaBuilder.$FILTER);
+			CriteriaBuilder criteriaBuilder = new CriteriaBuilder(filter);
+			criteria = criteriaBuilder.getCriteria();
+			query = new Query(criteria);
+		} else {
+			query = new Query();
 		}
 
-		SortParameterBuilder sortParameterBuilder = new SortParameterBuilder(requestParametersMap);
-		sortParameters = sortParameterBuilder.getSortParameters();
-		for (SortParameter sortParameter : getSortParameters()) {
-			query.addSorting(sortParameter);
-		}
+		buildResultAndSort(requestParametersMap);
 	}
 
 	public Criteria getCriteria() {
@@ -51,5 +54,19 @@ public class QueryBuilder {
 
 	public SortParameter[] getSortParameters() {
 		return sortParameters;
+	}
+
+	private void buildResultAndSort(Map<String, String> requestParametersMap) {
+		ResultFilterBuilder resultFilterBuilder = new ResultFilterBuilder(requestParametersMap);
+		resultFilter = resultFilterBuilder.getResultFilter();
+		if (resultFilter != null) {
+			query.setResultFilter(resultFilter);
+		}
+
+		SortParameterBuilder sortParameterBuilder = new SortParameterBuilder(requestParametersMap);
+		sortParameters = sortParameterBuilder.getSortParameters();
+		for (SortParameter sortParameter : getSortParameters()) {
+			query.addSorting(sortParameter);
+		}
 	}
 }

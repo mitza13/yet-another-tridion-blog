@@ -14,8 +14,8 @@ import com.tridion.broker.querying.filter.ResultFilter;
  */
 public class ResultFilterBuilder {
 
-	private static final String $TOP = "$top";
-	private static final String $SKIP = "$skip";
+	public static final String $TOP = "$top";
+	public static final String $SKIP = "$skip";
 
 	private final Logger log = LoggerFactory.getLogger(ResultFilterBuilder.class);
 

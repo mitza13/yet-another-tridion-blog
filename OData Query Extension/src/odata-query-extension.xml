@@ -1,0 +1,7 @@
+<TCDLEngine>
+	<Tags>
+		<Tag Namespace="tridion" Name="dynamicContent">
+			<Handler Class="net.mitza.rel.renderer.DynamicContentTagRenderer" AllowCodeBlock="true" />
+		</Tag>
+	</Tags>
+</TCDLEngine>
