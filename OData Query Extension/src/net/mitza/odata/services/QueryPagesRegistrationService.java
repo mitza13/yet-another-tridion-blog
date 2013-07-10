@@ -8,7 +8,6 @@ import net.mitza.odata.resolver.QueryPageResolver;
 import com.tridion.webservices.extension.ODataEntryRegistrationService;
 import com.tridion.webservices.odata.input.resolver.ResolverBase;
 import com.tridion.webservices.odata.model.metadata.schema.Entity;
-import com.tridion.webservices.odata.model.metadata.schema.entities.PageEntity;
 import com.tridion.webservices.odata.model.wrappers.PagePropertyWrapper;
 import com.tridion.webservices.odata.model.wrappers.PropertyWrapper;
 
@@ -34,7 +33,7 @@ public class QueryPagesRegistrationService implements ODataEntryRegistrationServ
 
 	@Override
 	public Entity getMetadataEntity() {
-		return new PageEntity();
+		return null;
 	}
 
 	@Override

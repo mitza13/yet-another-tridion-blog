@@ -8,7 +8,6 @@ import net.mitza.odata.resolver.QueryComponentPresentationResolver;
 import com.tridion.webservices.extension.ODataEntryRegistrationService;
 import com.tridion.webservices.odata.input.resolver.ResolverBase;
 import com.tridion.webservices.odata.model.metadata.schema.Entity;
-import com.tridion.webservices.odata.model.metadata.schema.entities.ComponentPresentationEntity;
 import com.tridion.webservices.odata.model.wrappers.ComponentPresentationPropertyWrapper;
 import com.tridion.webservices.odata.model.wrappers.PropertyWrapper;
 
@@ -34,7 +33,7 @@ public class QueryComponentPresentationsRegistrationService implements ODataEntr
 
 	@Override
 	public Entity getMetadataEntity() {
-		return new ComponentPresentationEntity();
+		return null;
 	}
 
 	@Override
