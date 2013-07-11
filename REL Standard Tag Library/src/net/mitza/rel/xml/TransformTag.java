@@ -31,7 +31,7 @@ import com.tridion.tcdl.TransformContext;
 /*
  * Conducts a transformation given a source XML document and an XSLT stylesheet.
  * 
- * <x:transform var="varName" doc="xmlName" xslt="xsltName">
+ * <x:transform var="varName" doc="xmlVar" xslt="xsltVar">
  *   <x:param var="varName1" select="expr1" />
  *   <x:param var="varName2" select="expr2" />
  * </x:transform>
@@ -71,13 +71,8 @@ public class TransformTag extends AdapterTag {
 		removeSkipEvaluation(context);
 
 		try {
-			String docValue = (String) evaluateVariable(doc, context);
-			Document xmlDom = parseXml(docValue);
-			DOMSource domSource = new DOMSource(xmlDom);
-
-			String xsltValue = (String) evaluateVariable(xslt, context);
-			Templates templates = parseXslt(xsltValue);
-
+			DOMSource domSource = getDOMSource(context);
+			Templates templates = getTemplates(context);
 			Transformer transformer = templates.newTransformer();
 			setParams(transformer);
 
@@ -142,6 +137,34 @@ public class TransformTag extends AdapterTag {
 
 	public void addParam(ParamTag param) {
 		params.add(param);
+	}
+
+	private DOMSource getDOMSource(TransformContext context) throws Exception {
+		Object docValue = evaluateVariable(doc, context);
+		DOMSource domSource = null;
+
+		if (docValue instanceof String) {
+			Document document = parseXml((String) docValue);
+			domSource = new DOMSource(document);
+		} else if (docValue instanceof Document) {
+			domSource = new DOMSource((Document) docValue);
+		} else if (docValue instanceof DOMSource) {
+			domSource = (DOMSource) docValue;
+		}
+		return domSource;
+	}
+
+	private Templates getTemplates(TransformContext context) throws Exception {
+		Object xsltValue = evaluateVariable(xslt, context);
+		Templates templates = null;
+
+		if (xsltValue instanceof String) {
+			templates = parseXslt((String) xsltValue);
+		} else if (xsltValue instanceof Templates) {
+			templates = (Templates) xsltValue;
+		}
+
+		return templates;
 	}
 
 	private Document parseXml(String docValue) throws Exception {

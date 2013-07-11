@@ -11,20 +11,13 @@ import com.tridion.tcdl.Tag;
 import com.tridion.tcdl.TransformContext;
 
 /*
- * <c:out value="exp" />
+ * <c:out value="expr" />
  */
 public class OutTag extends AdapterTag {
 
 	private static Logger log = LoggerFactory.getLogger(OutTag.class);
 
 	private String value;
-
-	@Override
-	public int doStartTag(Tag tag, StringBuffer tagBody, TransformContext context, OutputDocument target)
-			throws TCDLTransformerException {
-		super.doStartTag(tag, tagBody, context, target);
-		return Tag.CONTINUE_TAG_EVALUATION;
-	}
 
 	@Override
 	public String doEndTag(Tag tag, StringBuffer tagBody, TransformContext context, OutputDocument target)
