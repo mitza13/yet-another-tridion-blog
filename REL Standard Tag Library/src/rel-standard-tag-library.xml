@@ -1,0 +1,27 @@
+<TCDLEngine>
+	<Tags>
+		<Tag Namespace="c" Name="choose">
+			<Handler Class="net.mitza.rel.core.ChooseTag" AllowCodeBlock="true" />
+		</Tag>
+
+		<Tag Namespace="c" Name="forEach">
+			<Handler Class="net.mitza.rel.core.ForEachTag" AllowCodeBlock="true" />
+		</Tag>
+
+		<Tag Namespace="c" Name="if">
+			<Handler Class="net.mitza.rel.core.IfTag" AllowCodeBlock="true" />
+		</Tag>
+
+		<Tag Namespace="c" Name="import">
+			<Handler Class="net.mitza.rel.core.ImportTag" AllowCodeBlock="true" />
+		</Tag>
+
+		<Tag Namespace="c" Name="out">
+			<Handler Class="net.mitza.rel.core.OutTag" AllowCodeBlock="true" />
+		</Tag>
+
+		<Tag Namespace="x" Name="transform">
+			<Handler Class="net.mitza.rel.xml.TransformTag" AllowCodeBlock="true" />
+		</Tag>
+	</Tags>
+</TCDLEngine>
