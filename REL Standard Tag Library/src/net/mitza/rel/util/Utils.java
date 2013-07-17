@@ -6,6 +6,22 @@ import com.tridion.util.TCMURI;
 
 public class Utils {
 
+	public static int getItemId(Object value) {
+		if (value == null) {
+			return -1;
+		}
+
+		if (value instanceof Integer) {
+			return (Integer) value;
+		} else if (value instanceof TCMURI) {
+			return ((TCMURI) value).getItemId();
+		} else if (value instanceof String) {
+			return getItemId((String) value);
+		}
+
+		return -1;
+	}
+
 	public static int getItemId(String value) {
 		if (value == null) {
 			return -1;

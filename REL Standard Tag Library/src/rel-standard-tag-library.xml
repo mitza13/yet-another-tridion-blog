@@ -20,6 +20,22 @@
 			<Handler Class="net.mitza.rel.core.OutTag" AllowCodeBlock="true" />
 		</Tag>
 
+		<Tag Namespace="c" Name="remove">
+			<Handler Class="net.mitza.rel.core.RemoveTag" AllowCodeBlock="true" />
+		</Tag>
+
+		<Tag Namespace="c" Name="set">
+			<Handler Class="net.mitza.rel.core.SetTag" AllowCodeBlock="true" />
+		</Tag>
+
+		<Tag Namespace="fmt" Name="formatDate">
+			<Handler Class="net.mitza.rel.fmt.FormatDateTag" AllowCodeBlock="true" />
+		</Tag>
+
+		<Tag Namespace="fmt" Name="parseDate">
+			<Handler Class="net.mitza.rel.fmt.ParseDateTag" AllowCodeBlock="true" />
+		</Tag>
+
 		<Tag Namespace="x" Name="transform">
 			<Handler Class="net.mitza.rel.xml.TransformTag" AllowCodeBlock="true" />
 		</Tag>

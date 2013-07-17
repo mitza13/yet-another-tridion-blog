@@ -2,9 +2,6 @@ package net.mitza.rel.xml;
 
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map.Entry;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,7 +13,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import net.mitza.rel.base.AdapterTag;
+import net.mitza.rel.base.TagWithParameterBase;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,31 +33,13 @@ import com.tridion.tcdl.TransformContext;
  *   <x:param var="varName2" select="expr2" />
  * </x:transform>
  */
-public class TransformTag extends AdapterTag {
+public class TransformTag extends TagWithParameterBase<ParamTag> {
 
 	private static Logger log = LoggerFactory.getLogger(TransformTag.class);
 
-	private String doc;
-	private String xslt;
-	private String var;
-	private List<ParamTag> params;
-
-	public TransformTag() {
-		params = new ArrayList<ParamTag>();
-	}
-
-	@Override
-	public int doStartTag(Tag tag, StringBuffer tagBody, TransformContext context, OutputDocument target)
-			throws TCDLTransformerException {
-		super.doStartTag(tag, tagBody, context, target);
-		if (shouldSkipEvaluation(context)) { // if current tag is nested
-			shouldBuildOriginalTag = true;
-			return Tag.CONTINUE_TAG_EVALUATION;
-		}
-
-		setSkipEvaluation(context);
-		return Tag.CONTINUE_TAG_EVALUATION;
-	}
+	private String doc; // expression evaluating to String representing XML or Document object or DOMSource object
+	private String xslt; // expression evaluating to String representing XSLT or Templates object
+	private String var; // var name or ${}
 
 	@Override
 	public String doEndTag(Tag tag, StringBuffer tagBody, TransformContext context, OutputDocument target)
@@ -74,17 +53,19 @@ public class TransformTag extends AdapterTag {
 			DOMSource domSource = getDOMSource(context);
 			Templates templates = getTemplates(context);
 			Transformer transformer = templates.newTransformer();
-			setParams(transformer);
+			setParams(transformer, context);
 
 			StringWriter writer = new StringWriter();
 			transformer.transform(domSource, new StreamResult(writer));
 			String result = writer.toString();
-			if (var == null) {
+			var = evaluateAttribute(var, context).toString();
+
+			if (var.length() == 0) {
 				tagBody.append(result);
-				log.debug("Appending result to tag body {}", result);
+				log.debug("Appending result to tag body '{}'", result);
 			} else {
 				context.set(var, result);
-				log.debug("Setting context variable {} with value {}", var, result);
+				log.debug("Setting context variable '{}' with value '{}'", var, result);
 			}
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
@@ -92,35 +73,6 @@ public class TransformTag extends AdapterTag {
 		}
 
 		return tagBody.toString();
-	}
-
-	public String buildOriginalTag(Tag tag, StringBuffer tagBody, TransformContext context, OutputDocument target) {
-		StringBuffer wholeTagWithBody = new StringBuffer();
-
-		String tagName = tag.getQualifiedName();
-		wholeTagWithBody.append("<").append(tagName);
-
-		for (Entry<String, String> entry : tag.getAttributes().entrySet()) {
-			String attribute = String.format(" %s=\"%s\"", entry.getKey(), entry.getValue());
-			wholeTagWithBody.append(attribute);
-		}
-
-		if (params.size() == 0) {
-			wholeTagWithBody.append("/>");
-		} else {
-			wholeTagWithBody.append(">");
-			for (ParamTag param : params) {
-				try {
-					param.doStartTag(tag, tagBody, context, target);
-					String paramBody = param.doEndTag(tag, tagBody, context, target);
-					wholeTagWithBody.append(paramBody);
-				} catch (TCDLTransformerException e) {
-				}
-			}
-			wholeTagWithBody.append("</").append(tagName).append(">");
-		}
-
-		return wholeTagWithBody.toString();
 	}
 
 	public void setRequiredDoc(String doc) {
@@ -136,11 +88,11 @@ public class TransformTag extends AdapterTag {
 	}
 
 	public void addParam(ParamTag param) {
-		params.add(param);
+		parameterList.add(param);
 	}
 
 	private DOMSource getDOMSource(TransformContext context) throws Exception {
-		Object docValue = evaluateVariable(doc, context);
+		Object docValue = evaluateExpression(doc, context);
 		DOMSource domSource = null;
 
 		if (docValue instanceof String) {
@@ -155,7 +107,7 @@ public class TransformTag extends AdapterTag {
 	}
 
 	private Templates getTemplates(TransformContext context) throws Exception {
-		Object xsltValue = evaluateVariable(xslt, context);
+		Object xsltValue = evaluateExpression(xslt, context);
 		Templates templates = null;
 
 		if (xsltValue instanceof String) {
@@ -180,10 +132,12 @@ public class TransformTag extends AdapterTag {
 		return factory.newTemplates(source);
 	}
 
-	private void setParams(Transformer transformer) {
-		for (ParamTag param : params) {
+	private void setParams(Transformer transformer, TransformContext context) {
+		for (ParamTag param : parameterList) {
 			String paramName = param.getVar();
-			String paramValue = param.getSelect(); // must evaluate
+			paramName = evaluateAttribute(paramName, context).toString();
+			Object paramValue = param.getSelect();
+			paramValue = evaluateAttribute(paramValue.toString(), context);
 			transformer.setParameter(paramName, paramValue);
 		}
 	}

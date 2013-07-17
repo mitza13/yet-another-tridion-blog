@@ -2,8 +2,6 @@ package net.mitza.rel.base;
 
 import java.io.StringWriter;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,8 +10,6 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.tridion.dcp.ComponentPresentation;
-import com.tridion.dynamiccontent.ComponentPresentationAssembler;
 import com.tridion.tcdl.DefaultDocumentBuilder;
 import com.tridion.tcdl.DocumentBuilder;
 import com.tridion.tcdl.OutputDocument;
@@ -43,55 +39,23 @@ public class AdapterTag implements TagRenderer {
 	@Override
 	public int doStartTag(Tag tag, StringBuffer tagBody, TransformContext context, OutputDocument target)
 			throws TCDLTransformerException {
-		originalTag = buildOriginalTag(tag, tagBody);
+		originalTag = buildOriginalTag(tag, tagBody, context, target);
 		return Tag.CONTINUE_TAG_EVALUATION;
 	}
 
 	@Override
 	public String doEndTag(Tag tag, StringBuffer tagBody, TransformContext context, OutputDocument target)
 			throws TCDLTransformerException {
-		return tagBody.toString();
+		if (shouldSkipEvaluation(context)) {
+			return buildOriginalTag(tag, tagBody, context, target);
+		}
+
+		return evaluateBody(tagBody.toString(), context);
 	}
 
 	@Override
 	public boolean requiresCodeBlock(TransformContext transformContext, OutputDocument document, Tag tag) {
 		return false;
-	}
-
-	public Object evaluateVariable(String var, TransformContext context) {
-		if (var != null) {
-			String objectFields[] = var.split("\\.");
-			Object contextVariable = context.get(objectFields[0], null);
-			if (contextVariable != null) {
-				Object invokableObject = contextVariable;
-				for (int i = 1; i < objectFields.length; i++) {
-					if (invokableObject != null) {
-						String field = objectFields[i];
-						invokableObject = getBeanField(invokableObject, field);
-					}
-				}
-
-				return evaluateInvokable(invokableObject);
-			} else if (var.startsWith("'") && var.endsWith("'")) {
-				return var.subSequence(1, var.length() - 1);
-			} else {
-				return var;
-			}
-		}
-
-		return null;
-	}
-
-	public String evaluateBody(String originalBody, TransformContext context) throws TCDLTransformerException {
-		StringWriter sw = new StringWriter();
-		TagHandlerRegistry registry = getHandlerRegistry();
-		DocumentBuilder documentBuilder = getDocumentBuilder();
-		OutputDocument output = new OutputDocument();
-		TagDispatcher tagDispatch = new TagDispatcher(context, output, registry);
-		TCDLParser p = new TCDLParser(registry.getNamespaceList(), null);
-		p.parse(tagDispatch, originalBody);
-		documentBuilder.buildDocument(context, output, sw);
-		return sw.toString();
 	}
 
 	public boolean shouldSkipEvaluation(TransformContext context) {
@@ -106,11 +70,11 @@ public class AdapterTag implements TagRenderer {
 		context.setBoolean(SKIP_TAG_EVALUATION, false);
 	}
 
-	public String buildOriginalTag(Tag tag, StringBuffer tagBody) {
-		return buildOriginalTag(tag, tagBody.toString());
+	public String buildOriginalTag(Tag tag, StringBuffer tagBody, TransformContext context, OutputDocument target) {
+		return buildOriginalTag(tag, tagBody.toString(), context, target);
 	}
 
-	public String buildOriginalTag(Tag tag, String body) {
+	public String buildOriginalTag(Tag tag, String tagBody, TransformContext context, OutputDocument target) {
 		StringBuffer wholeTagWithBody = new StringBuffer();
 		String tagName = tag.getQualifiedName();
 		wholeTagWithBody.append("<").append(tagName);
@@ -120,93 +84,57 @@ public class AdapterTag implements TagRenderer {
 			wholeTagWithBody.append(attribute);
 		}
 
-		if (StringUtils.isEmpty(body)) {
+		if (StringUtils.isEmpty(tagBody)) {
 			wholeTagWithBody.append("/>");
 		} else {
 			wholeTagWithBody.append(">");
-			wholeTagWithBody.append(body);
+			wholeTagWithBody.append(tagBody);
 			wholeTagWithBody.append("</").append(tagName).append(">");
 		}
 
 		return wholeTagWithBody.toString();
 	}
 
-	public boolean evaluateExpression(String test, TransformContext context) {
-		if (test == null) {
-			return false;
+	public String evaluateBody(String originalBody, TransformContext context) throws TCDLTransformerException {
+		StringWriter writer = new StringWriter();
+		TagHandlerRegistry registry = getHandlerRegistry();
+		DocumentBuilder documentBuilder = getDocumentBuilder();
+		OutputDocument output = new OutputDocument();
+		TagDispatcher dispatcher = new TagDispatcher(context, output, registry);
+		TCDLParser parser = new TCDLParser(registry.getNamespaceList(), null);
+		parser.parse(dispatcher, originalBody);
+		documentBuilder.buildDocument(context, output, writer);
+		return writer.toString();
+	}
+
+	/**
+	 * Evaluate an expresison if it's in a ${expression} notation. Otherwiese, return the original expression.
+	 */
+	public Object evaluateAttribute(String expression, TransformContext context) {
+		if (expression == null) {
+			return "";
 		}
 
-		if (test.contains("==")) {
-			String[] variables = test.split("==");
-			if (variables != null && variables.length == 2) {
-				String variable1 = variables[0].trim();
-				String variable2 = variables[1].trim();
-				Object evaluatedVariable1 = evaluateVariable(variable1, context);
-				Object evaluatedVariable2 = evaluateVariable(variable2, context);
-				if (evaluatedVariable1 != null && evaluatedVariable2 != null) {
-					return evaluatedVariable1.toString().equals(evaluatedVariable2.toString());
-				} else if (evaluatedVariable1 == null && evaluatedVariable2 == null) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				return false;
-			}
+		if (expression.startsWith("${") && expression.endsWith("}")) {
+			return evaluateExpression(expression.substring(2, expression.length() - 1), context);
+		} else {
+			return expression;
 		}
+	}
 
-		return false;
+	public Object evaluateExpression(String expression, TransformContext context) {
+		ExpressionEvaluator evaluator = new ExpressionEvaluator(context);
+		return evaluator.evaluate(expression);
+	}
+
+	public boolean evaluateCondition(String condition, TransformContext context) {
+		ExpressionComparator comparator = new ExpressionComparator(context);
+		return comparator.evaluate(condition);
 	}
 
 	@Override
 	public String toString() {
 		return originalTag;
-	}
-
-	private Object evaluateInvokable(Object invokableObject) {
-		if (invokableObject instanceof ComponentPresentation) {
-			ComponentPresentation cp = (ComponentPresentation) invokableObject;
-			ComponentPresentationAssembler assembler = new ComponentPresentationAssembler(cp.getPublicationId());
-			return assembler.getContent(cp.getComponentId(), cp.getComponentTemplateId());
-		}
-
-		return invokableObject;
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private Object getBeanField(Object bean, String fieldName) {
-		Object value = null;
-		String firstChar = fieldName.substring(0, 1);
-		String restFieldName = fieldName.substring(1);
-		String methodName = (new StringBuilder()).append("get").append(firstChar.toUpperCase()).append(restFieldName)
-				.toString();
-		Class beanClass = bean.getClass();
-		try {
-			Method beanMethod = beanClass.getMethod(methodName, new Class[0]);
-			value = beanMethod.invoke(bean, new Object[0]);
-			log.debug("Found value={} for fieldName={}", value, fieldName);
-		} catch (SecurityException e1) {
-			log.warn(
-					(new StringBuilder()).append("Could not get field value for object ").append(bean)
-							.append(" and field ").append(fieldName).toString(), e1);
-		} catch (NoSuchMethodException e1) {
-			log.warn(
-					(new StringBuilder()).append("Could not get field value for object ").append(bean)
-							.append(" and field ").append(fieldName).toString(), e1);
-		} catch (IllegalArgumentException e) {
-			log.warn(
-					(new StringBuilder()).append("Could not invoke getter for object ").append(bean)
-							.append(" and method ").append(methodName).toString(), e);
-		} catch (IllegalAccessException e) {
-			log.warn(
-					(new StringBuilder()).append("Could not invoke getter for object ").append(bean)
-							.append(" and method ").append(methodName).toString(), e);
-		} catch (InvocationTargetException e) {
-			log.warn(
-					(new StringBuilder()).append("Could not invoke getter for object ").append(bean)
-							.append(" and method ").append(methodName).toString(), e);
-		}
-		return value;
 	}
 
 	private TagHandlerRegistry getHandlerRegistry() throws TCDLTransformerException {

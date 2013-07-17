@@ -14,34 +14,34 @@ import com.tridion.tcdl.Tag;
 import com.tridion.tcdl.TransformContext;
 
 /*
- * <c:ForEach var="varName" items="varCollection" > Do Something </c:ForEach>
+ * The basic iteration tag
+ * 
+ * <c:ForEach var="varName" items="expr" > Do Something </c:ForEach>
  */
 public class ForEachTag extends AdapterTag {
 
 	private static Logger log = LoggerFactory.getLogger(ForEachTag.class);
 
-	private String var;
-	private String itemsVar;
-	@SuppressWarnings("rawtypes")
-	private List items;
+	private String var; // var name or ${}
+	private String itemsExpression; // expression evaluating to List or array to iterate
+	private List<?> items;
 
-	@SuppressWarnings("rawtypes")
 	@Override
 	public int doStartTag(Tag tag, StringBuffer tagBody, TransformContext context, OutputDocument target)
 			throws TCDLTransformerException {
 		super.doStartTag(tag, tagBody, context, target);
-		if (shouldSkipEvaluation(context)) {
+		if (shouldSkipEvaluation(context)) { // if current tag is nested
 			shouldBuildOriginalTag = true;
 			return Tag.CONTINUE_TAG_EVALUATION;
 		}
 
-		Object contextItems = evaluateVariable(itemsVar, context);
+		Object contextItems = evaluateExpression(itemsExpression, context);
 		if (contextItems == null) {
 			return Tag.SKIP_TAG;
 		} else if (contextItems instanceof Object[]) {
 			items = Arrays.asList((Object[]) contextItems);
 		} else if (contextItems instanceof List) {
-			items = (List) contextItems;
+			items = (List<?>) contextItems;
 		}
 
 		if (items == null || items.isEmpty()) {
@@ -55,21 +55,22 @@ public class ForEachTag extends AdapterTag {
 	@Override
 	public String doEndTag(Tag tag, StringBuffer tagBody, TransformContext context, OutputDocument target)
 			throws TCDLTransformerException {
-		if (shouldBuildOriginalTag) {
-			return buildOriginalTag(tag, tagBody);
+		if (shouldBuildOriginalTag) { // if current tag is nested
+			return buildOriginalTag(tag, tagBody, context, target);
 		}
 
 		removeSkipEvaluation(context);
 		StringBuffer result = new StringBuffer();
+		var = evaluateAttribute(var, context).toString();
 
 		for (Object item : items) {
 			context.set(var, item);
-			log.debug("Set transform context attribute '{}' to '{}'", var, item);
+			log.debug("Setting context variable '{}' with value '{}'", var, item);
 			String body = evaluateBody(tagBody.toString(), context);
 			result.append(body);
 		}
 
-		log.debug("Removing attribute '{}' from page context", var);
+		log.debug("Removing context variable '{}'", var);
 		context.remove(var);
 
 		return result.toString();
@@ -80,6 +81,6 @@ public class ForEachTag extends AdapterTag {
 	}
 
 	public void setItems(String itemsVar) {
-		this.itemsVar = itemsVar;
+		this.itemsExpression = itemsVar;
 	}
 }
