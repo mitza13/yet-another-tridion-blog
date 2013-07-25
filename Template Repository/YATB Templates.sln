@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YATB Templates", "YATB Templates\YATB Templates.csproj", "{FDFD4036-8DBF-45DA-8B7C-A4D838F68E44}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FDFD4036-8DBF-45DA-8B7C-A4D838F68E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDFD4036-8DBF-45DA-8B7C-A4D838F68E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDFD4036-8DBF-45DA-8B7C-A4D838F68E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDFD4036-8DBF-45DA-8B7C-A4D838F68E44}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
