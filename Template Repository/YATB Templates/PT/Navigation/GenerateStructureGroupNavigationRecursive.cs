@@ -14,6 +14,8 @@ namespace YATB.Templates.PT.TBB {
 	/// Generates an XML containing all Structure Groups and Pages whose title abides to a naming convention,
 	/// in hierarchical structure. The naming convention is given by regular expression (e.g. title starts with 
 	/// 3 digits followed by underscore or space).
+	/// 
+	/// See: http://yatb.mitza.net/2013/07/structure-group-navigation-recursive.html
 	/// </summary>
 	[TcmTemplateTitle("Generate Structure Group Navigation Recursive TBB")]
 	public class GenerateStructureGroupNavigationRecursive : TemplateBase {
