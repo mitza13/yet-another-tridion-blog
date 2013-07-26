@@ -59,16 +59,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PT\GenerateStructureGroupNavigationGetItems.cs" />
-    <Compile Include="PT\GenerateStructureGroupNavigationReorder.cs" />
-    <Compile Include="PT\GenerateStructureGroupNavigationRecursive.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PT\Navigation\GenerateStructureGroupNavigationGetItems.cs" />
+    <Compile Include="PT\Navigation\GenerateStructureGroupNavigationRecursive.cs" />
+    <Compile Include="PT\Navigation\GenerateStructureGroupNavigationReorder.cs" />
     <Compile Include="Util\TemplateBase.cs" />
     <Compile Include="Util\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CT\" />
     <Folder Include="Generic\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PT\Navigation\xslt\breadcrumb.xslt" />
+    <Content Include="PT\Navigation\xslt\navigation.xslt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
