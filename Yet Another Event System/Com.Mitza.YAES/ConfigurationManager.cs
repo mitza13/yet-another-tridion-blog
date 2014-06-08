@@ -1,85 +1,195 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
 using System.Reflection;
 using System.Xml;
 using Tridion.ContentManager;
 using Tridion.ContentManager.ContentManagement;
 using Tridion.ContentManager.ContentManagement.Fields;
 
-namespace Com.Mitza.YAES {
-
+namespace Com.Mitza.YAES
+{
     /// <summary>
-    /// ConfigurationManager stores settings for all events in publications.
+    /// Handles reading System Configuration Components, loading them as Dictionary and checking for modifications of Configuration Components,
+    /// so they get reloaded every few minutes.
+    /// Singleton implementaton.
     /// </summary>
-    public class ConfigurationManager {
-
+    public class ConfigurationManager
+    {
         public const string PUBLICATION = "Publication";
         public const string CURRENT = "Current";
         public const string SYSTEM_COMPONENT_LOCATION = "SystemComponentLocation";
         public const string SYSTEM_COMPONENT_FIELD = "SystemComponentField";
         public const string SYSTEM_COMPONENT_RECURSIVE = "SystemComponentRecursive";
         public const string SYSTEM_COMPONENT_OVERRIDE = "SystemComponentOverride";
+        public const string SYSTEM_COMPONENT_CACHE_MINUTES = "SystemComponentCacheMinutes";
 
         private static ConfigurationManager instance;
-        private Configuration dllConfiguration;
-
         internal DateTime LastModifiedCheck { get; set; }
 
-        private Dictionary<string, string> configurations;
-        public Dictionary<string, string> Configurations {
-            get { return configurations; }
+        private Dictionary<string, string> _configurations;
+        /// <summary>
+        /// Returns the dictionary containing key, value configuration pairs
+        /// </summary>
+        public Dictionary<string, string> Configurations
+        {
+            get { return _configurations; }
         }
 
-        private int cacheMinutes = 5;
-        public int CacheMinutes {
-            get {
-                return cacheMinutes;
+        private int _systemComponentCacheMinutes = -1;
+        /// <summary>
+        /// DLL configuration value representing how long should a loaded configuration object be kept in memory cache
+        /// </summary>
+        private int SystemComponentCacheMinutes
+        {
+            get
+            {
+                if (_systemComponentCacheMinutes < 0)
+                {
+                    string value = GetAppSetting(SYSTEM_COMPONENT_CACHE_MINUTES);
+                    if (string.IsNullOrEmpty(value))
+                    {
+                        _systemComponentCacheMinutes = 0;
+                    }
+                    else
+                    {
+                        _systemComponentCacheMinutes = Convert.ToInt32(value);
+                    }
+                }
+                return _systemComponentCacheMinutes;
             }
-            set {
-                cacheMinutes = value;
+        }
+
+        private string _systemComponentLocation = null;
+        /// <summary>
+        /// DLL configuration value indicating the locations (comma-separated) where to read the System Configuration Component from
+        /// </summary>
+        private string SystemComponentLocation
+        {
+            get
+            {
+                if (_systemComponentLocation == null)
+                {
+                    _systemComponentLocation = GetAppSetting(SYSTEM_COMPONENT_LOCATION);
+                    _systemComponentLocation = string.IsNullOrEmpty(_systemComponentLocation) ? PUBLICATION : _systemComponentLocation;
+                }
+                return _systemComponentLocation;
+            }
+        }
+
+        private string _systemComponentField = null;
+        /// <summary>
+        /// DLL configuration value indicating the metadata field names (comma-separated) where to look for Component Links to actual Configuration Components
+        /// </summary>
+        private string SystemComponentField
+        {
+            get
+            {
+                if (_systemComponentField == null)
+                {
+                    _systemComponentField = GetAppSetting(SYSTEM_COMPONENT_FIELD);
+                    _systemComponentField = string.IsNullOrEmpty(_systemComponentField) ? string.Empty : _systemComponentField;
+                }
+                return _systemComponentField;
             }
         }
 
         /// <summary>
-        /// Initiate values, and Load settings xml file.
+        /// DLL Configuration value indicating whether existing values in the Configurations dictionary can be overridden by other values (for the same key)
         /// </summary>
-        /// <param name="configFilename">Filepath to the config file of Event System</param>
-        private ConfigurationManager() {
-            configurations = new Dictionary<string, string>();
-            dllConfiguration = GetDllConfiguration();
+        private bool SystemComponentOverride
+        {
+            get
+            {
+                string value = GetAppSetting(SYSTEM_COMPONENT_OVERRIDE);
+                return string.IsNullOrEmpty(value) ? false : Convert.ToBoolean(value);
+            }
         }
 
-        public static ConfigurationManager GetInstance(RepositoryLocalObject repositoryLocalObject) {
-            if (instance == null) {
+        /// <summary>
+        /// DLL configuration value indicating whether to attempt searching for Configuration Components in a recursive fashion (to the parent Organizational Item)
+        /// </summary>
+        private bool SystemComponentRecursive
+        {
+            get
+            {
+                string value = GetAppSetting(SYSTEM_COMPONENT_RECURSIVE);
+                return string.IsNullOrEmpty(value) ? false : Convert.ToBoolean(value);
+            }
+        }
+
+        private Configuration _dllConfiguration;
+        /// <summary>
+        /// Returns the Configuration object next to the current executing DLL
+        /// </summary>
+        private Configuration DllConfiguration
+        {
+            get
+            {
+                if (_dllConfiguration == null)
+                {
+                    ExeConfigurationFileMap fileMap = new ExeConfigurationFileMap()
+                    {
+                        ExeConfigFilename = Assembly.GetExecutingAssembly().Location + ".config"
+                    };
+                    _dllConfiguration = System.Configuration.ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
+                }
+                return _dllConfiguration;
+            }
+        }
+
+        /// <summary>
+        /// Private constructor. Singleton implemmentation. Use static method GetInstance(RepositoryLocalObject) instead
+        /// </summary>
+        private ConfigurationManager()
+        {
+            _configurations = new Dictionary<string, string>();
+        }
+
+        /// <summary>
+        /// Returns the ConfigurationManager singleton object. It also checks to reload the Configuration Component vales, if needed.
+        /// </summary>
+        /// <param name="repositoryLocalObject">the current object to check reloading configuration values for</param>
+        /// <returns>the singleton ConfigurationManager object</returns>
+        public static ConfigurationManager GetInstance(RepositoryLocalObject repositoryLocalObject)
+        {
+            if (instance == null)
+            {
                 instance = new ConfigurationManager();
             }
 
             instance.ReloadIfModified(repositoryLocalObject);
-
             return instance;
         }
 
-        private void ReloadIfModified(RepositoryLocalObject repositoryLocalObject) {
+        /// <summary>
+        /// Checks if the current configuration needs to be reloaded. If so, it performs the reloads.
+        /// </summary>
+        private void ReloadIfModified(RepositoryLocalObject repositoryLocalObject)
+        {
             DateTime dateTimeNow = DateTime.Now;
             DateTime lastModifiedCheck = instance.LastModifiedCheck;
-            DateTime expiredDateTime = lastModifiedCheck.AddMinutes(cacheMinutes);
+            DateTime expiredDateTime = lastModifiedCheck.AddMinutes(SystemComponentCacheMinutes);
 
-            if (dateTimeNow > expiredDateTime) { // check for modifications
+            if (dateTimeNow > expiredDateTime) // check for modifications
+            {
                 IEnumerable<Component> configurationComponents = GetConfigurationComponents(repositoryLocalObject); // 'expensive' call
 
                 bool isReload = false;
-                foreach (Component configurationComponent in configurationComponents) {
-                    if (configurationComponent.RevisionDate > lastModifiedCheck) {
+                foreach (Component configurationComponent in configurationComponents)
+                {
+                    if (configurationComponent.RevisionDate > lastModifiedCheck)
+                    {
                         isReload = true;
                         break;
                     }
                 }
 
-                if (isReload) {
-                    configurations.Clear();
-                    foreach (Component configurationComponent in configurationComponents) {
+                if (isReload)
+                {
+                    _configurations.Clear();
+                    foreach (Component configurationComponent in configurationComponents)
+                    {
                         instance.Load(configurationComponent); // even more 'expensive' call
                     }
                 }
@@ -87,28 +197,36 @@ namespace Com.Mitza.YAES {
             }
         }
 
-        private List<Component> GetConfigurationComponents(RepositoryLocalObject repositoryLocalObject) {
+        /// <summary>
+        /// Returns a list of Components representing all encountered configurations that were found according to the locations in the .config file
+        /// </summary>
+        private List<Component> GetConfigurationComponents(RepositoryLocalObject repositoryLocalObject)
+        {
             List<Component> results = new List<Component>();
             Component configurationComponent = null;
-            string systemComponentLocation = GetAppSetting(SYSTEM_COMPONENT_LOCATION);
-            systemComponentLocation = string.IsNullOrEmpty(systemComponentLocation) ? PUBLICATION : systemComponentLocation;
-            string systemComponentField = GetAppSetting(SYSTEM_COMPONENT_FIELD);
-            systemComponentField = string.IsNullOrEmpty(systemComponentField) ? string.Empty : systemComponentField;
 
-            foreach (string location in systemComponentLocation.Split(',')) {
-                try {
-                    if (location == PUBLICATION) { // read from Publication metadata
+            foreach (string location in SystemComponentLocation.Split(','))
+            {
+                try
+                {
+                    if (location == PUBLICATION) // read from Publication metadata
+                    {
                         Repository publication = repositoryLocalObject.ContextRepository;
-                        results.AddRange(GetConfigurationComponents(publication.Metadata, publication.MetadataSchema, systemComponentField));
-                    } else if (location == CURRENT) { // read from parent metadata
+                        results.AddRange(GetConfigurationsFromMetadata(publication.Metadata, publication.MetadataSchema));
+                    }
+                    else if (location == CURRENT) // read from parent metadata
+                    {
                         OrganizationalItem organizationalItem = repositoryLocalObject.OrganizationalItem;
-                        bool isRecursive = Convert.ToBoolean(GetAppSetting(SYSTEM_COMPONENT_RECURSIVE));
-                        results.AddRange(GetConfigurationComponents(organizationalItem, isRecursive));
-                    } else if (location.StartsWith("/webdav") || TcmUri.IsValid(location)) {
+                        results.AddRange(GetConfigurationsFromStructureGroup(organizationalItem, SystemComponentRecursive));
+                    }
+                    else if (location.StartsWith("/webdav") || TcmUri.IsValid(location))
+                    {
                         configurationComponent = (Component)repositoryLocalObject.Session.GetObject(location);
                         results.Add(configurationComponent);
                     }
-                } catch (Exception ex) {
+                }
+                catch
+                {
                     // Log error
                 }
             }
@@ -116,27 +234,38 @@ namespace Com.Mitza.YAES {
             return results;
         }
 
-        private List<Component> GetConfigurationComponents(OrganizationalItem organizationalItem, bool isRecursive) {
+        /// <summary>
+        /// Returns Configuration Components from the OrganizationalItem's metadata, possibly recursive.
+        /// </summary>
+        private List<Component> GetConfigurationsFromStructureGroup(OrganizationalItem organizationalItem, bool isRecursive)
+        {
             List<Component> results = new List<Component>();
+            results.AddRange(GetConfigurationsFromMetadata(organizationalItem.Metadata, organizationalItem.MetadataSchema));
 
-            if (isRecursive && !organizationalItem.IsRootOrganizationalItem) {
-                results.AddRange(GetConfigurationComponents(organizationalItem.OrganizationalItem, isRecursive));
+            if (isRecursive && !organizationalItem.IsRootOrganizationalItem)
+            {
+                results.AddRange(GetConfigurationsFromStructureGroup(organizationalItem.OrganizationalItem, isRecursive));
             }
-            results.AddRange(GetConfigurationComponents(organizationalItem, isRecursive));
 
             return results;
         }
 
-        private List<Component> GetConfigurationComponents(XmlElement metadataElement, Schema metadataSchema, string fieldNames) {
+        /// <summary>
+        /// Returns Configuration Components from the given metadata element and Schema
+        /// </summary>
+        private List<Component> GetConfigurationsFromMetadata(XmlElement element, Schema schema)
+        {
             List<Component> results = new List<Component>();
-
-            if (metadataElement != null && metadataSchema != null) {
-                ItemFields metaFields = new ItemFields(metadataElement, metadataSchema);
-
-                foreach (string fieldName in fieldNames.Split(',')) {
-                    if (metaFields.Contains(fieldName)) {
+            if (element != null && schema != null)
+            {
+                ItemFields metaFields = new ItemFields(element, schema);
+                foreach (string fieldName in SystemComponentField.Split(','))
+                {
+                    if (metaFields.Contains(fieldName))
+                    {
                         ItemField itemField = metaFields[fieldName];
-                        if (itemField is ComponentLinkField) {
+                        if (itemField is ComponentLinkField)
+                        {
                             results.Add(((ComponentLinkField)itemField).Value);
                         }
                     }
@@ -146,20 +275,18 @@ namespace Com.Mitza.YAES {
             return results;
         }
 
-        private Configuration GetDllConfiguration() {
-            ExeConfigurationFileMap fileMap = new ExeConfigurationFileMap() {
-                ExeConfigFilename = Assembly.GetExecutingAssembly().Location + ".config"
-            };
+        /// <summary>
+        /// Returns the configuration value corresponding to the given key from Configuration corresponding to the current executing DLL AppSettings section
+        /// </summary>
+        private string GetAppSetting(string key)
+        {
+            KeyValueConfigurationElement configElement = DllConfiguration.AppSettings.Settings[key];
 
-            return System.Configuration.ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
-        }
-
-        private string GetAppSetting(string key) {
-            KeyValueConfigurationElement configElement = dllConfiguration.AppSettings.Settings[key];
-
-            if (configElement != null) {
+            if (configElement != null)
+            {
                 string value = configElement.Value;
-                if (!string.IsNullOrEmpty(value)) {
+                if (!string.IsNullOrEmpty(value))
+                {
                     return value;
                 }
             }
@@ -167,82 +294,22 @@ namespace Com.Mitza.YAES {
             return string.Empty;
         }
 
-        private void Load(Component configurationComponent) {
+        /// <summary>
+        /// Loads all fields from the given configuration Component into the Configurations dictionary. Each key represents an XML field name and its value
+        /// represents the field value.
+        /// </summary>
+        private void Load(Component configurationComponent)
+        {
             XmlElement dom = configurationComponent.Content;
-            string systemComponentOverride = GetAppSetting(SYSTEM_COMPONENT_OVERRIDE);
-            bool isOverride = string.IsNullOrEmpty(systemComponentOverride) ? false : Convert.ToBoolean(systemComponentOverride);
-
-            foreach (XmlNode node in dom.SelectNodes("//*")) {
+            foreach (XmlNode node in dom.SelectNodes("//*"))
+            {
                 string key = node.Name;
                 string value = node.InnerText.Trim();
-                if (!configurations.ContainsKey(key) || isOverride) {
-                    configurations[key] = value;
+                if (!_configurations.ContainsKey(key) || SystemComponentOverride)
+                {
+                    _configurations[key] = value;
                 }
             }
-        }
-
-        /// <summary>
-        /// Check if event is enabled.
-        /// </summary>
-        /// <param name="eventName">Event Name</param>
-        /// <returns>true - enabled, false - disabled</returns>
-        public bool IsEventEnabled(string eventName) {
-            //if (configurations.ContainsKey(eventName) && !configurations[eventName].Enabled) {
-            //    return false;
-            //}
-            return true;
-        }
-
-        /// <summary>
-        /// Check if Exceptions will be raised in specific Event.
-        /// </summary>
-        /// <param name="eventName">Event Name</param>
-        /// <returns>true - will be raised, false - not</returns>
-        public bool IsExceptionsEnabled(string eventName) {
-            //if (configurations.ContainsKey(eventName) && !configurations[eventName].ThrowExceptions) {
-            //    return false;
-            //}
-            return true;
-        }
-
-        /// <summary>
-        /// Check if event is enabled in specific publication.
-        /// </summary>
-        /// <param name="eventName">Event Name</param>
-        /// <param name="publicationId">Publication TcmUri</param>
-        /// <returns>true - enabled, false - disabled</returns>
-        public bool IsEventEnabled(string eventName, TcmUri publicationId) {
-            //if (configurations.ContainsKey(eventName) && configurations[eventName].Publications.ContainsKey(publicationId) && !configurations[eventName].Publications[publicationId]) {
-            //    return false;
-            //}
-            return true;
-        }
-
-        /// <summary>
-        /// Get all configuration values for Event.
-        /// </summary>
-        /// <param name="eventName">Event Name</param>
-        /// <returns>Collection of key-value pairs with configuration values</returns>
-        public Dictionary<string, string> GetConfigValues(string eventName) {
-            //if (configurations.ContainsKey(eventName)) {
-            //    return configurations[eventName].Configurations;
-            //} else {
-            return null;
-            //}
-        }
-
-        /// <summary>
-        /// Get specific configuration value for specific event.
-        /// </summary>
-        /// <param name="eventName">Event Name</param>
-        /// <param name="configName">Configuration Name</param>
-        /// <returns>The value of configuration setting</returns>
-        public string GetConfigValues(string eventName, string configName) {
-            //if (configurations.ContainsKey(eventName) && configurations[eventName].Configurations.ContainsKey(configName)) {
-            //    return configurations[eventName].Configurations[configName];
-            //} else {
-            return string.Empty;
-            //}
         }
     }
 }
