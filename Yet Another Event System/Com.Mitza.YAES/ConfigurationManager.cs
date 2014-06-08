@@ -25,7 +25,7 @@ namespace Com.Mitza.YAES
         public const string SYSTEM_COMPONENT_CACHE_MINUTES = "SystemComponentCacheMinutes";
 
         private static ConfigurationManager instance;
-        internal DateTime LastModifiedCheck { get; set; }
+        DateTime LastModifiedCheck { get; set; }
 
         private Dictionary<string, string> _configurations;
         /// <summary>
@@ -34,6 +34,17 @@ namespace Com.Mitza.YAES
         public Dictionary<string, string> Configurations
         {
             get { return _configurations; }
+        }
+
+        /// <summary>
+        /// Indexer accessor. Returns the value from the Configurations dictionary that is associated to the given key.
+        /// </summary>
+        public string this[string key]
+        {
+            get
+            {
+                return _configurations[key];
+            }
         }
 
         private int _systemComponentCacheMinutes = -1;
