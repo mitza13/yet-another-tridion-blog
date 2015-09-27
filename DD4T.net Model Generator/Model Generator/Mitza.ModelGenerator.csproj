@@ -55,6 +55,11 @@
     <Compile Include="Common\CoreServiceClient.cs" />
     <Compile Include="Common\Repository.cs" />
     <Compile Include="Common\Util.cs" />
+    <Compile Include="Generators\BuilderBaseGenerator.cs" />
+    <Compile Include="Generators\HeterogenousBuilderGenerator.cs" />
+    <Compile Include="Generators\IFieldsSetExtensionMethodsGenerator.cs" />
+    <Compile Include="Generators\MultimediaBaseGenerator.cs" />
+    <Compile Include="Generators\ModelBaseGenerator.cs" />
     <Compile Include="Generators\ConstructorGenerator.cs" />
     <Compile Include="Generators\FieldsGenerator.cs" />
     <Compile Include="Generators\GeneratorBase.cs" />

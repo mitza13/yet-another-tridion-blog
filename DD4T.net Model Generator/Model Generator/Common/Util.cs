@@ -18,9 +18,11 @@ namespace Mitza.ModelGenerator.Common
 
                 case "tcmi:MultiLineText":
                 case "tcmi:SimpleLink":
-                case "tcmi:XHTML":
                 case "xsd:normalizedString":
                     return TypeKind.Text;
+
+                case "tcmi:XHTML":
+                    return TypeKind.RichText;
 
                 case "xsd:dateTime":
                     return TypeKind.Date;
@@ -85,6 +87,64 @@ namespace Mitza.ModelGenerator.Common
         public static string MakePropertyName(string name)
         {
             return MakeClassName(name);
+        }
+
+        public static string MakeBuilderClassName(string name)
+        {
+            return MakeClassName(name) + "Builder";
+        }
+
+        public static string MakeEmbeddedBuilderClassName(string name)
+        {
+            return MakeEmbeddedClassName(name) + "Builder";
+        }
+
+        public static string MakeMultimediaBuilderClassName(string name)
+        {
+            return MakeMultimediaClassName(name) + "Builder";
+        }
+
+        public static string GetPropertyType(Type type)
+        {
+            string result;
+            switch (type.TypeKind)
+            {
+                case TypeKind.ComponentLink:
+                    result = Util.MakeClassName(type.Name);
+                    break;
+
+                case TypeKind.Date:
+                    result = "DateTime";
+                    break;
+
+                case TypeKind.Embedded:
+                    result = Util.MakeEmbeddedClassName(type.Name);
+                    break;
+
+                case TypeKind.Keyword:
+                    result = "IKeyword";
+                    break;
+
+                case TypeKind.MultimediaLink:
+                    result = Util.MakeMultimediaClassName(type.Name);
+                    break;
+
+                case TypeKind.Numeric:
+                    result = "double";
+                    break;
+
+                case TypeKind.Text:
+                default:
+                    result = "string";
+                    break;
+            }
+
+            return result;
+        }
+
+        public static string MakeBuilderClassName(Type type)
+        {
+            return GetPropertyType(type) + "Builder";
         }
     }
 }

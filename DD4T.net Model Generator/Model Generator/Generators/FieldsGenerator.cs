@@ -24,20 +24,28 @@ namespace Mitza.ModelGenerator.Generators
 
         private void GenerateComment(Field field, string padding)
         {
+            WriteLine("{0}        /// <summary>", padding);
             if (field.IsHeterogenous)
             {
-                WriteLine("{0}        /// <summary>", padding);
                 string types = string.Join(", ", field.Types.Select(x => x.Name).OrderBy(x => x));
                 if (field.IsMultivalue)
                 {
-                    WriteLine("{0}        /// List of either: {1}", padding, types);
+                    WriteLine("{0}        /// <para>List of either: {1}</para>", padding, types);
                 }
                 else
                 {
-                    WriteLine("{0}        /// Can be one of: Article, Asset, Internal Link, External Link", padding);
+                    WriteLine("{0}        /// <para>Can be one of: {1}</para>", padding, types);
                 }
-                WriteLine("{0}        /// </summary>", padding);
             }
+            if (field.IsMandatory)
+            {
+                WriteLine("{0}        /// <para>Mandatory field</para>", padding);
+            }
+            else
+            {
+                WriteLine("{0}        /// <para>Optional field might be null</para>", padding);
+            }
+            WriteLine("{0}        /// </summary>", padding);
         }
 
         private string GetPropertyType(Field field)
@@ -49,38 +57,7 @@ namespace Mitza.ModelGenerator.Generators
             }
             else
             {
-                Type fieldType = field.Type;
-                switch (fieldType.TypeKind)
-                {
-                    case TypeKind.ComponentLink:
-                        type = Util.MakeClassName(fieldType.Name);
-                        break;
-
-                    case TypeKind.Date:
-                        type = "DateTime";
-                        break;
-
-                    case TypeKind.Embedded:
-                        type = Util.MakeEmbeddedClassName(fieldType.Name);
-                        break;
-
-                    case TypeKind.Keyword:
-                        type = "IKeyword";
-                        break;
-
-                    case TypeKind.MultimediaLink:
-                        type = Util.MakeMultimediaClassName(fieldType.Name);
-                        break;
-
-                    case TypeKind.Numeric:
-                        type = "double";
-                        break;
-
-                    case TypeKind.Text:
-                    default:
-                        type = "string";
-                        break;
-                }
+                type = Util.GetPropertyType(field.Type);
             }
 
             if (field.IsMultivalue)
@@ -89,21 +66,6 @@ namespace Mitza.ModelGenerator.Generators
             }
 
             return type;
-        }
-
-        private string GetPropertyName(Field field)
-        {
-            string name = Util.MakePropertyName(field.Name);
-            switch (name)
-            {
-                case "Id":
-                case "Title":
-                case "Schema":
-                    name += "Field";
-                    break;
-            }
-
-            return name;
         }
     }
 }

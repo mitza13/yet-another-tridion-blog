@@ -1,6 +1,6 @@
 ﻿namespace Mitza.ModelGenerator.Model
 {
-    public enum TypeKind { ComponentLink, Date, Embedded, Keyword, MultimediaLink, Numeric, Text };
+    public enum TypeKind { ComponentLink, Date, Embedded, Keyword, MultimediaLink, Numeric, RichText, Text };
 
     public class Type
     {

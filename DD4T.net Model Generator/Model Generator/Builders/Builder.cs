@@ -1,5 +1,4 @@
 ﻿using Mitza.ModelGenerator.Common;
-using Mitza.ModelGenerator.Generators;
 using Mitza.ModelGenerator.Model;
 using System;
 using Tridion.ContentManager.CoreService.Client;
@@ -40,21 +39,6 @@ namespace Mitza.ModelGenerator.Builders
                     }
 
                     new ModelBuilder(schema, model);
-
-                    switch (schema.Purpose)
-                    {
-                        case SchemaPurpose.Component:
-                            new ComponentGenerator((ComponentModel)model);
-                            break;
-
-                        case SchemaPurpose.Embedded:
-                            new EmbeddedGenerator((EmbeddedModel)model);
-                            break;
-
-                        case SchemaPurpose.Multimedia:
-                            new MultimediaGenerator((MultimediaModel)model);
-                            break;
-                    }
                 }
             }
         }

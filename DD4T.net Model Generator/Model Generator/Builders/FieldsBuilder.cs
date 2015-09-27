@@ -19,6 +19,7 @@ namespace Mitza.ModelGenerator.Builders
                 Field field = new Field
                 {
                     Name = fieldElement.Attribute("name").Value,
+                    IsMandatory = fieldElement.Attribute("minOccurs").Value == "1",
                     IsMultivalue = fieldElement.Attribute("maxOccurs").Value == "unbounded"
                 };
                 fields.Add(field);

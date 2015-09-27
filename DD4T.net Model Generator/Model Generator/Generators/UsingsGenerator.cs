@@ -5,29 +5,31 @@ namespace Mitza.ModelGenerator.Generators
 {
     public class UsingsGenerator : GeneratorBase
     {
-        public UsingsGenerator(ModelBase model)
-            : base(model)
+        public UsingsGenerator(ModelBase model) : base(model) { }
+
+        public void GenerateModelUsings()
         {
+            GeneratorMode = GeneratorMode.Model;
             bool found = false;
 
-            if (model is MultimediaModel ||
-                model is ComponentModel ||
-                model.Fields.FirstOrDefault(x => x.Type.TypeKind == TypeKind.Keyword) != null ||
-                model.MetadataFields.FirstOrDefault(x => x.Type.TypeKind == TypeKind.Keyword) != null)
+            if (Model is MultimediaModel ||
+                Model is ComponentModel ||
+                Model.Fields.FirstOrDefault(x => x.Type.TypeKind == TypeKind.Keyword) != null ||
+                Model.MetadataFields.FirstOrDefault(x => x.Type.TypeKind == TypeKind.Keyword) != null)
             {
                 found = true;
                 WriteLine("using DD4T.ContentModel;");
             }
 
-            if (model.Fields.FirstOrDefault(x => x.Type.TypeKind == TypeKind.Date) != null ||
-                model.MetadataFields.FirstOrDefault(x => x.Type.TypeKind == TypeKind.Date) != null)
+            if (Model.Fields.FirstOrDefault(x => x.Type.TypeKind == TypeKind.Date) != null ||
+                Model.MetadataFields.FirstOrDefault(x => x.Type.TypeKind == TypeKind.Date) != null)
             {
                 found = true;
                 WriteLine("using System;");
             }
 
-            if (model.Fields.FirstOrDefault(x => x.IsMultivalue) != null ||
-                model.MetadataFields.FirstOrDefault(x => x.IsMultivalue) != null)
+            if (Model.Fields.FirstOrDefault(x => x.IsMultivalue) != null ||
+                Model.MetadataFields.FirstOrDefault(x => x.IsMultivalue) != null)
             {
                 found = true;
                 WriteLine("using System.Collections.Generic;");
@@ -37,6 +39,15 @@ namespace Mitza.ModelGenerator.Generators
             {
                 WriteLine();
             }
+        }
+
+        public void GenerateBuilderUsings()
+        {
+            GeneratorMode = GeneratorMode.Builder;
+
+            WriteLine("using {0};", NamespaceModel);
+            WriteLine("using dd4t = DD4T.ContentModel;");
+            WriteLine();
         }
     }
 }
