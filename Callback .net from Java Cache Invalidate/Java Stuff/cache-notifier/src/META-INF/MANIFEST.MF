@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Class-Path: antlr.jar cd_deployer.jar spring-aop.jar spring-jdbc.jar c
+ ommons-dbcp.jar hibernate-commons-annotations.jar spring-context.jar 
+ spring-orm.jar jboss-transaction-api_1.1_spec.jar jackson-annotations
+ -2.4.3.jar spring-core.jar jcl-over-slf4j.jar javassist.jar spring-co
+ ntext-support.jar dom4j.jar sqljdbc4.jar commons-pool.jar easylicense
+ .jar slf4j-api.jar jackson-core-2.4.3.jar cd_tcdl.jar xalan.jar commo
+ ns-collections.jar cd_model.jar activation.jar jaxb-impl.jar aopallia
+ nce.jar cd_broker.jar hibernate-core.jar serializer.jar jackson-datab
+ ind-2.4.3.jar jboss-logging.jar spring-beans.jar spring-tx.jar jaxb-a
+ pi.jar jdbcpool.jar spring-asm.jar stax-api.jar guava.jar hibernate-e
+ ntitymanager.jar logback-core.jar cd_core.jar logback-classic.jar cd_
+ datalayer.jar hibernate-jpa-2.0-api.jar spring-expression.jar
+
