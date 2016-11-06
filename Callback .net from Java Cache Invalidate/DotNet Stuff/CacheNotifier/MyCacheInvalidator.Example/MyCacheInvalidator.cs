@@ -2,17 +2,13 @@
 
 namespace MyCacheInvalidator.Example
 {
-    public sealed class MyCacheInvalidator : ICacheInvalidator
+    public class MyCacheInvalidator : ICacheInvalidator
     {
-        public MyCacheInvalidator()
+        public void Invalidate(string key)
         {
-            CacheNotifier.Instance.Invalidator = this;
-        }
-
-        public void Invalidate(string cacheElementKey)
-        {
-            // perform your own cache removal here
-            //cache.Remove(cacheElementKey);
+            string message = "i have been called";
+            //perform your own cache removal here
+            //cache.Remove(Key);
         }
     }
 }

@@ -7,6 +7,29 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Com.MihaiConsulting.Cache",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyCacheInvalidator.Example", "MyCacheInvalidator.Example\MyCacheInvalidator.Example.csproj", "{B94A772D-C1ED-4F5F-BA99-DADE326DC7E3}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ExampleWebsite", "ExampleWebsite\", "{896F6DC0-3D6B-4E41-B79A-4D29F3A609C7}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
+		ProjectReferences = "{d29af040-356d-43e3-bd92-b885affb7623}|Com.MihaiConsulting.CacheNotifier.dll;{b94a772d-c1ed-4f5f-ba99-dade326dc7e3}|MyCacheInvalidator.Example.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_1128"
+		Debug.AspNetCompiler.PhysicalPath = "ExampleWebsite\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_1128\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_1128"
+		Release.AspNetCompiler.PhysicalPath = "ExampleWebsite\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_1128\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "1128"
+		SlnRelativePath = "ExampleWebsite\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +44,10 @@ Global
 		{B94A772D-C1ED-4F5F-BA99-DADE326DC7E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B94A772D-C1ED-4F5F-BA99-DADE326DC7E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B94A772D-C1ED-4F5F-BA99-DADE326DC7E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{896F6DC0-3D6B-4E41-B79A-4D29F3A609C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{896F6DC0-3D6B-4E41-B79A-4D29F3A609C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{896F6DC0-3D6B-4E41-B79A-4D29F3A609C7}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{896F6DC0-3D6B-4E41-B79A-4D29F3A609C7}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
