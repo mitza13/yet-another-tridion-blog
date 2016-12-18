@@ -5,15 +5,8 @@
 
 <script RunAt="server">
 
-    void Application_Start(object sender, EventArgs e)
-    {
-    }
-
     void Session_Start(object sender, EventArgs e)
     {
-        //Initialize JuggerNET
-        //new PageMetaFactory(0);
-
         //Set MyCacheInvalidator as invalidator
         CacheNotifier.Instance.Invalidator = new MyCacheInvalidator();
     }
