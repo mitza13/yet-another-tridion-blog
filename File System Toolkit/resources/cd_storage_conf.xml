@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration Version="6.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="schemas/cd_storage_conf.xsd">
+    <Global>
+        <ObjectCache Enabled="false">
+            <Policy Type="LRU" Class="com.tridion.cache.LRUPolicy">
+                <Param Name="MemSize" Value="16mb"/>
+            </Policy>
+
+            <Features>
+                <Feature Type="DependencyTracker" Class="com.tridion.cache.DependencyTracker"/>
+                <Feature Type="MyCacheDecorator" Class="com.tridion.cache.MyCacheDecorator"/>
+            </Features>
+
+            <RemoteSynchronization Host="t2013sp1.playground" Port="7777" Queuesize="128"
+                                   ServiceMonitorInterval="10000"/>
+        </ObjectCache>
+
+        <Storages>
+            <StorageBindings>
+                <Bundle src="toolkit_dao_bundle.xml"/>
+            </StorageBindings>
+
+            <Storage Type="filesystem" Class="com.tridion.storage.filesystem.FSDAOFactory" Id="tridionRoot"
+                     defaultFilesystem="true">
+                <Root Path="/Users/mihai/Projects/yet-another-tridion-blog/File System Toolkit/files/tridionRoot"/>
+            </Storage>
+
+            <Storage Type="persistence" Id="brokerdb" dialect="MSSQL"
+                     Class="com.tridion.storage.persistence.JPADAOFactory">
+                <Pool Type="jdbc" Size="5" MonitorInterval="60" IdleTimeout="120" CheckoutTimeout="120"/>
+                <DataSource Class="com.microsoft.sqlserver.jdbc.SQLServerDataSource">
+                    <Property Name="serverName" Value="t2013sp1.playground"/>
+                    <Property Name="portNumber" Value="1433"/>
+                    <Property Name="databaseName" Value="Tridion_Broker"/>
+                    <Property Name="user" Value="TridionBrokerUser"/>
+                    <Property Name="password" Value="tridion"/>
+                </DataSource>
+            </Storage>
+        </Storages>
+    </Global>
+
+    <!--<ItemTypes defaultStorageId="tridionRoot" cached="false"/>-->
+    <ItemTypes defaultStorageId="brokerdb" cached="true"/>
+</Configuration>

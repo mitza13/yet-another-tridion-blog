@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+	<property name="log.pattern" value="%date [%thread] %5p %c{1} - %m%n" />
+	<property name="log.history" value="1" />
+	<property name="log.folder" value="/Users/mihai/Projects/yet-another-tridion-blog/File System Toolkit/files/log" />
+	<property name="log.level" value="info" />
+
+	<appender name="deployerLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.folder}/json-deployer-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>${log.history}</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>${log.pattern}</pattern>
+		</encoder>
+
+		<prudent>true</prudent>
+	</appender>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${log.pattern}</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.tridion" level="${log.level}" />
+	<logger name="com.mitza" level="${log.level}" />
+	<logger name="com.tridion.cache" level="ERROR" />
+
+	<root level="OFF">
+		<appender-ref ref="deployerLog" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

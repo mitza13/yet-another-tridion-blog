@@ -1,0 +1,14 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="schemas/ehcache.xsd">
+    <!--
+        TTL 3600 = 1 hour
+        TTI 1800 = 30 min
+    -->
+    <cache name="toolkit-cache-CHANGED"
+           eternal="false"
+           maxEntriesLocalHeap="20000"
+           timeToLiveSeconds="3600"
+           timeToIdleSeconds="3600"
+           memoryStoreEvictionPolicy="LRU">
+    </cache>
+</ehcache>

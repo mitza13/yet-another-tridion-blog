@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StorageDAOBundles>
+    <!-- Filesystem mappings -->
+    <StorageDAOBundle type="filesystem">
+        <StorageDAO typeMapping="Binary" class="com.tridion.storage.toolkit.FSBinaryDAOExtension"/>
+    </StorageDAOBundle>
+
+    <!-- Java Persistence API mappings -->
+    <StorageDAOBundle type="persistence">
+        <StorageDAO typeMapping="Binary" class="com.tridion.storage.toolkit.JPABinaryDAOExtension"/>
+    </StorageDAOBundle>
+</StorageDAOBundles>

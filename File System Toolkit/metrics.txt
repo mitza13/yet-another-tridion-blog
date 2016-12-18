@@ -1,0 +1,103 @@
+=============
+CP ASSEMBLER
+=============
+
+CACHE ETERNAL
+2016-12-17 17:07:36,539 [main]  INFO c.m.t.t.d.Test - <<< CPAssembler load tests took 173.26 seconds | 57717.06 iterations / second | 57717.06 CPs / second
+2016-12-18 11:55:02,786 [main]  INFO c.m.t.t.d.Test - Duration 70.68 seconds | 57952.15 iterations / second | 57952.15 items / second
+
+CACHE TTL=1s TTI=1s
+2016-12-17 17:13:08,854 [main]  INFO c.m.t.t.d.Test - <<< CPAssembler load tests took 179.29 seconds | 55776.80 iterations / second | 55776.80 CPs / second
+2016-12-18 12:13:43,909 [main]  INFO c.m.t.t.d.Test - Duration 72.32 seconds | 56638.73 iterations / second | 56638.73 items / second
+
+CACHE TTL=5s TTI=5s
+2016-12-17 17:17:11,428 [main]  INFO c.m.t.t.d.Test - <<< CPAssembler load tests took 190.35 seconds | 52535.36 iterations / second | 52535.36 CPs / second
+2016-12-18 12:31:08,515 [main]  INFO c.m.t.t.d.Test - Duration 78.39 seconds | 52250.23 iterations / second | 52250.23 items / second
+
+NO CACHE
+2016-12-17 16:45:01,258 [main]  INFO c.m.t.t.d.Test - <<< CPAssembler load tests took 58.34 seconds | 17140.02 iterations / second | 17140.02 CPs / second
+2016-12-18 11:39:59,711 [main]  INFO c.m.t.t.d.Test - Duration 60.15 seconds | 17023.26 iterations / second | 17023.26 items / second
+
+
+=============
+CP FACTORY
+=============
+
+CACHE ETERNAL
+2016-12-17 18:37:38,651 [main]  INFO c.m.t.t.d.Test - <<< CPFactory load tests took 166.78 seconds | 1798787.62 iterations / second | 3597575.23 CPs / second
+2016-12-18 11:57:23,592 [main]  INFO c.m.t.t.d.Test - Duration 70.27 seconds | 1865262.56 iterations / second | 3730525.12 items / second
+
+CACHE TTL=1s TTI=1s
+2016-12-17 18:41:52,894 [main]  INFO c.m.t.t.d.Test - <<< CPFactory load tests took 199.30 seconds | 1505253.33 iterations / second | 3010506.67 CPs / second
+2016-12-18 12:16:30,650 [main]  INFO c.m.t.t.d.Test - Duration 82.66 seconds | 1585772.19 iterations / second | 3171544.37 items / second
+
+CACHE TTL=5s TTI=5s
+2016-12-17 18:54:28,185 [main]  INFO c.m.t.t.d.Test - <<< CPFactory load tests took 193.28 seconds | 1552152.32 iterations / second | 3104304.64 CPs / second
+2016-12-18 12:34:12,509 [main]  INFO c.m.t.t.d.Test - Duration 92.08 seconds | 1423442.40 iterations / second | 2846884.81 items / second
+
+NO CACHE
+2016-12-17 19:04:28,054 [main]  INFO c.m.t.t.d.Test - <<< CPFactory load tests took 241.68 seconds | 12413.31 iterations / second | 24826.63 CPs / second
+2016-12-18 11:42:55,580 [main]  INFO c.m.t.t.d.Test - Duration 88.18 seconds | 11612.08 iterations / second | 23224.17 items / second
+
+
+=============
+DYNAMIC QUERY
+=============
+
+CACHE ETERNAL
+2016-12-17 21:58:45,495 [main]  INFO c.m.t.t.d.Test - <<< Dynamic Query load tests took 172.54 seconds | 1159.13 iterations / second | 6954.79 CPs / second
+2016-12-18 11:59:23,906 [main]  INFO c.m.t.t.d.Test - Duration 60.18 seconds | 1063.49 iterations / second | 6380.96 items / second
+
+CACHE TTL=1s TTI=1s
+2016-12-17 22:03:19,518 [main]  INFO c.m.t.t.d.Test - <<< Dynamic Query load tests took 177.52 seconds | 1126.62 iterations / second | 6759.73 CPs / second
+2016-12-18 12:20:20,775 [main]  INFO c.m.t.t.d.Test - Duration 117.23 seconds | 1091.90 iterations / second | 6551.39 items / second
+
+CACHE TTL=5s TTI=5s
+2016-12-17 22:06:57,505 [main]  INFO c.m.t.t.d.Test - <<< Dynamic Query load tests took 179.53 seconds | 1114.02 iterations / second | 6684.12 CPs / second
+2016-12-18 12:36:20,271 [main]  INFO c.m.t.t.d.Test - Duration 64.00 seconds | 999.95 iterations / second | 5999.72 items / second
+
+NO CACHE
+2016-12-17 21:51:45,517 [main]  INFO c.m.t.t.d.Test - <<< Dynamic Query load tests took 175.86 seconds | 1137.29 iterations / second | 6823.73 CPs / second
+2016-12-18 11:46:44,922 [main]  INFO c.m.t.t.d.Test - Duration 114.49 seconds | 1118.01 iterations / second | 6708.07 items / second
+
+
+=============
+LINK FACTORY
+=============
+
+CACHE ETERNAL
+2016-12-17 16:13:04,839 [main]  INFO c.m.t.t.d.Test - <<< Link load tests took 128.68 seconds | 77710.34 iterations / second | 388551.71 links / second
+2016-12-18 12:02:45,773 [main]  INFO c.m.t.t.d.Test - Duration 100.27 seconds | 81698.60 iterations / second | 408492.98 items / second
+
+CACHE TTL=1s TTI=1s
+2016-12-17 16:23:09,729 [main]  INFO c.m.t.t.d.Test - <<< Link load tests took 137.70 seconds | 72620.59 iterations / second | 363102.93 links / second
+2016-12-18 12:23:56,040 [main]  INFO c.m.t.t.d.Test - Duration 107.40 seconds | 76279.16 iterations / second | 381395.78 items / second
+
+CACHE TTL=5s TTI=5s
+2016-12-17 16:17:31,462 [main]  INFO c.m.t.t.d.Test - <<< Link load tests took 131.76 seconds | 75895.57 iterations / second | 379477.84 links / second
+2016-12-18 12:39:58,661 [main]  INFO c.m.t.t.d.Test - Duration 109.13 seconds | 75065.75 iterations / second | 375328.73 items / second
+
+NO CACHE
+2016-12-17 16:36:42,174 [main]  INFO c.m.t.t.d.Test - <<< Link load tests took 194.25 seconds | 5147.93 iterations / second | 25739.63 links / second
+2016-12-18 11:50:06,127 [main]  INFO c.m.t.t.d.Test - Duration 99.12 seconds | 5165.72 iterations / second | 25828.58 items / second
+
+
+=============
+MODEL FACTORY
+=============
+
+CACHE ETERNAL
+2016-12-18 01:51:27,968 [main]  INFO c.m.t.t.d.Test - <<< Duration 190.70 seconds | 31462.54 iterations / second | 2107989.91 items / second
+2016-12-18 12:05:08,558 [main]  INFO c.m.t.t.d.Test - Duration 71.45 seconds | 28664.60 iterations / second | 1920528.50 items / second
+
+CACHE TTL=1s TTI=1s
+2016-12-18 01:35:53,942 [main]  INFO c.m.t.t.d.Test - <<< Duration 160.01 seconds | 31247.46 iterations / second | 2093579.90 items / second
+2016-12-18 12:26:45,370 [main]  INFO c.m.t.t.d.Test - Duration 84.37 seconds | 24273.74 iterations / second | 1626340.80 items / second
+
+CACHE TTL=5s TTI=5s
+2016-12-18 01:39:29,054 [main]  INFO c.m.t.t.d.Test - <<< Duration 175.86 seconds | 28432.03 iterations / second | 1904946.04 items / second
+2016-12-18 12:42:47,829 [main]  INFO c.m.t.t.d.Test - Duration 84.54 seconds | 24224.36 iterations / second | 1623032.07 items / second
+
+NO CACHE
+2016-12-18 01:46:21,245 [main]  INFO c.m.t.t.d.Test - <<< Duration 256.24 seconds | 390.27 iterations / second | 26147.87 items / second
+2016-12-18 11:37:58,165 [main]  INFO c.m.t.t.d.Test - Duration 83.60 seconds | 382.78 iterations / second | 25646.55 items / second

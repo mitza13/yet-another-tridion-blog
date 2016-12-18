@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <display-name>Content Delivery HttpUpload</display-name>
+
+    <servlet>
+        <display-name>HttpUpload</display-name>
+        <servlet-name>httpupload</servlet-name>
+        <servlet-class>com.tridion.transport.HTTPSReceiverServlet</servlet-class>
+        <init-param>
+            <param-name>uploadDir</param-name>
+            <param-value>/Users/mihai/Projects/yet-another-tridion-blog/File System Toolkit/files</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>httpupload</servlet-name>
+        <url-pattern>/httpupload</url-pattern>
+    </servlet-mapping>
+
+</web-app>

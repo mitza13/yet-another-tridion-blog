@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Deployer Version="6.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="schemas/cd_deployer_conf.xsd">
+    <Processors>
+        <Processor Action="Deploy" Class="com.tridion.deployer.Processor">
+            <Module Type="SchemaDeploy" Class="com.tridion.deployer.modules.SchemaDeploy"/>
+            <Module Type="PageDeploy" Class="com.tridion.deployer.modules.PageDeploy">
+                <Transformer Class="com.tridion.deployer.TCDLTransformer"/>
+            </Module>
+            <Module Type="BinaryDeploy" Class="com.tridion.deployer.modules.BinaryDeploy"/>
+            <Module Type="ComponentDeploy" Class="com.tridion.deployer.modules.ComponentDeploy"/>
+            <Module Type="TemplateDeploy" Class="com.tridion.deployer.modules.TemplateDeploy"/>
+            <Module Type="PublicationDeploy" Class="com.tridion.deployer.modules.PublicationDeploy"/>
+            <Module Type="TaxonomyDeploy" Class="com.tridion.deployer.modules.TaxonomyDeploy"/>
+            <Module Type="ComponentPresentationDeploy" Class="com.tridion.deployer.modules.ComponentPresentationDeploy">
+                <Transformer Class="com.tridion.deployer.TCDLTransformer"/>
+            </Module>
+            <Module Type="StructureGroupDeploy" Class="com.tridion.deployer.modules.StructureGroupDeploy"/>
+        </Processor>
+
+        <Processor Action="Undeploy" Class="com.tridion.deployer.Processor">
+            <Module Type="PageUndeploy" Class="com.tridion.deployer.modules.PageUndeploy"/>
+            <Module Type="ComponentPresentationUndeploy"
+                    Class="com.tridion.deployer.modules.ComponentPresentationUndeploy"/>
+            <Module Type="TaxonomyUndeploy" Class="com.tridion.deployer.modules.TaxonomyUndeploy"/>
+            <Module Type="StructureGroupUndeploy" Class="com.tridion.deployer.modules.StructureGroupUndeploy"/>
+        </Processor>
+
+        <!-- Toolkit JSon Modules -->
+        <Processor Action="Deploy" Phase="post-transaction" Class="com.tridion.deployer.Processor">
+            <Module Type="PageDeploy" Class="com.mitza.toolkit.deployer.JSonPageDeploy"/>
+            <Module Type="ComponentDeploy" Class="com.mitza.toolkit.deployer.JSonComponentDeploy"/>
+            <Module Type="ComponentPresentationDeploy"
+                    Class="com.mitza.toolkit.deployer.JSonComponentPresentationDeploy"/>
+            <Module Type="BinaryDeploy" Class="com.mitza.toolkit.deployer.JSonBinaryDeploy"/>
+        </Processor>
+
+        <Processor Action="Undeploy" Phase="post-transaction" Class="com.tridion.deployer.Processor">
+            <Module Type="PageUndeploy" Class="com.mitza.toolkit.deployer.JSonPageUndeploy"/>
+            <Module Type="ComponentPresentationUndeploy"
+                    Class="com.mitza.toolkit.deployer.JSonComponentPresentationUndeploy"/>
+        </Processor>
+        <!-- End of Toolkit JSon Modules -->
+    </Processors>
+
+    <Queue>
+        <Location
+                Path="/Users/mihai/Projects/yet-another-tridion-blog/File System Toolkit/files/incoming"
+                WindowSize="20" Workers="10" Cleanup="true" Interval="2s"/>
+    </Queue>
+
+    <TCDLEngine>
+        <Properties>
+            <Property Name="tcdl.jsp.style" Value="tags"/>
+        </Properties>
+    </TCDLEngine>
+</Deployer>
