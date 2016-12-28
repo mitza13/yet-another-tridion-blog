@@ -14,7 +14,6 @@ public class Test {
 
     public static void main(String[] args) {
 //        functionalTests();
-
         loadTests();
     }
 
@@ -22,12 +21,12 @@ public class Test {
         long totalDuration = System.currentTimeMillis();
         log.info("Start functional tests");
 
-        new ComponentPresentationAssemblerTest();
-        new ComponentPresentationFactoryTest();
-        new DynamicQueryTest();
-        new LinkTest();
-        new TagTest();
         new ModelTest();
+        new LinkTest();
+        new ComponentPresentationFactoryTest();
+        new ComponentPresentationAssemblerTest();
+        new DynamicQueryTest();
+        new TagTest();
 
         totalDuration = System.currentTimeMillis() - totalDuration;
         log.info("<<< Total functional tests took {} seconds", totalDuration / 1000.0);
@@ -116,15 +115,15 @@ public class Test {
             if (i % heartbeat == 0 && System.currentTimeMillis() - iterationDuration > 5000) {
                 iterationDuration = System.currentTimeMillis() - iterationDuration;
                 log.info("{}%: {} iterations took {} millis", new Object[]{
-                        String.format("%.0f",  (double)i / iterations * 100),
+                        String.format("%.0f", (double) i / iterations * 100),
                         heartbeat,
                         iterationDuration});
                 iterationDuration = System.currentTimeMillis();
-                logProgress(totalDuration, i, 67); // 67 models contructed per iteration
+                logProgress(totalDuration, i, 67); // 67 models constructed per iteration
             }
         }
 
-        logProgress(totalDuration, iterations, 67); // 67 models contructed per iteration
+        logProgress(totalDuration, iterations, 67); // 67 models constructed per iteration
         return System.currentTimeMillis() - totalDuration;
     }
 
@@ -144,7 +143,7 @@ public class Test {
             if (i % heartbeat == 0 && System.currentTimeMillis() - iterationDuration > 5000) {
                 iterationDuration = System.currentTimeMillis() - iterationDuration;
                 log.info("{}%: {} iterations took {} millis", new Object[]{
-                        String.format("%.0f",  (double)i / iterations * 100),
+                        String.format("%.0f", (double) i / iterations * 100),
                         heartbeat,
                         iterationDuration});
                 iterationDuration = System.currentTimeMillis();
@@ -172,7 +171,7 @@ public class Test {
             if (i % heartbeat == 0 && System.currentTimeMillis() - iterationDuration > 5000) {
                 iterationDuration = System.currentTimeMillis() - iterationDuration;
                 log.info("{}%: {} iterations took {} millis", new Object[]{
-                        String.format("%.0f",  (double)i / iterations * 100),
+                        String.format("%.0f", (double) i / iterations * 100),
                         heartbeat,
                         iterationDuration});
                 iterationDuration = System.currentTimeMillis();
@@ -200,7 +199,7 @@ public class Test {
             if (i % heartbeat == 0 && System.currentTimeMillis() - iterationDuration > 5000) {
                 iterationDuration = System.currentTimeMillis() - iterationDuration;
                 log.info("{}%: {} iterations took {} millis", new Object[]{
-                        String.format("%.0f",  (double)i / iterations * 100),
+                        String.format("%.0f", (double) i / iterations * 100),
                         heartbeat,
                         iterationDuration});
                 iterationDuration = System.currentTimeMillis();
@@ -226,7 +225,7 @@ public class Test {
             if (i % heartbeat == 0 && System.currentTimeMillis() - iterationDuration > 5000) {
                 iterationDuration = System.currentTimeMillis() - iterationDuration;
                 log.info("{}%: {} iterations took {} millis", new Object[]{
-                        String.format("%.0f",  (double)i / iterations * 100),
+                        String.format("%.0f", (double) i / iterations * 100),
                         heartbeat,
                         iterationDuration});
                 iterationDuration = System.currentTimeMillis();

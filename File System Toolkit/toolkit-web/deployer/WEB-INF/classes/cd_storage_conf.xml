@@ -22,7 +22,7 @@
             </StorageBindings>
 
             <Storage Type="filesystem" Class="com.tridion.storage.filesystem.FSDAOFactory" Id="tridionRoot"
-                     defaultFilesystem="true">
+                     defaultFilesystem="false">
                 <Root Path="/Users/mihai/Projects/yet-another-tridion-blog/File System Toolkit/files/contentRoot"/>
             </Storage>
 
