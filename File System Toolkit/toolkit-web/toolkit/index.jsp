@@ -27,6 +27,7 @@
     query.setPage(pageNumber);
     query.setPageSize(pageSize);
     List<ComponentMeta> componentMetas = query.executeComponentQuery();
+
     int totalItems = query.getTotalItemCount();
     int numberOfPages = Math.round((float) totalItems / pageSize);
     int indexStart = (pageNumber - 1) * pageSize + 1;

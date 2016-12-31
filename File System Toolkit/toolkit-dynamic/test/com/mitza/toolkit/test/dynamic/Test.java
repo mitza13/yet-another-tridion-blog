@@ -13,7 +13,7 @@ public class Test {
     private static final long minimumTestDuration = 60 * 1000; // in milliseconds
 
     public static void main(String[] args) {
-//        functionalTests();
+        functionalTests();
         loadTests();
     }
 

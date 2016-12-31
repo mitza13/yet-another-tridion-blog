@@ -252,96 +252,96 @@ public enum LinkFactory {
      * Return a link to the given Multimedia Component
      *
      * @param publication int the Publication id of the context repository
-     * @param component   int the target Multimedia Component item id
+     * @param binary      int the target Multimedia Component item id
      * @return Link link to the given Multimedia Component
      */
-    public Link getBinaryLink(int publication, int component) {
-        log.debug("Get binary link publication: {}, component: {}", publication, component);
+    public Link getBinaryLink(int publication, int binary) {
+        log.debug("Get binary link publication: {}, binary: {}", publication, binary);
 
-        return getBinaryLink(new TcmUri(publication, component), null);
+        return getBinaryLink(new TcmUri(publication, binary), null);
     }
 
     /**
      * Return a link to the given Multimedia Component
      *
      * @param publication int the Publication id of the context repository
-     * @param component   int the target Multimedia Component item id
+     * @param binary      int the target Multimedia Component item id
      * @param variant     String the binary variant to link to
      * @return Link link to the given Multimedia Component
      */
-    public Link getBinaryLink(int publication, int component, String variant) {
-        log.debug("Get binary link publication: {}, component: {}, variant: {}", new Object[]{publication, component, variant});
+    public Link getBinaryLink(int publication, int binary, String variant) {
+        log.debug("Get binary link publication: {}, binary: {}, variant: {}", new Object[]{publication, binary, variant});
 
-        return getBinaryLink(new TcmUri(publication, component), variant);
+        return getBinaryLink(new TcmUri(publication, binary), variant);
     }
 
     /**
      * Return a link to the given Multimedia Component
      *
-     * @param componentUri String the target Multimedia Component TcmUri
+     * @param binaryUri String the target Multimedia Component TcmUri
      * @return Link link to the given Multimedia Component
      */
-    public Link getBinaryLink(String componentUri) {
-        log.debug("Get binary link tcmuri: {}", componentUri);
+    public Link getBinaryLink(String binaryUri) {
+        log.debug("Get binary link tcmuri: {}", binaryUri);
 
-        return getBinaryLink(new TcmUri(componentUri), null);
+        return getBinaryLink(new TcmUri(binaryUri), null);
     }
 
     /**
      * Return a link to the given Multimedia Component
      *
-     * @param componentUri String the target Multimedia Component TcmUri
-     * @param variant      String the binary variant to link to
+     * @param binaryUri String the target Multimedia Component TcmUri
+     * @param variant   String the binary variant to link to
      * @return Link link to the given Multimedia Component
      */
-    public Link getBinaryLink(String componentUri, String variant) {
-        log.debug("Get binary link componentUri: {}, variant: {}", componentUri, variant);
+    public Link getBinaryLink(String binaryUri, String variant) {
+        log.debug("Get binary link binaryUri: {}, variant: {}", binaryUri, variant);
 
-        return getBinaryLink(new TcmUri(componentUri), variant);
+        return getBinaryLink(new TcmUri(binaryUri), variant);
     }
 
     /**
      * Return a link to the given Multimedia Component
      *
-     * @param componentUri TcmUri of the target Multimedia Component
+     * @param binaryUri TcmUri of the target Multimedia Component
      * @return Link link to the given Multimedia Component
      */
-    public Link getBinaryLink(TcmUri componentUri) {
-        log.debug("Get binary link tcmuri: {}", componentUri);
+    public Link getBinaryLink(TcmUri binaryUri) {
+        log.debug("Get binary link tcmuri: {}", binaryUri);
 
-        return getBinaryLink(componentUri, null);
+        return getBinaryLink(binaryUri, null);
     }
 
     /**
      * Return a link to the given Multimedia Component
      *
-     * @param componentUri TcmUri of the target Multimedia Component
-     * @param variant      String the binary variant to link to
+     * @param binaryUri TcmUri of the target Multimedia Component
+     * @param variant   String the binary variant to link to
      * @return Link link to the given Multimedia Component
      */
-    public Link getBinaryLink(TcmUri componentUri, String variant) {
-        log.debug("Get binary link tcmuri: {}, variant: {}", componentUri, variant);
+    public Link getBinaryLink(TcmUri binaryUri, String variant) {
+        log.debug("Get binary link tcmuri: {}, variant: {}", binaryUri, variant);
 
         LinkImpl result = new LinkImpl();
-        if (componentUri == null || componentUri.getType() != ItemTypes.COMPONENT) {
-            log.debug("No binary link resolving for tcmuri {}", componentUri);
+        if (binaryUri == null || binaryUri.getType() != ItemTypes.COMPONENT) {
+            log.debug("No binary link resolving for tcmuri {}", binaryUri);
             return result;
         }
 
-        ComponentMeta componentMeta = modelFactory.getModel(componentUri);
-        if (componentMeta == null) {
-            log.debug("Component {} is not published", componentUri);
+        ComponentMeta binaryMeta = modelFactory.getModel(binaryUri);
+        if (binaryMeta == null) {
+            log.debug("Multimedia Component {} is not published", binaryUri);
             return result;
         }
 
-        if (!componentMeta.isMultimedia()) {
-            log.debug("Component {} is not multimedia", componentUri);
+        if (!binaryMeta.isMultimedia()) {
+            log.debug("Component {} is not multimedia", binaryUri);
             return result;
         }
 
-        List<LinkInfo> linkInfos = componentMeta.getLinkInfos();
+        List<LinkInfo> linkInfos = binaryMeta.getLinkInfos();
         if (linkInfos == null || linkInfos.size() == 0) {
-            log.debug("No link found for component {}", componentUri);
+            log.debug("No link found for multimedia component {}", binaryUri);
             return result;
         }
 
@@ -353,7 +353,7 @@ public enum LinkFactory {
             if (variant.equals(linkVariant)) {
                 result.setResolved(true);
                 result.setUrl(linkInfo.getUrl());
-                result.setTargetUri(componentUri);
+                result.setTargetUri(binaryUri);
                 break;
             }
         }

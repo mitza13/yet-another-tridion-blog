@@ -87,8 +87,7 @@ public enum ComponentPresentationFactory {
         ComponentPresentationMeta result = null;
 
         for (ComponentPresentationMeta meta : dcpMetas) {
-            if (meta.getPublicationId() == publicationId && meta.getComponentId() == componentId &&
-                    meta.getPriority() > maxPriority) {
+            if (meta.getPriority() > maxPriority) {
                 maxPriority = meta.getPriority();
                 result = meta;
             }

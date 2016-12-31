@@ -112,34 +112,7 @@ public class Query {
         log.debug("Execute component model query");
 
         List<String> uris = new ArrayList<>(criterion.executeQuery(new FilterImpl(ItemTypes.COMPONENT)));
-        List<ComponentMeta> result;
-
-        if (sorter == null) {
-            totalItemCount = uris.size();
-            uris = applyPagination(uris);
-            result = new ArrayList<>(uris.size());
-
-            for (String uri : uris) {
-                TcmUri tcmUri = new TcmUri("tcm:" + uri);
-                ComponentMeta componentMeta = modelFactory.getModel(tcmUri);
-                if (componentMeta != null) {
-                    result.add(componentMeta);
-                }
-            }
-        } else {
-            result = new ArrayList<>(uris.size());
-            for (String uri : uris) {
-                TcmUri tcmUri = new TcmUri("tcm:" + uri);
-                ComponentMeta componentMeta = modelFactory.getModel(tcmUri);
-                if (componentMeta != null) {
-                    result.add(componentMeta);
-                }
-            }
-
-            totalItemCount = result.size();
-            Collections.sort(result, sorter);
-            result = applyPagination(result);
-        }
+        List<ComponentMeta> result = applySorting(uris);
 
         duration = System.currentTimeMillis() - duration;
         log.debug("Execute component model query return {} in {} millis", result, duration);
@@ -156,22 +129,7 @@ public class Query {
         log.debug("Execute page model query");
 
         List<String> uris = new ArrayList<>(criterion.executeQuery(new FilterImpl(ItemTypes.PAGE)));
-        List<PageMeta> result = new ArrayList<>(uris.size());
-
-        for (String uri : uris) {
-            TcmUri tcmUri = new TcmUri("tcm:" + uri);
-            PageMeta pageMeta = modelFactory.getModel(tcmUri);
-            if (pageMeta != null) {
-                result.add(pageMeta);
-            }
-        }
-        totalItemCount = result.size();
-
-        if (sorter != null) {
-            Collections.sort(result, sorter);
-        }
-
-        result = applyPagination(result);
+        List<PageMeta> result = applySorting(uris);
 
         duration = System.currentTimeMillis() - duration;
         log.debug("Execute page model query return {} in {} millis", result, duration);
@@ -235,6 +193,23 @@ public class Query {
         return totalItemCount;
     }
 
+    private <T extends ItemMeta> List<T> applySorting(List<String> uris) {
+        List<T> result;
+
+        if (sorter == null) {
+            totalItemCount = uris.size();
+            uris = applyPagination(uris);
+            result = buildModels(uris);
+        } else {
+            result = buildModels(uris);
+            totalItemCount = result.size();
+            Collections.sort(result, sorter);
+            result = applyPagination(result);
+        }
+
+        return result;
+    }
+
     private <T> List<T> applyPagination(List<T> items) {
         if (page == 0 && pageSize == 0) {
             return items;
@@ -248,6 +223,20 @@ public class Query {
         for (int i = 0; i < limit; i++) {
             T item = items.get(offset + i);
             result.add(item);
+        }
+
+        return result;
+    }
+
+    private <T extends ItemMeta> List<T> buildModels(List<String> uris) {
+        List<T> result = new ArrayList<>(uris.size());
+
+        for (String uri : uris) {
+            TcmUri tcmUri = new TcmUri("tcm:" + uri);
+            T itemMeta = modelFactory.getModel(tcmUri);
+            if (itemMeta != null) {
+                result.add(itemMeta);
+            }
         }
 
         return result;
